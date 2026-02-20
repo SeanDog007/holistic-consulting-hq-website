@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & Resources | Holistic Consulting Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --emerald:    #2E7D32;
+      --emerald-lt: #4CAF50;
+      --charcoal:   #2D3436;
+      --slate:      #636E72;
+      --gold:       #C9963B;
+      --gold-lt:    #D4A84B;
+      --white:      #FFFFFF;
+      --off-white:  #FAFAFA;
+      --warm-gray:  #F5F0EB;
+      --sage:       #E8F5E9;
+      --border:     #DFE6E9;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--charcoal);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; }
+    p { line-height: 1.75; color: var(--slate); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 1rem;
+    }
+    .gold-line { width: 48px; height: 2px; background: var(--gold); margin-bottom: 1.5rem; }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      padding: 1.25rem 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.07); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; }
+    .nav-logo .wordmark {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 700;
+      color: var(--emerald); letter-spacing: 0.02em;
+    }
+    .nav-logo .tagline-small {
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-top: 3px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.04em;
+      color: var(--charcoal); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--emerald); }
+    .nav-links a.active { color: var(--emerald); }
+    .nav-cta {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--white) !important; background: var(--gold);
+      padding: 0.6rem 1.4rem; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; }
+
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .page-hero {
+      padding: 10rem 0 0;
+      background: var(--white);
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: end;
+      padding-bottom: 5rem;
+    }
+
+    .hero-text .section-label { color: var(--gold); }
+    .hero-text h1 {
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      color: var(--charcoal); line-height: 1.0; margin-bottom: 1.5rem;
+    }
+    .hero-text h1 em { color: var(--emerald); font-style: italic; }
+    .hero-text p {
+      font-size: 1.05rem; color: var(--slate);
+      max-width: 480px; line-height: 1.8; margin-bottom: 2.5rem;
+    }
+
+    /* Email signup */
+    .hero-signup {
+      display: flex; gap: 0; max-width: 440px;
+    }
+    .hero-signup input {
+      flex: 1; font-family: var(--font-body); font-size: 0.88rem;
+      padding: 0.85rem 1.25rem;
+      border: 1.5px solid var(--border); border-right: none;
+      outline: none; background: var(--white); color: var(--charcoal);
+      transition: border-color 0.2s;
+    }
+    .hero-signup input:focus { border-color: var(--emerald); }
+    .hero-signup input::placeholder { color: rgba(99,110,114,0.5); }
+    .hero-signup button {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.05em; padding: 0.85rem 1.5rem;
+      background: var(--emerald); color: var(--white);
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .hero-signup button:hover { background: var(--emerald-lt); }
+    .hero-signup-note {
+      font-size: 0.72rem; color: var(--slate);
+      margin-top: 0.6rem; display: block;
+    }
+
+    /* Hero right — featured article card */
+    .hero-featured {
+      position: relative;
+    }
+    .featured-article-card {
+      background: var(--charcoal);
+      padding: 0;
+      position: relative; overflow: hidden;
+    }
+    .featured-article-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(201,150,59,0.1) 0%, transparent 50%);
+    }
+    .article-image-area {
+      height: 200px;
+      background: var(--emerald);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-image-area::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    }
+    /* Decorative botanical in card header */
+    .article-image-area svg { opacity: 0.12; }
+
+    .article-badge {
+      position: absolute; top: 1.25rem; left: 1.25rem;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; background: var(--gold); color: var(--white);
+      padding: 0.3rem 0.75rem;
+    }
+
+    .featured-article-body {
+      padding: 2rem 2rem 2.25rem;
+      position: relative; z-index: 1;
+    }
+    .featured-article-body .art-cat {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem;
+    }
+    .featured-article-body h3 {
+      font-size: 1.6rem; color: var(--white); line-height: 1.25; margin-bottom: 1rem;
+    }
+    .featured-article-body p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .art-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .art-meta .art-date { font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+    .art-read-link {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--gold); display: flex; align-items: center; gap: 0.35rem;
+      transition: gap 0.2s;
+    }
+    .art-read-link:hover { gap: 0.6rem; }
+
+    /* Bottom stripe */
+    .hero-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, var(--emerald), var(--gold), var(--emerald));
+    }
+
+
+    /* ══════════════════════════════════════
+       FILTER BAR
+    ══════════════════════════════════════ */
+    .filter-bar {
+      position: sticky; top: 68px; z-index: 90;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-inner {
+      display: flex; align-items: center; gap: 0;
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      overflow-x: auto;
+    }
+    .filter-btn {
+      padding: 1rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--slate);
+      background: none; border: none; border-bottom: 3px solid transparent;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .filter-btn:hover { color: var(--charcoal); }
+    .filter-btn.active { color: var(--emerald); border-bottom-color: var(--emerald); }
+
+
+    /* ══════════════════════════════════════
+       MAIN CONTENT + SIDEBAR LAYOUT
+    ══════════════════════════════════════ */
+    .blog-body {
+      padding: 5rem 0 7rem;
+      background: var(--off-white);
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── ARTICLE GRID ── */
+    .articles-col {}
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-card {
+      background: var(--white); border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+
+    .article-card .card-img {
+      height: 160px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-img.emerald-bg { background: var(--emerald); }
+    .card-img.charcoal-bg { background: var(--charcoal); }
+    .card-img.sage-bg { background: var(--sage); border-bottom: 1px solid var(--border); }
+    .card-img.warm-bg { background: var(--warm-gray); border-bottom: 1px solid var(--border); }
+    .card-img.gold-bg { background: #5C3D1A; }
+    .card-img svg { opacity: 0.15; }
+
+    .article-card .card-cat {
+      position: absolute; bottom: 0.75rem; left: 0.75rem;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 0.25rem 0.65rem;
+    }
+    .cat-nutrition   { background: var(--emerald); color: var(--white); }
+    .cat-herbalism   { background: #2D5A1B; color: rgba(255,255,255,0.9); }
+    .cat-career      { background: var(--gold); color: var(--white); }
+    .cat-bchn        { background: var(--charcoal); color: rgba(255,255,255,0.85); }
+    .cat-business    { background: #1A3A5C; color: rgba(255,255,255,0.85); }
+    .cat-clinical    { background: #5C2D1A; color: rgba(255,255,255,0.85); }
+
+    .article-card .card-content {
+      padding: 1.5rem 1.75rem 1.75rem;
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .article-card h3 {
+      font-size: 1.15rem; color: var(--charcoal);
+      line-height: 1.3; margin-bottom: 0.6rem;
+      transition: color 0.2s;
+    }
+    .article-card:hover h3 { color: var(--emerald); }
+    .article-card p {
+      font-size: 0.83rem; line-height: 1.7;
+      margin-bottom: 1.25rem; flex: 1;
+    }
+    .article-card .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+    .article-card .art-date { font-size: 0.7rem; color: var(--slate); }
+    .article-card .read-min {
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--emerald); letter-spacing: 0.04em;
+    }
+
+    /* Wide article card — full width */
+    .article-card-wide {
+      background: var(--white); border: 1px solid var(--border);
+      display: grid; grid-template-columns: 280px 1fr;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .article-card-wide:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+    .article-card-wide .card-img { height: auto; min-height: 200px; }
+    .article-card-wide .card-content { padding: 2rem 2.25rem; }
+    .article-card-wide h3 {
+      font-size: 1.4rem; color: var(--charcoal);
+      line-height: 1.25; margin-bottom: 0.75rem;
+      transition: color 0.2s;
+    }
+    .article-card-wide:hover h3 { color: var(--emerald); }
+    .article-card-wide p { font-size: 0.88rem; line-height: 1.75; margin-bottom: 1.5rem; }
+    .article-card-wide .card-footer {
+      display: flex; align-items: center; gap: 1rem;
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
+    }
+
+    /* Load more */
+    .load-more {
+      text-align: center; margin-top: 3rem;
+    }
+    .btn-load {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.06em; color: var(--emerald);
+      background: var(--white); border: 1.5px solid var(--emerald);
+      padding: 0.85rem 2rem; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-load:hover { background: var(--emerald); color: var(--white); }
+
+
+    /* ── SIDEBAR ── */
+    .blog-sidebar {
+      position: sticky; top: 120px;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+
+    .sidebar-widget {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 1.75rem;
+    }
+    .sidebar-widget h4 {
+      font-family: var(--font-body);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--slate);
+      margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Popular posts */
+    .popular-list { list-style: none; }
+    .popular-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .popular-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .pop-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--border); line-height: 1; flex-shrink: 0; width: 20px;
+    }
+    .pop-title {
+      font-size: 0.83rem; font-weight: 600; color: var(--charcoal);
+      line-height: 1.4; transition: color 0.2s; cursor: pointer;
+    }
+    .pop-title:hover { color: var(--emerald); }
+    .pop-cat {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--slate); margin-top: 0.2rem;
+    }
+
+    /* Topics cloud */
+    .topics-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .topic-tag {
+      font-size: 0.72rem; font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border); color: var(--slate);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .topic-tag:hover { border-color: var(--emerald); color: var(--emerald); background: var(--sage); }
+
+    /* Newsletter */
+    .newsletter-widget {
+      background: var(--charcoal); border-color: var(--charcoal);
+    }
+    .newsletter-widget h4 { color: rgba(255,255,255,0.4); border-bottom-color: rgba(255,255,255,0.08); }
+    .newsletter-widget .nw-headline {
+      font-family: var(--font-display);
+      font-size: 1.3rem; color: var(--white); margin-bottom: 0.75rem;
+    }
+    .newsletter-widget .nw-headline em { color: var(--gold); font-style: italic; }
+    .newsletter-widget p { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 1.25rem; }
+    .nw-form { display: flex; flex-direction: column; gap: 0.6rem; }
+    .nw-form input {
+      font-family: var(--font-body); font-size: 0.85rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); outline: none;
+      transition: border-color 0.2s;
+    }
+    .nw-form input::placeholder { color: rgba(255,255,255,0.25); }
+    .nw-form input:focus { border-color: var(--gold); }
+    .nw-form button {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.06em; padding: 0.8rem;
+      background: var(--gold); color: var(--white);
+      border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .nw-form button:hover { background: var(--gold-lt); }
+    .nw-note { font-size: 0.68rem !important; color: rgba(255,255,255,0.25) !important; margin: 0.25rem 0 0 !important; }
+
+    /* Program sidebar CTA */
+    .program-widget {
+      background: var(--sage); border-color: rgba(46,125,50,0.2);
+    }
+    .program-widget h4 { color: var(--emerald); border-bottom-color: rgba(46,125,50,0.15); }
+    .program-widget .pw-headline {
+      font-family: var(--font-display);
+      font-size: 1.2rem; color: var(--charcoal); margin-bottom: 0.6rem;
+    }
+    .program-widget p { font-size: 0.83rem; margin-bottom: 1.25rem; }
+    .program-widget a {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; font-weight: 700; color: var(--emerald);
+      letter-spacing: 0.04em; transition: gap 0.2s;
+    }
+    .program-widget a:hover { gap: 0.65rem; }
+
+
+    /* ══════════════════════════════════════
+       TOPIC STRIPS
+    ══════════════════════════════════════ */
+    .topic-strip {
+      padding: 6rem 0;
+    }
+    .topic-strip.alt { background: var(--warm-gray); }
+    .topic-strip.dark { background: var(--charcoal); }
+
+    .strip-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .strip-header h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--charcoal);
+    }
+    .topic-strip.dark .strip-header h2 { color: var(--white); }
+    .strip-header h2 em { color: var(--emerald); font-style: italic; }
+    .topic-strip.dark .strip-header h2 em { color: var(--gold); }
+
+    .strip-link {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--emerald); display: flex; align-items: center; gap: 0.4rem;
+      white-space: nowrap; transition: gap 0.2s;
+    }
+    .topic-strip.dark .strip-link { color: var(--gold); }
+    .strip-link:hover { gap: 0.65rem; }
+
+    .strip-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+
+    .strip-card {
+      padding: 2rem; position: relative;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .strip-card:hover { transform: translateY(-3px); }
+
+    .strip-card.light { background: var(--white); border: 1px solid var(--border); }
+    .strip-card.dark-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .strip-card.dark-card:hover { border-color: rgba(201,150,59,0.3); }
+
+    .strip-card .sc-cat {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem;
+    }
+    .strip-card h3 {
+      font-size: 1.15rem; margin-bottom: 0.65rem; line-height: 1.3;
+    }
+    .strip-card.light h3 { color: var(--charcoal); }
+    .strip-card.dark-card h3 { color: var(--white); }
+    .strip-card p { font-size: 0.83rem; line-height: 1.7; }
+    .strip-card.dark-card p { color: rgba(255,255,255,0.45); }
+
+    .sc-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.25rem; padding-top: 1rem;
+    }
+    .strip-card.light .sc-footer { border-top: 1px solid var(--border); }
+    .strip-card.dark-card .sc-footer { border-top: 1px solid rgba(255,255,255,0.08); }
+    .sc-date { font-size: 0.68rem; color: var(--slate); }
+    .strip-card.dark-card .sc-date { color: rgba(255,255,255,0.25); }
+    .sc-min { font-size: 0.68rem; font-weight: 600; color: var(--emerald); }
+    .strip-card.dark-card .sc-min { color: var(--gold); }
+
+
+    /* ══════════════════════════════════════
+       BCHN RESOURCE BANNER
+    ══════════════════════════════════════ */
+    .bchn-banner {
+      padding: 5rem 0;
+      background: var(--emerald);
+      position: relative; overflow: hidden;
+    }
+    .bchn-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(201,150,59,0.15) 0%, transparent 50%);
+    }
+    .bchn-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .bchn-left .section-label { color: rgba(255,255,255,0.45); }
+    .bchn-left h2 { font-size: clamp(2rem, 3.5vw, 3rem); color: var(--white); margin-bottom: 1rem; }
+    .bchn-left h2 em { color: var(--gold); font-style: italic; }
+    .bchn-left p { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 2rem; }
+    .bchn-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--white); color: var(--emerald);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.05em; padding: 0.95rem 2rem;
+      border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .bchn-cta:hover { background: var(--warm-gray); }
+
+    .bchn-right { display: flex; flex-direction: column; gap: 1rem; }
+    .bchn-topic {
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; gap: 1rem;
+      transition: background 0.2s; cursor: pointer;
+    }
+    .bchn-topic:hover { background: rgba(255,255,255,0.1); }
+    .bchn-topic .bt-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--gold);
+    }
+    .bchn-topic strong {
+      display: block; font-size: 0.88rem; font-weight: 600; color: var(--white);
+    }
+    .bchn-topic span { font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+
+
+    /* ══════════════════════════════════════
+       CTA
+    ══════════════════════════════════════ */
+    .cta-section {
+      padding: 8rem 0; background: var(--charcoal);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(46,125,50,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(201,150,59,0.07) 0%, transparent 50%);
+    }
+    .cta-section .container { position: relative; z-index: 1; }
+    .cta-section .section-label { color: rgba(255,255,255,0.35); }
+    .cta-section h2 { font-size: clamp(2.5rem, 4vw, 4rem); color: var(--white); margin-bottom: 1.25rem; }
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section > .container > p { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 520px; margin: 0 auto 3rem; }
+    .cta-group { display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--white); color: var(--emerald);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.05em; padding: 1rem 2.25rem;
+      border: none; cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white:hover { background: var(--warm-gray); transform: translateY(-1px); }
+    .btn-gold-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--gold);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.05em; padding: 0.95rem 2rem;
+      border: 1.5px solid var(--gold); cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-gold-outline:hover { background: var(--gold); color: var(--white); }
+    .cta-note { margin-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer { background: var(--charcoal); padding: 4rem 0 2rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem;
+    }
+    .footer-brand .wordmark { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+    .footer-brand .tagline-small { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; display: block; }
+    .footer-brand p { font-size: 0.83rem; color: rgba(255,255,255,0.4); max-width: 260px; }
+    .footer-col h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.25rem; font-family: var(--font-body); }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.65rem; }
+    .footer-col ul li a { font-size: 0.85rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+    .hero-text h1  { animation: fadeSlide 0.8s 0.1s both; }
+    .hero-text p   { animation: fadeSlide 0.8s 0.25s both; }
+    .hero-signup   { animation: fadeSlide 0.8s 0.38s both; }
+    .hero-featured { animation: fadeSlide 0.9s 0.3s both; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .hero-inner       { grid-template-columns: 1fr; }
+      .hero-featured    { display: none; }
+      .blog-layout      { grid-template-columns: 1fr; }
+      .blog-sidebar     { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .articles-grid    { grid-template-columns: 1fr; }
+      .article-card-wide { grid-template-columns: 1fr; }
+      .strip-cards      { grid-template-columns: 1fr; }
+      .bchn-inner       { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top       { grid-template-columns: 1fr 1fr; }
+      .nav-links        { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="wordmark">Holistic Consulting</span>
+      <span class="tagline-small">Establishing Impactful Careers</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="blog.html" class="active">Resources</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="enroll.html" class="nav-cta">Book a Discovery Call</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-text">
+        <span class="section-label">The HCI Resource Hub</span>
+        <h1>Think deeper.<br/><em>Practice better.</em></h1>
+        <p>Clinical insights, career guidance, herbal medicine, BCHN exam prep, and evidence-based perspectives — written for practitioners who take their craft seriously.</p>
+        <div class="hero-signup">
+          <input type="email" placeholder="Your email address" id="heroEmail" />
+          <button onclick="subscribeHero()">Subscribe Free</button>
+        </div>
+        <span class="hero-signup-note">New articles delivered to your inbox. No spam, ever.</span>
+      </div>
+
+      <div class="hero-featured">
+        <div class="featured-article-card">
+          <div class="article-image-area" style="background: var(--emerald);">
+            <div class="article-badge">Featured Article</div>
+            <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+              <circle cx="100" cy="100" r="90" stroke="white" stroke-width="1"/>
+              <circle cx="100" cy="100" r="60" stroke="white" stroke-width="0.5"/>
+              <ellipse cx="100" cy="100" rx="40" ry="90" stroke="white" stroke-width="0.5"/>
+              <ellipse cx="100" cy="100" rx="90" ry="40" stroke="white" stroke-width="0.5"/>
+              <line x1="100" y1="10" x2="100" y2="190" stroke="white" stroke-width="0.5"/>
+              <line x1="10" y1="100" x2="190" y2="100" stroke="white" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <div class="featured-article-body">
+            <span class="art-cat">Functional Nutrition</span>
+            <h3>The Systems-Based Approach: How to Think About Nutrition Like a Clinical Practitioner</h3>
+            <p>Why root-cause reasoning transforms both client outcomes and practitioner confidence — and how to apply it from day one in practice.</p>
+            <div class="art-meta">
+              <span class="art-date">February 2026 · 8 min read</span>
+              <a href="#" class="art-read-link">
+                Read Article
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="hero-stripe"></div>
+</section>
+
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterArticles('all', this)">All Articles</button>
+    <button class="filter-btn" onclick="filterArticles('nutrition', this)">Functional Nutrition</button>
+    <button class="filter-btn" onclick="filterArticles('herbalism', this)">Herbalism</button>
+    <button class="filter-btn" onclick="filterArticles('career', this)">Career Development</button>
+    <button class="filter-btn" onclick="filterArticles('bchn', this)">BCHN Prep</button>
+    <button class="filter-btn" onclick="filterArticles('business', this)">Practice Building</button>
+  </div>
+</div>
+
+
+<!-- MAIN BLOG BODY -->
+<section class="blog-body">
+  <div class="container">
+    <div class="blog-layout">
+
+      <!-- ARTICLES -->
+      <div class="articles-col">
+
+        <!-- Wide featured post -->
+        <div class="article-card-wide fade-up" data-cat="nutrition">
+          <div class="card-img emerald-bg">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" opacity="0.15">
+              <circle cx="60" cy="60" r="50" stroke="white" stroke-width="1"/>
+              <ellipse cx="60" cy="60" rx="30" ry="50" stroke="white" stroke-width="0.8"/>
+              <ellipse cx="60" cy="60" rx="50" ry="30" stroke="white" stroke-width="0.8"/>
+            </svg>
+            <span class="card-cat cat-nutrition">Functional Nutrition</span>
+          </div>
+          <div class="card-content">
+            <h3>The Gut-Brain Axis in Clinical Practice: What Every Holistic Nutritionist Needs to Know</h3>
+            <p>The bidirectional communication between your gut and brain isn't just fascinating neuroscience — it's one of the most clinically significant relationships you'll work with as a practitioner. Here's how to assess, explain, and address it with clients.</p>
+            <div class="card-footer">
+              <span class="art-date">Jan 28, 2026</span>
+              <span class="read-min">10 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-col grid -->
+        <div class="articles-grid">
+
+          <div class="article-card fade-up" data-cat="career">
+            <div class="card-img gold-bg">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+                <path d="M40 10L50 30H70L54 42L60 62L40 50L20 62L26 42L10 30H30L40 10Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <span class="card-cat cat-career">Career Development</span>
+            </div>
+            <div class="card-content">
+              <h3>How to Get Your First Paying Nutrition Client (Without Social Media)</h3>
+              <p>The tactics that actually work for new graduates — before you have a following, a website, or a content strategy.</p>
+              <div class="card-footer">
+                <span class="art-date">Jan 14, 2026</span>
+                <span class="read-min">6 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card fade-up" data-cat="herbalism">
+            <div class="card-img" style="background:#2D5A1B;">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+                <path d="M40 70 C40 70 20 55 20 35 C20 20 30 10 40 10 C50 10 60 20 60 35 C60 55 40 70 40 70Z" stroke="white" stroke-width="1.5"/>
+                <path d="M40 40 C35 30 25 28 20 30" stroke="white" stroke-width="1" stroke-linecap="round"/>
+                <path d="M40 50 C45 38 55 36 60 38" stroke="white" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+              <span class="card-cat cat-herbalism">Clinical Herbalism</span>
+            </div>
+            <div class="card-content">
+              <h3>Adaptogens in Clinical Practice: Evidence, Applications, and Contraindications</h3>
+              <p>Moving beyond the wellness trend — how to use adaptogenic herbs clinically with confidence, precision, and informed consent.</p>
+              <div class="card-footer">
+                <span class="art-date">Dec 19, 2025</span>
+                <span class="read-min">12 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card fade-up" data-cat="bchn">
+            <div class="card-img charcoal-bg">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+                <rect x="15" y="10" width="50" height="60" rx="4" stroke="white" stroke-width="1.5"/>
+                <path d="M25 30h30M25 40h30M25 50h20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span class="card-cat cat-bchn">BCHN Prep</span>
+            </div>
+            <div class="card-content">
+              <h3>BCHN Exam Prep: The 7 Domains You Must Master (And How HCI Prepares You for Each)</h3>
+              <p>A complete breakdown of the Board Certification exam structure, with a study framework and common pitfalls to avoid.</p>
+              <div class="card-footer">
+                <span class="art-date">Dec 3, 2025</span>
+                <span class="read-min">9 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card fade-up" data-cat="business">
+            <div class="card-img sage-bg">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.4">
+                <path d="M15 60 L30 40 L45 50 L65 20" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="15" cy="60" r="4" fill="#2E7D32"/>
+                <circle cx="30" cy="40" r="4" fill="#2E7D32"/>
+                <circle cx="45" cy="50" r="4" fill="#2E7D32"/>
+                <circle cx="65" cy="20" r="4" fill="#2E7D32"/>
+              </svg>
+              <span class="card-cat cat-business">Practice Building</span>
+            </div>
+            <div class="card-content">
+              <h3>How to Set Your Rates as a New Holistic Nutrition Practitioner</h3>
+              <p>The pricing psychology, market context, and practical framework that helps practitioners charge what they're worth — without apology.</p>
+              <div class="card-footer">
+                <span class="art-date">Nov 11, 2025</span>
+                <span class="read-min">7 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card fade-up" data-cat="nutrition">
+            <div class="card-img" style="background:#3D1A5C;">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+                <circle cx="40" cy="40" r="25" stroke="white" stroke-width="1.5"/>
+                <path d="M40 15 Q55 25 55 40 Q55 55 40 65 Q25 55 25 40 Q25 25 40 15Z" stroke="white" stroke-width="1"/>
+              </svg>
+              <span class="card-cat cat-nutrition">Functional Nutrition</span>
+            </div>
+            <div class="card-content">
+              <h3>Understanding HPA Axis Dysregulation: A Practitioner's Clinical Guide</h3>
+              <p>The stress-cortisol-adrenal relationship explained for clinical application — including how to assess, explain to clients, and support naturally.</p>
+              <div class="card-footer">
+                <span class="art-date">Oct 29, 2025</span>
+                <span class="read-min">11 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card fade-up" data-cat="career">
+            <div class="card-img warm-bg">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.4">
+                <circle cx="40" cy="28" r="14" stroke="#C9963B" stroke-width="1.5"/>
+                <path d="M16 68c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#C9963B" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span class="card-cat cat-career">Career Development</span>
+            </div>
+            <div class="card-content">
+              <h3>Your LinkedIn Profile as a Nutrition Practitioner: A Complete Optimization Guide</h3>
+              <p>Most practitioners waste LinkedIn. Here's how to build a profile that attracts clients, employers, and referral partners — even with zero followers.</p>
+              <div class="card-footer">
+                <span class="art-date">Oct 7, 2025</span>
+                <span class="read-min">8 min read</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end articles-grid -->
+
+        <div class="load-more">
+          <button class="btn-load">Load More Articles</button>
+        </div>
+
+      </div><!-- end articles-col -->
+
+
+      <!-- SIDEBAR -->
+      <aside class="blog-sidebar">
+
+        <!-- Popular -->
+        <div class="sidebar-widget">
+          <h4>Most Read</h4>
+          <ul class="popular-list">
+            <li class="popular-item">
+              <span class="pop-num">01</span>
+              <div>
+                <div class="pop-title">The Systems-Based Approach: How to Think Like a Clinical Practitioner</div>
+                <div class="pop-cat">Functional Nutrition</div>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="pop-num">02</span>
+              <div>
+                <div class="pop-title">BCHN Exam Prep: The 7 Domains You Must Master</div>
+                <div class="pop-cat">BCHN Prep</div>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="pop-num">03</span>
+              <div>
+                <div class="pop-title">How to Get Your First Paying Nutrition Client</div>
+                <div class="pop-cat">Career Development</div>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="pop-num">04</span>
+              <div>
+                <div class="pop-title">Adaptogens in Clinical Practice: Evidence & Applications</div>
+                <div class="pop-cat">Clinical Herbalism</div>
+              </div>
+            </li>
+            <li class="popular-item">
+              <span class="pop-num">05</span>
+              <div>
+                <div class="pop-title">How to Set Your Rates as a New Practitioner</div>
+                <div class="pop-cat">Practice Building</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="sidebar-widget newsletter-widget">
+          <h4>Newsletter</h4>
+          <div class="nw-headline">Clinical insights,<br/><em>weekly.</em></div>
+          <p>Evidence-informed articles, career resources, and program updates — straight to your inbox.</p>
+          <div class="nw-form">
+            <input type="email" placeholder="Your email address" id="sidebarEmail" />
+            <button onclick="subscribeSidebar()">Subscribe Free</button>
+          </div>
+          <p class="nw-note">No spam. Unsubscribe anytime.</p>
+        </div>
+
+        <!-- Topics -->
+        <div class="sidebar-widget">
+          <h4>Browse Topics</h4>
+          <div class="topics-cloud">
+            <span class="topic-tag">Functional Nutrition</span>
+            <span class="topic-tag">Clinical Herbalism</span>
+            <span class="topic-tag">BCHN Exam</span>
+            <span class="topic-tag">Gut Health</span>
+            <span class="topic-tag">HPA Axis</span>
+            <span class="topic-tag">Adaptogens</span>
+            <span class="topic-tag">Client Intake</span>
+            <span class="topic-tag">Scope of Practice</span>
+            <span class="topic-tag">LinkedIn</span>
+            <span class="topic-tag">Pricing</span>
+            <span class="topic-tag">Hormones</span>
+            <span class="topic-tag">Functional Testing</span>
+            <span class="topic-tag">NANP</span>
+            <span class="topic-tag">Imposter Syndrome</span>
+          </div>
+        </div>
+
+        <!-- Program CTA -->
+        <div class="sidebar-widget program-widget">
+          <h4>Ready for More?</h4>
+          <div class="pw-headline">The blog is just the beginning.</div>
+          <p>HCI's residency programs take everything you're reading here and apply it in supervised, real-world clinical practice.</p>
+          <a href="programs.html">
+            Explore the Programs
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- HERBALISM STRIP -->
+<section class="topic-strip alt">
+  <div class="container">
+    <div class="strip-header fade-up">
+      <div>
+        <span class="section-label">Clinical Herbalism</span>
+        <h2>Plant medicine, <em>practiced well.</em></h2>
+      </div>
+      <a href="#" class="strip-link">
+        All Herbalism Articles
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="strip-cards">
+      <div class="strip-card light fade-up">
+        <span class="sc-cat">Herbal Medicine</span>
+        <h3>Nervines vs. Adaptogens: When to Reach for Which in Clinical Practice</h3>
+        <p>Understanding the functional distinction between herbs that calm the nervous system and those that modulate the stress response — and how to choose the right one for your client.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Feb 4, 2026</span>
+          <span class="sc-min">9 min read</span>
+        </div>
+      </div>
+      <div class="strip-card light fade-up">
+        <span class="sc-cat">Formulation</span>
+        <h3>Introduction to Herbal Formulation: Principles Every Practitioner Should Know</h3>
+        <p>From synergy to dosing — a foundational guide to combining herbs intentionally, safely, and effectively in a clinical context.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Jan 7, 2026</span>
+          <span class="sc-min">14 min read</span>
+        </div>
+      </div>
+      <div class="strip-card light fade-up">
+        <span class="sc-cat">Evidence & Safety</span>
+        <h3>Herb-Drug Interactions: What Holistic Practitioners Must Know Before Recommending</h3>
+        <p>A practical overview of the most clinically significant herb-drug interactions, with guidance on scope of practice and when to refer.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Dec 10, 2025</span>
+          <span class="sc-min">11 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BCHN RESOURCE BANNER -->
+<section class="bchn-banner">
+  <div class="container">
+    <div class="bchn-inner">
+      <div class="bchn-left fade-up">
+        <span class="section-label">BCHN Exam Resources</span>
+        <div class="gold-line"></div>
+        <h2>Everything you need to<br/><em>pass your BCHN.</em></h2>
+        <p>From domain breakdowns to study strategy to practice questions — our BCHN resource library is built for practitioners who are serious about earning their credential.</p>
+        <a href="#" class="bchn-cta">
+          Explore BCHN Resources
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="bchn-right fade-up" style="transition-delay:0.12s">
+        <div class="bchn-topic">
+          <div class="bt-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M5 5.5h6M5 10.5h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>The 7 BCHN Exam Domains — Explained</strong>
+            <span>Complete domain breakdown with study priorities</span>
+          </div>
+        </div>
+        <div class="bchn-topic">
+          <div class="bt-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>90-Day BCHN Study Schedule</strong>
+            <span>A week-by-week study plan that actually works</span>
+          </div>
+        </div>
+        <div class="bchn-topic">
+          <div class="bt-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <strong>NANP Contact Hours: How to Get Them</strong>
+            <span>A clear guide to fulfilling the 500-hour requirement</span>
+          </div>
+        </div>
+        <div class="bchn-topic">
+          <div class="bt-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.5 4H14l-3.5 2.5 1.3 4L8 10l-3.8 2.5 1.3-4L2 6h4.5L8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <strong>BCHN Success Stories from HCI Graduates</strong>
+            <span>Real practitioners who passed on their first attempt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CAREER STRIP -->
+<section class="topic-strip dark">
+  <div class="container">
+    <div class="strip-header fade-up">
+      <div>
+        <span class="section-label" style="color:rgba(255,255,255,0.4)">Career Development</span>
+        <h2>Build the practice<br/><em>you trained for.</em></h2>
+      </div>
+      <a href="#" class="strip-link">
+        All Career Articles
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="strip-cards">
+      <div class="strip-card dark-card fade-up">
+        <span class="sc-cat">Scope of Practice</span>
+        <h3 style="color:var(--white)">Scope of Practice for Holistic Nutritionists: What You Can (and Can't) Say to Clients</h3>
+        <p>A practical, state-by-state framework for communicating confidently within your legal and professional scope — without watering down your expertise.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Jan 21, 2026</span>
+          <span class="sc-min" style="color:var(--gold)">8 min read</span>
+        </div>
+      </div>
+      <div class="strip-card dark-card fade-up">
+        <span class="sc-cat">Client Intake</span>
+        <h3 style="color:var(--white)">How to Build a Client Intake System That Does the Work Before the First Session</h3>
+        <p>The forms, questions, and pre-session framework that separate confident practitioners from overwhelmed ones — from day one.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Nov 25, 2025</span>
+          <span class="sc-min" style="color:var(--gold)">7 min read</span>
+        </div>
+      </div>
+      <div class="strip-card dark-card fade-up">
+        <span class="sc-cat">Overcoming Imposter Syndrome</span>
+        <h3 style="color:var(--white)">You Are More Ready Than You Think: A Letter to Every New Nutrition Graduate</h3>
+        <p>The most common reason new graduates don't start seeing clients has nothing to do with knowledge — and everything to do with this.</p>
+        <div class="sc-footer">
+          <span class="sc-date">Oct 15, 2025</span>
+          <span class="sc-min" style="color:var(--gold)">5 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="container">
+    <span class="section-label">Go Further</span>
+    <div class="gold-line" style="margin: 0.5rem auto 2rem;"></div>
+    <h2>The blog is the preview.<br/><em>The residency is the transformation.</em></h2>
+    <p>Everything you're learning here is applied, supervised, and built into practice in the HCI residency programs. Book a free discovery call and see where you fit.</p>
+    <div class="cta-group">
+      <a href="enroll.html" class="btn-white">
+        Book a Discovery Call
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="programs.html" class="btn-gold-outline">Explore Programs</a>
+    </div>
+    <p class="cta-note">No commitment required. Discovery calls are free and confidential.</p>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="wordmark">Holistic Consulting</div>
+        <span class="tagline-small">Establishing Impactful Careers</span>
+        <p>Advanced, evidence-informed education in functional nutrition, herbalism, and professional practice — for practitioners who want to practice with clarity, competence, and impact.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="programs.html#launch">LAUNCH Your Career</a></li>
+          <li><a href="programs.html#grow">GROW Your Impact</a></li>
+          <li><a href="programs.html#master">MASTER Your Craft</a></li>
+          <li><a href="programs.html#compare">Compare Programs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <ul>
+          <li><a href="about.html">About &amp; Mission</a></li>
+          <li><a href="results.html">Results &amp; Testimonials</a></li>
+          <li><a href="blog.html">Blog &amp; Resources</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul>
+          <li><a href="enroll.html">Book a Discovery Call</a></li>
+          <li><a href="enroll.html">Enroll &amp; Apply</a></li>
+          <li><a href="#">BCHN Exam Prep</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Holistic Consulting Institute. All rights reserved.</p>
+      <p style="font-size:0.72rem; color:rgba(255,255,255,0.2);">Built with care for practitioners who care.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Category filter
+  function filterArticles(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('[data-cat]').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(12px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity 0.35s, transform 0.35s';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Newsletter subscribe (demo)
+  function subscribeHero() {
+    const email = document.getElementById('heroEmail').value;
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    document.querySelector('.hero-signup').innerHTML = '<span style="font-size:0.88rem; color:var(--emerald); font-weight:600;">✓ You\'re subscribed! Welcome to the HCI community.</span>';
+  }
+
+  function subscribeSidebar() {
+    const email = document.getElementById('sidebarEmail').value;
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    document.querySelector('.nw-form').innerHTML = '<span style="font-size:0.85rem; color:var(--gold); font-weight:600;">✓ Subscribed! First article lands in your inbox soon.</span>';
+  }
+</script>
+
+</body>
+</html>
