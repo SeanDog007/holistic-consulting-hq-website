@@ -3,8 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   outputFileTracingIncludes: {
-    "/*": ["./prisma/dev.db"],
-    "/**": ["./prisma/dev.db"],
+    "/library": ["./prisma/dev.db"],
+    "/library/[videoId]": ["./prisma/dev.db"],
+    "/library/**": ["./prisma/dev.db"],
   },
   serverExternalPackages: ["@prisma/client", "prisma"],
   images: {

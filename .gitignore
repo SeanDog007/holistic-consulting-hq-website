@@ -42,8 +42,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local databases
+# local databases (keep the seeded preview catalog in git)
 *.db
 *.db-journal
-/prisma/dev.db
-/prisma/dev.db-journal
+!prisma/dev.db
+!prisma/dev.db-journal
