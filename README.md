@@ -74,13 +74,16 @@ To move to Postgres (recommended on Vercel):
 
 ## Deploy notes
 
-Do **not** point production DNS at a preview of this work unless you intend to. Suggested path when you are ready:
+Do **not** point production DNS at a preview of this work unless you intend to.
 
-1. Import the GitHub repo into Vercel (or connect the existing project).
-2. Set `LIBRARY_PASSWORD` and a Postgres `DATABASE_URL`.
+Preview builds seed SQLite during `npm run build`, then copy `prisma/dev.db` to `/tmp` at runtime (Vercel’s filesystem is read-only except `/tmp`). Set `LIBRARY_PASSWORD=institute` on Preview. This is enough for a clickable catalog; switch to Postgres (Neon / Prisma Postgres) before production.
+
+Suggested path when you are ready for a durable database:
+
+1. Import the GitHub repo into a Holistic / personal Vercel team (not Old City Swim School).
+2. Set `LIBRARY_PASSWORD` and a Postgres `DATABASE_URL` (change Prisma `provider` to `postgresql`).
 3. Set `YOUTUBE_API_KEY` only if you will run ingest in that environment.
-4. Build command: `npm run build` (`prisma generate && next build`).
-5. After the first deploy, run `npm run db:setup` or `npm run ingest` against that database (Vercel CLI / a one-off job). SQLite will not persist on serverless.
+4. After the first deploy, run `npm run db:setup` or `npm run ingest` against that database.
 
 The marketing HTML in `public/` continues to serve at the existing `.html` paths. `/` rewrites to the current homepage.
 
