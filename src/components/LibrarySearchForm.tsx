@@ -13,7 +13,7 @@ export function LibrarySearchForm({
   topics: string[];
 }) {
   return (
-    <form action="/library" method="get" className="relative overflow-hidden bg-white px-6 py-8 md:px-10 md:py-10">
+    <form action="/library" method="get" className="relative bg-white px-6 py-8 md:px-10 md:py-10">
       <span className="pathway-num absolute top-4 right-6" aria-hidden>
         01
       </span>

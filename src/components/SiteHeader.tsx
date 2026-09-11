@@ -49,13 +49,13 @@ export function SiteHeader({
           </span>
         </Link>
 
-        <nav className="desktop-nav flex items-center gap-8">
+        <nav className="desktop-nav flex items-center gap-6">
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-[0.78rem] font-medium tracking-[0.06em] uppercase transition-colors hover:text-gold ${
-                active === link.label ? "text-gold" : "text-cream/85"
+              className={`text-[0.76rem] font-medium tracking-[0.08em] uppercase transition-colors hover:text-gold ${
+                active === link.label ? "text-gold" : "text-cream"
               }`}
             >
               {link.label}

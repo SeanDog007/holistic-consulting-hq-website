@@ -171,7 +171,7 @@ a {
   font-size: clamp(4.5rem, 10vw, 7.5rem);
   font-weight: 600;
   line-height: 0.8;
-  color: rgba(201, 150, 59, 0.18);
+  color: rgba(201, 150, 59, 0.32);
   user-select: none;
 }
 
