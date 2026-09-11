@@ -30,13 +30,17 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="border border-line bg-white p-8 md:p-10">
-      <span className="section-label">Member access</span>
-      <div className="gold-line" />
-      <h1 className="font-display text-4xl text-charcoal md:text-5xl">
-        The recording <em className="text-emerald italic">library</em>
+    <form onSubmit={onSubmit} className="max-w-lg">
+      <div className="mb-6 flex items-center gap-4">
+        <span className="section-label !mb-0">Member access</span>
+        <span className="h-px w-14 bg-gold" />
+      </div>
+      <h1 className="font-display text-5xl leading-[1.08] text-charcoal md:text-6xl">
+        The recording
+        <br />
+        <em className="text-emerald italic">library</em>
       </h1>
-      <p className="mt-4 max-w-md text-sm leading-7 text-slate">
+      <p className="mt-5 max-w-md text-base leading-8 text-slate">
         Live calls, lectures, and office hours for Holistic Consulting members. Enter the library
         password to browse and search the shelves.
       </p>
@@ -55,7 +59,7 @@ export function LoginForm() {
         />
       </label>
       {error ? <p className="mt-3 text-sm text-[#8a3b2a]">{error}</p> : null}
-      <button type="submit" className="btn-primary mt-6" disabled={pending}>
+      <button type="submit" className="btn-primary mt-7" disabled={pending}>
         {pending ? "Opening the door…" : "Enter the library"}
       </button>
     </form>

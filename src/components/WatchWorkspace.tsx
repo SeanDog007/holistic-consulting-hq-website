@@ -52,7 +52,7 @@ export function WatchWorkspace({
 
   return (
     <div className="grid grid-cols-1 gap-8 xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
-      <div className="border border-line bg-charcoal">
+      <div className="bg-forest-deep">
         <YouTubePlayer
           videoId={youtubeId}
           startSec={startSec}
@@ -61,7 +61,7 @@ export function WatchWorkspace({
         />
       </div>
 
-      <aside className="flex max-h-[720px] flex-col border border-line bg-white">
+      <aside className="flex max-h-[720px] flex-col bg-white">
         <div className="border-b border-line p-5">
           <span className="section-label !mb-2">Spoken words</span>
           <input

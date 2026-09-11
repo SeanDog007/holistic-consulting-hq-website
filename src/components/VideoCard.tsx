@@ -6,8 +6,8 @@ import type { LibraryResult } from "@/lib/search";
 
 export function VideoCard({ video, query }: { video: LibraryResult; query?: string }) {
   return (
-    <article className="flex h-full flex-col border border-line bg-white">
-      <Link href={`/library/${video.id}`} className="relative block overflow-hidden bg-charcoal">
+    <article className="flex h-full flex-col bg-white">
+      <Link href={`/library/${video.id}`} className="relative block overflow-hidden bg-forest">
         <Image
           src={video.thumbnailUrl}
           alt={video.title}
@@ -16,13 +16,13 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
           className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-[1.03]"
         />
         {video.durationSec > 0 ? (
-          <span className="absolute right-3 bottom-3 bg-charcoal/85 px-2 py-1 text-[0.7rem] font-medium tracking-wide text-white">
+          <span className="absolute right-3 bottom-3 bg-forest-deep/85 px-2 py-1 text-[0.7rem] font-medium tracking-wide text-cream">
             {formatDuration(video.durationSec)}
           </span>
         ) : null}
       </Link>
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-3 flex flex-wrap gap-2">
+      <div className="flex flex-1 flex-col px-7 py-8">
+        <div className="mb-3 flex flex-wrap gap-3">
           {video.programs.map((program) => (
             <span
               key={program}
@@ -32,7 +32,7 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
             </span>
           ))}
         </div>
-        <h3 className="font-display text-[1.45rem] leading-snug text-charcoal">
+        <h3 className="font-display text-[1.7rem] leading-snug text-charcoal">
           <Link href={`/library/${video.id}`} className="hover:text-emerald">
             <HighlightedText text={video.title} query={query} />
           </Link>
@@ -42,16 +42,16 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
           <span className="mx-2 text-line">|</span>
           {formatPublishedDate(video.publishedAt)}
         </p>
-        <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate">
+        <p className="mt-4 line-clamp-3 text-sm leading-7 text-slate">
           <HighlightedText text={video.description} query={query} />
         </p>
         {video.hits.length > 0 ? (
-          <div className="mt-5 space-y-3 border-t border-line pt-4">
+          <div className="mt-6 space-y-3 border-t border-line pt-5">
             {video.hits.map((hit) => (
               <Link
                 key={`${video.id}-${hit.startMs}`}
                 href={`/library/${video.id}?t=${Math.floor(hit.startMs / 1000)}`}
-                className="block bg-warm-gray px-4 py-3 transition-colors hover:bg-sage"
+                className="block bg-sage px-4 py-3 transition-colors hover:bg-sage-deep"
               >
                 <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-gold uppercase">
                   Transcript · {formatTimestamp(hit.startMs)}
@@ -63,6 +63,12 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
             ))}
           </div>
         ) : null}
+        <Link
+          href={`/library/${video.id}`}
+          className="mt-6 text-[0.78rem] font-semibold tracking-[0.08em] text-gold uppercase hover:text-gold-lt"
+        >
+          Open recording →
+        </Link>
       </div>
     </article>
   );

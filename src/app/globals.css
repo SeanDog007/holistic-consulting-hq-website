@@ -3,15 +3,17 @@
 :root {
   --emerald: #2e7d32;
   --emerald-lt: #4caf50;
+  --forest: #163a1c;
+  --forest-deep: #121812;
   --charcoal: #2a3024;
-  --slate: #636e72;
+  --slate: #5c6358;
   --gold: #c9963b;
   --gold-lt: #d4a84b;
   --white: #ffffff;
-  --off-white: #fafafa;
-  --warm-gray: #f5f0eb;
-  --sage: #e8f5e9;
-  --border: #dfe6e9;
+  --cream: #f7f4ee;
+  --sage: #eef4ec;
+  --sage-deep: #dce8d8;
+  --border: #d8dfd4;
   --font-display: var(--font-cormorant), Georgia, serif;
   --font-body: var(--font-dm-sans), "Helvetica Neue", sans-serif;
 }
@@ -19,13 +21,15 @@
 @theme inline {
   --color-emerald: var(--emerald);
   --color-emerald-lt: var(--emerald-lt);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
   --color-charcoal: var(--charcoal);
   --color-slate: var(--slate);
   --color-gold: var(--gold);
   --color-gold-lt: var(--gold-lt);
-  --color-off-white: var(--off-white);
-  --color-warm-gray: var(--warm-gray);
+  --color-cream: var(--cream);
   --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
   --color-line: var(--border);
   --font-display: var(--font-cormorant);
   --font-sans: var(--font-dm-sans);
@@ -42,7 +46,7 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--white);
+  background: var(--cream);
   color: var(--charcoal);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -155,11 +159,20 @@ a {
 .player-frame {
   aspect-ratio: 16 / 9;
   width: 100%;
-  background: var(--charcoal);
+  background: var(--forest-deep);
 }
 
 .mobile-menu-btn {
   display: none;
+}
+
+.pathway-num {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 7.5rem);
+  font-weight: 600;
+  line-height: 0.8;
+  color: rgba(201, 150, 59, 0.18);
+  user-select: none;
 }
 
 @media (max-width: 960px) {
@@ -168,5 +181,8 @@ a {
   }
   .mobile-menu-btn {
     display: inline-flex;
+  }
+  .library-hero {
+    grid-template-columns: 1fr;
   }
 }

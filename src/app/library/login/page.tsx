@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { BotanicalMotif } from "@/components/BotanicalMotif";
 import { LoginForm } from "@/components/LoginForm";
 
 export const metadata = {
@@ -7,20 +8,21 @@ export const metadata = {
 
 export default function LibraryLoginPage() {
   return (
-    <section className="grid min-h-[70vh] grid-cols-1 lg:grid-cols-2">
-      <div className="flex items-center bg-warm-gray py-16">
-        <div className="container-site max-w-xl">
-          <Suspense fallback={<div className="border border-line bg-white p-10">Loading…</div>}>
+    <section className="grid min-h-[78vh] grid-cols-1 lg:grid-cols-2">
+      <div className="relative flex items-center overflow-hidden bg-cream py-16">
+        <BotanicalMotif className="pointer-events-none absolute -bottom-16 -left-8 h-64 w-64 text-emerald/10" />
+        <div className="container-site relative max-w-xl">
+          <Suspense fallback={<p className="text-slate">Loading…</p>}>
             <LoginForm />
           </Suspense>
         </div>
       </div>
       <div className="relative hidden items-center justify-center overflow-hidden bg-emerald lg:flex">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(201,150,59,0.18),transparent_50%)]" />
-        <blockquote className="relative z-10 max-w-sm px-10 font-display text-3xl leading-snug text-white italic">
+        <BotanicalMotif className="pointer-events-none absolute -right-6 -bottom-8 h-72 w-72 text-white/10" />
+        <blockquote className="relative z-10 mx-12 max-w-sm bg-white/10 px-8 py-10 font-display text-3xl leading-snug text-cream italic">
           “School teaches you what to know. A mentorship teaches you how to practice — and gives
           you the people to practice it with.”
-          <footer className="mt-6 font-sans text-[0.7rem] font-semibold tracking-[0.14em] text-gold not-italic uppercase">
+          <footer className="mt-8 font-sans text-[0.7rem] font-semibold tracking-[0.16em] text-gold not-italic uppercase">
             Holistic Consulting Institute
           </footer>
         </blockquote>

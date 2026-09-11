@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <SiteHeader />
-      <main className="flex-1 bg-warm-gray py-24">
+      <main className="flex-1 bg-cream py-24">
         <div className="container-site max-w-xl">
           <span className="section-label">Not found</span>
           <div className="gold-line" />

@@ -13,11 +13,14 @@ export function LibrarySearchForm({
   topics: string[];
 }) {
   return (
-    <form action="/library" method="get" className="border border-line bg-white/90 p-6 shadow-[0_8px_40px_rgba(42,48,36,0.04)] md:p-8">
+    <form action="/library" method="get" className="relative overflow-hidden bg-white px-6 py-8 md:px-10 md:py-10">
+      <span className="pathway-num absolute top-4 right-6" aria-hidden>
+        01
+      </span>
       <label className="section-label" htmlFor="library-q">
         Search the shelves
       </label>
-      <div className="flex flex-col gap-3 md:flex-row">
+      <div className="relative flex flex-col gap-3 md:flex-row">
         <input
           id="library-q"
           name="q"
@@ -29,7 +32,7 @@ export function LibrarySearchForm({
           Search recordings
         </button>
       </div>
-      <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="relative mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <label className="block">
           <span className="mb-2 block text-[0.65rem] font-semibold tracking-[0.14em] text-slate uppercase">
             Program
