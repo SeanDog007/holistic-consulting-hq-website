@@ -13,7 +13,7 @@ export function LibrarySearchForm({
   topics: string[];
 }) {
   return (
-    <form action="/library" method="get" className="border border-line bg-white p-6 md:p-8">
+    <form action="/library" method="get" className="border border-line bg-white/90 p-6 shadow-[0_8px_40px_rgba(42,48,36,0.04)] md:p-8">
       <label className="section-label" htmlFor="library-q">
         Search the shelves
       </label>

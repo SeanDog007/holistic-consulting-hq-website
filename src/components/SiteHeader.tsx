@@ -51,7 +51,7 @@ export function SiteHeader({
             <form action="/api/auth/logout" method="post">
               <button
                 type="submit"
-                className="text-[0.78rem] font-medium tracking-[0.04em] text-slate hover:text-charcoal"
+                className="text-[0.72rem] font-medium tracking-[0.08em] text-slate uppercase hover:text-charcoal"
               >
                 Sign out
               </button>

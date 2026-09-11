@@ -24,22 +24,30 @@ export default async function LibraryPage({
 
   return (
     <>
-      <section className="bg-warm-gray pt-16 pb-14">
-        <div className="container-site">
-          <span className="section-label">Recording library</span>
-          <div className="gold-line" />
-          <h1 className="font-display max-w-3xl text-5xl text-charcoal md:text-6xl">
-            The shelves.
+      <section className="relative overflow-hidden pt-16 pb-10">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-16 -right-10 h-72 w-72 rounded-full bg-emerald/5"
+        />
+        <div className="container-site relative">
+          <div className="hero-eyebrow mb-6 flex items-center gap-4">
+            <span className="section-label !mb-0">Recording library</span>
+            <span className="h-px w-14 bg-gold" />
+          </div>
+          <h1 className="font-display max-w-3xl text-5xl leading-[1.05] text-charcoal md:text-6xl">
+            Don&apos;t just watch the call.
+            <br />
+            <em className="text-emerald italic">Find the moment.</em>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-slate">
-            Browse live calls, lectures, and office hours from the Institute. Search titles,
-            descriptions, and the words spoken on the recording — then jump the player to that
-            moment.
+            Live lectures, office hours, and community recordings from the Institute. Search
+            titles, descriptions, and the words spoken on the recording — then jump the player
+            there.
           </p>
         </div>
       </section>
 
-      <section className="-mt-8 pb-20">
+      <section className="pb-20">
         <div className="container-site space-y-8">
           <LibrarySearchForm
             filters={filters}

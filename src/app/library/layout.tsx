@@ -6,7 +6,7 @@ export default function LibraryLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <SiteHeader active="Library" showLogout={isLibraryGateEnabled()} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 bg-warm-gray">{children}</main>
       <SiteFooter />
     </>
   );

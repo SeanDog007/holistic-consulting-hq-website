@@ -33,7 +33,7 @@ export default async function LibraryVideoPage({
   const initialTime = Number.isFinite(startSec) && startSec > 0 ? startSec : 0;
 
   return (
-    <section className="bg-off-white py-12">
+    <section className="py-12">
       <div className="container-site">
         <Link
           href="/library"
