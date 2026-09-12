@@ -1,6 +1,10 @@
 import { spawnSync } from "node:child_process";
 import path from "node:path";
 
+if (!process.env.DATABASE_URL?.startsWith("postgres") && process.env.NETLIFY_DB_URL) {
+  process.env.DATABASE_URL = process.env.NETLIFY_DB_URL;
+}
+
 const url = process.env.DATABASE_URL ?? "";
 const schema = url.startsWith("postgres") ? "prisma/schema.postgres.prisma" : "prisma/schema.prisma";
 const prismaBin = path.join(process.cwd(), "node_modules", ".bin", "prisma");
