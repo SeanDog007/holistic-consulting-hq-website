@@ -1,0 +1,41 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+// Production / Netlify. Speakers, programs, and topics stay JSON strings
+// so this matches the local SQLite schema.
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Video {
+  id           String   @id @default(cuid())
+  youtubeId    String   @unique
+  title        String
+  description  String   @default("")
+  publishedAt  DateTime
+  durationSec  Int      @default(0)
+  thumbnailUrl String   @default("")
+  speakers     String   @default("[]")
+  programs     String   @default("[]")
+  topics       String   @default("[]")
+  source       String   @default("youtube")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  segments     TranscriptSegment[]
+
+  @@index([publishedAt])
+}
+
+model TranscriptSegment {
+  id      String  @id @default(cuid())
+  videoId String
+  video   Video   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  startMs Int
+  endMs   Int?
+  text    String
+
+  @@index([videoId])
+}
