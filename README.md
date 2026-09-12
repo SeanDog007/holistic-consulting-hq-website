@@ -1,18 +1,22 @@
 # Holistic Consulting Institute
 
-Marketing site plus a member **Recording Library** for live-call and YouTube videos.
+Marketing site plus an unlisted member **Recording Library** for live-call and YouTube videos.
 
 The original pages were static HTML (not a Next.js app), so they are a poor fit for search, sessions, and a database. Those files now live in `public/` and still serve at `/`, `/about.html`, `/programs.html`, and the rest. The searchable library is a Next.js App Router app at `/library`.
 
-Circle Resource Hub can link members here. Circle SSO is out of scope for v1.
+The **live marketing site** is on **Netlify** (`bespoke-elf-113889`) at [holisticconsultinghq.com](https://holisticconsultinghq.com). Those static pages do **not** link to `/library` (homepage, nav, and footer stay clean). `/library` needs **Next.js hosting** — a static-only Netlify deploy will 404 it. Circle Resource Hub can share the URL with members. Circle SSO is out of scope for v1.
 
 ## Recording library
 
+Unlisted: only people with the URL (plus the password) should find it.
+
 - `/library` — searchable catalog with filters (program, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
+- `/library/login` — password gate
 - Full-text search across titles, descriptions, and **transcript segments**
 - A transcript hit opens the recording at that timestamp
-- Member gate: shared password in `LIBRARY_PASSWORD` (cookie session)
+- Member gate: `LIBRARY_PASSWORD` (cookie session)
+- All `/library*` routes send `noindex, nofollow`
 
 ## Local setup
 
@@ -23,7 +27,7 @@ npm run db:setup
 npm run dev
 ```
 
-Open [http://localhost:3000/library](http://localhost:3000/library). Default demo password is `institute` (from `.env.example`).
+Open [http://localhost:3000/library](http://localhost:3000/library). Default local password is `institute` (from `.env.example`).
 
 `npm run dev` generates the Prisma client and pushes the SQLite schema. If the catalog is empty, the library page seeds the demo catalog automatically.
 
@@ -31,8 +35,8 @@ Open [http://localhost:3000/library](http://localhost:3000/library). Default dem
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `LIBRARY_PASSWORD` | For the member gate | Shared password. If unset, `/library` is open (local/dev only). |
-| `DATABASE_URL` | Yes | Local default: `file:./dev.db` (SQLite, relative to `prisma/`). |
+| `LIBRARY_PASSWORD` | Yes on Netlify | Shared password. Comma-separated values are all accepted. Hosted deploys are always gated. |
+| `DATABASE_URL` | Yes | Local: `file:./dev.db` (SQLite, relative to `prisma/`). Netlify: a Postgres URL (Neon / Prisma Postgres). |
 | `YOUTUBE_API_KEY` | For ingest only | YouTube Data API v3 key. Demo seed works without it. |
 | `YOUTUBE_CHANNEL_HANDLE` | No | Defaults to `HolisticConsulting`. |
 
@@ -59,33 +63,25 @@ Program, speaker, and topic fields are classified from titles and descriptions (
 
 ## Data model
 
-Prisma models (SQLite locally, Postgres-ready types):
+Prisma models (SQLite locally, Postgres on Netlify):
 
 - `Video` — `youtubeId`, `title`, `description`, `publishedAt`, `durationSec`, `thumbnailUrl`, `speakers`, `programs`, `topics`, `source`
 - `TranscriptSegment` — `videoId`, `startMs`, `endMs?`, `text`
 
-`speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same schema works on SQLite and Postgres.
+`speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres.
 
-To move to Postgres (recommended on Vercel):
+Production uses `prisma/schema.postgres.prisma` whenever `DATABASE_URL` starts with `postgres`. `npm run build` generates the client, pushes the schema, and seeds the catalog.
 
-1. Change `provider = "postgresql"` in `prisma/schema.prisma`
-2. Set `DATABASE_URL` to a Postgres URL (Neon, Prisma Postgres, etc.)
-3. Run `npx prisma db push` (or a migration) and `npm run db:seed` or `npm run ingest`
+## Deploy notes (Netlify)
 
-## Deploy notes
+Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](https://holisticconsultinghq.com). Do **not** change DNS. Do **not** deploy this repo to the Old City Swim School Vercel team.
 
-Do **not** point production DNS at a preview of this work unless you intend to.
-
-Preview builds seed SQLite during `npm run build`, then copy `prisma/dev.db` to `/tmp` at runtime (Vercel’s filesystem is read-only except `/tmp`). Set `LIBRARY_PASSWORD=institute` on Preview. This is enough for a clickable catalog; switch to Postgres (Neon / Prisma Postgres) before production.
-
-Suggested path when you are ready for a durable database:
-
-1. Import the GitHub repo into a Holistic / personal Vercel team (not Old City Swim School).
-2. Set `LIBRARY_PASSWORD` and a Postgres `DATABASE_URL` (change Prisma `provider` to `postgresql`).
-3. Set `YOUTUBE_API_KEY` only if you will run ingest in that environment.
-4. After the first deploy, run `npm run db:setup` or `npm run ingest` against that database.
-
-The marketing HTML in `public/` continues to serve at the existing `.html` paths. `/` rewrites to the current homepage.
+1. Production branch is `main`. `netlify.toml` runs `npm run build` (Next.js + `@netlify/plugin-nextjs` auto runtime).
+2. In Netlify → Site configuration → Environment variables, set:
+   - `LIBRARY_PASSWORD` — a strong production password (not committed). Comma-separate `institute` only if you still want the old demo password to work.
+   - `DATABASE_URL` — Neon / Prisma Postgres connection string (pooled + `sslmode=require`).
+3. Trigger a production deploy from `main`. Build seeds the 21-video catalog.
+4. Confirm `https://holisticconsultinghq.com/library/login` is 200 and ungated `/library` redirects to login. Homepage / nav / footer must not mention `/library`.
 
 ## Scripts
 
@@ -95,4 +91,4 @@ The marketing HTML in `public/` continues to serve at the existing `.html` paths
 | `npm run db:setup` | Push schema and seed the demo catalog |
 | `npm run db:seed` | Re-upsert demo videos and transcript segments |
 | `npm run ingest` | Pull the YouTube channel when `YOUTUBE_API_KEY` is set |
-| `npm run build` | Production build |
+| `npm run build` | Production build (generate, push, seed, next build) |

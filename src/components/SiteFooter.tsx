@@ -36,11 +36,6 @@ export function SiteFooter() {
                   BCHN Exam Prep
                 </Link>
               </li>
-              <li>
-                <Link href="/library" className="hover:text-cream">
-                  Recording Library
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
@@ -78,11 +73,6 @@ export function SiteFooter() {
               <li>
                 <Link href="/enroll.html" className="hover:text-cream">
                   Book a Discovery Call
-                </Link>
-              </li>
-              <li>
-                <Link href="/library/login" className="hover:text-cream">
-                  Member library sign in
                 </Link>
               </li>
             </ul>

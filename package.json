@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "prisma generate && prisma db push && next dev",
-    "build": "prisma generate && prisma db push && tsx prisma/seed.ts && next build",
+    "dev": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && next dev",
+    "build": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && tsx prisma/seed.ts && next build",
     "start": "next start",
     "lint": "eslint",
-    "db:push": "prisma db push",
+    "db:push": "node scripts/prisma-env.mjs db push",
     "db:seed": "tsx --env-file=.env prisma/seed.ts",
-    "db:setup": "prisma db push && tsx --env-file=.env prisma/seed.ts",
+    "db:setup": "node scripts/prisma-env.mjs db push && tsx --env-file=.env prisma/seed.ts",
     "ingest": "tsx --env-file=.env scripts/ingest-youtube.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "node scripts/prisma-env.mjs generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

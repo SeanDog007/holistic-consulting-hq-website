@@ -28,13 +28,26 @@ function timingSafeEqual(a: string, b: string): boolean {
   return mismatch === 0;
 }
 
-export function libraryPassword(): string | undefined {
+export function libraryPasswords(): string[] {
   const value = process.env.LIBRARY_PASSWORD?.trim();
-  return value ? value : undefined;
+  if (!value) return [];
+  return value
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+export function libraryPassword(): string | undefined {
+  return libraryPasswords()[0];
+}
+
+export function isHostedEnvironment(): boolean {
+  return Boolean(process.env.NETLIFY || process.env.VERCEL || process.env.NODE_ENV === "production");
 }
 
 export function isLibraryGateEnabled(): boolean {
-  return Boolean(libraryPassword());
+  if (isHostedEnvironment()) return true;
+  return libraryPasswords().length > 0;
 }
 
 export function sessionCookieName(): string {
@@ -63,9 +76,11 @@ export async function verifySessionToken(token: string | undefined | null): Prom
 }
 
 export function verifyPassword(password: string): boolean {
-  const expected = libraryPassword();
-  if (!expected) return true;
-  return timingSafeEqual(password, expected);
+  const expected = libraryPasswords();
+  if (!expected.length) {
+    return !isHostedEnvironment();
+  }
+  return expected.some((candidate) => candidate.length === password.length && timingSafeEqual(password, candidate));
 }
 
 export function sessionCookieOptions() {

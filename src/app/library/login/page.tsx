@@ -4,6 +4,10 @@ import { LoginForm } from "@/components/LoginForm";
 
 export const metadata = {
   title: "Member sign in",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function LibraryLoginPage() {

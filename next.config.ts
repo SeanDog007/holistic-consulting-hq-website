@@ -17,6 +17,18 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: "/", destination: "/index.html" }];
   },
+  async headers() {
+    return [
+      {
+        source: "/library",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/library/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

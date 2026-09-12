@@ -15,10 +15,7 @@ export default function NotFound() {
             The address may have changed, or the recording is no longer in the library.
           </p>
           <div className="mt-8 flex gap-4">
-            <Link href="/library" className="btn-primary">
-              Recording library
-            </Link>
-            <Link href="/index.html" className="btn-outline">
+            <Link href="/index.html" className="btn-primary">
               Institute home
             </Link>
           </div>

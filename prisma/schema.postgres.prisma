@@ -3,11 +3,10 @@ generator client {
   binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
-// Local default is SQLite. For Vercel, change provider to "postgresql"
-// and point DATABASE_URL at Postgres. Speakers/programs/topics are JSON
-// strings so the same schema works on both engines.
+// Production / Netlify. Speakers, programs, and topics stay JSON strings
+// so this matches the local SQLite schema.
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
