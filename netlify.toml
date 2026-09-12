@@ -8,3 +8,6 @@
 
 [build.processing]
   skip_processing = true
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
