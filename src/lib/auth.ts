@@ -46,8 +46,7 @@ export function isHostedEnvironment(): boolean {
 }
 
 export function isLibraryGateEnabled(): boolean {
-  if (isHostedEnvironment()) return true;
-  return libraryPasswords().length > 0;
+  return false;
 }
 
 export function sessionCookieName(): string {

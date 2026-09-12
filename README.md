@@ -8,15 +8,13 @@ The **live marketing site** is on **Netlify** (`bespoke-elf-113889`) at [holisti
 
 ## Recording library
 
-Unlisted: only people with the URL (plus the password) should find it.
+Unlisted: open to anyone with the URL, but not linked from marketing pages. All `/library*` routes send `noindex, nofollow`.
 
 - `/library` — searchable catalog with filters (program, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
-- `/library/login` — password gate
+- `/library/login` — redirects to the catalog (no password gate)
 - Full-text search across titles, descriptions, and **transcript segments**
 - A transcript hit opens the recording at that timestamp
-- Member gate: `LIBRARY_PASSWORD` (cookie session)
-- All `/library*` routes send `noindex, nofollow`
 
 ## Local setup
 
@@ -27,7 +25,7 @@ npm run db:setup
 npm run dev
 ```
 
-Open [http://localhost:3000/library](http://localhost:3000/library). Default local password is `institute` (from `.env.example`).
+Open [http://localhost:3000/library](http://localhost:3000/library). The catalog is public (no login).
 
 `npm run dev` generates the Prisma client and pushes the SQLite schema. If the catalog is empty, the library page seeds the demo catalog automatically.
 
@@ -35,7 +33,6 @@ Open [http://localhost:3000/library](http://localhost:3000/library). Default loc
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `LIBRARY_PASSWORD` | Yes on Netlify | Shared password. Comma-separated values are all accepted. Hosted deploys are always gated. |
 | `DATABASE_URL` | Yes | Local: `file:./dev.db` (SQLite, relative to `prisma/`). Netlify: a Postgres URL (Neon / Prisma Postgres). |
 | `YOUTUBE_API_KEY` | For ingest only | YouTube Data API v3 key. Demo seed works without it. |
 | `YOUTUBE_CHANNEL_HANDLE` | No | Defaults to `HolisticConsulting`. |
@@ -76,12 +73,10 @@ Production uses `prisma/schema.postgres.prisma` whenever `DATABASE_URL` starts w
 
 Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](https://holisticconsultinghq.com). Do **not** change DNS. Do **not** deploy this repo to the Old City Swim School Vercel team.
 
-1. Production branch is `main`. `netlify.toml` runs `npm run build` (Next.js + `@netlify/plugin-nextjs` auto runtime).
-2. In Netlify → Site configuration → Environment variables, set:
-   - `LIBRARY_PASSWORD` — a strong production password (not committed). Comma-separate `institute` only if you still want the old demo password to work.
-   - `DATABASE_URL` — Neon / Prisma Postgres connection string (pooled + `sslmode=require`).
+1. Production branch is `main`. `netlify.toml` runs `npm run build` (Next.js + `@netlify/plugin-nextjs`).
+2. In Netlify → Site configuration → Environment variables, set `DATABASE_URL` to the Netlify/Postgres connection string when needed (`NETLIFY_DB_URL` is used automatically on this site).
 3. Trigger a production deploy from `main`. Build seeds the 21-video catalog.
-4. Confirm `https://holisticconsultinghq.com/library/login` is 200 and ungated `/library` redirects to login. Homepage / nav / footer must not mention `/library`.
+4. Confirm `https://holisticconsultinghq.com/library` is 200 with no login. Homepage / nav / footer must not mention `/library`.
 
 ## Scripts
 
