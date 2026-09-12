@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { isLibraryGateEnabled } from "@/lib/auth";
 
 export const metadata: Metadata = {
   robots: {
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 export default function LibraryLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteHeader active="Library" showLogout={isLibraryGateEnabled()} />
+      <SiteHeader active="Library" />
       <main className="flex-1 bg-cream">{children}</main>
       <SiteFooter />
     </>
