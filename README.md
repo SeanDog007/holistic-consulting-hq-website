@@ -104,9 +104,10 @@ Overrides are keyed by **YouTube video id** (`Video.youtubeId` / Brain `video_id
 
 - `data/brain/display-titles.batch-1.json` — official CoS batch 1 (133 videos: Mastermind / NGR→**New Graduate Roundtable** / Community Live date cleanups, plus a few teaching polish titles).
 - `data/brain/display-titles.batch-2.json` — official CoS batch 2 (13 guest/teaching talks in `Topic — Speaker, Credential` form; optional `speaker` seeds `Video.speakers`).
+- `data/brain/display-titles.batch-3.json` — official CoS batch 3 (3 topic-polish titles; no invented speakers). Later `batch-N` files win on conflict.
 - `data/brain/display-titles.json` — extra teaching titles not in an official batch. Later `batch-N` files win on conflict.
 
-To add **batch 3**: create `data/brain/display-titles.batch-3.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`.
+To add **batch 4**: create `data/brain/display-titles.batch-4.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`.
 
 Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
 

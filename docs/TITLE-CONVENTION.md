@@ -42,7 +42,7 @@ Keep short and intentional; still avoid date codes.
 2. **YouTube rename** follows in batches after display titles are approved — same string when possible.
 3. Brain catalog keeps `title` from YouTube; library prefers `displayTitle` when set.
 
-Official CoS batches live in `data/brain/display-titles.batch-N.json` (batch 1 = series dates; batch 2 = guest/teaching talks). Later batches win. To add batch 3, drop another file in that folder — see `data/brain/README.md`.
+Official CoS batches live in `data/brain/display-titles.batch-N.json` (batch 1 = series dates; batch 2 = guest/teaching talks; batch 3 = topic polish). Later batches win. To add batch 4, drop another file in that folder — see `data/brain/README.md`.
 
 ## Browse shelves (library UI)
 

@@ -84,6 +84,17 @@ async function main() {
     console.log(`    speakers: ${row.speakers.join(" · ") || "(none)"}`);
   }
 
+  const polishSamples = rows.filter((row) =>
+    ["fTFtNY7Up8E", "VXwxBl1Ckq0", "64Y9L1_fNtc"].includes(row.youtubeId),
+  );
+  console.log("\nBatch-3 topic-polish samples:");
+  for (const row of polishSamples) {
+    console.log(`  ${row.youtubeId}`);
+    console.log(`    raw: ${row.title}`);
+    console.log(`    ui:  ${row.displayTitle}`);
+    console.log(`    speakers: ${row.speakers.join(" · ") || "(none)"}`);
+  }
+
   if (empty.length) {
     throw new Error(`Empty browse shelves: ${empty.join(", ")}`);
   }

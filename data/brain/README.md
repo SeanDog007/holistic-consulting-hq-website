@@ -7,12 +7,13 @@ This folder is the durable source of truth for the member `/library` shelf.
 - `embeddings.json.gz` — local hashed TF-IDF vectors for hybrid `/library` search (`npm run brain:embed`)
 - `display-titles.batch-1.json` — official CoS batch 1 (`video_id` → `display_title`). Keys are YouTube ids, not Prisma cuids.
 - `display-titles.batch-2.json` — official CoS batch 2, guest/teaching talks in `Topic — Speaker, Credential` form. Optional `speaker` fills `Video.speakers` on import.
+- `display-titles.batch-3.json` — official CoS batch 3, topic-polish titles only (no invented speakers). Later `batch-N` files win.
 - `display-titles.json` — extra teaching polish not in an official batch. Later `batch-N` files win if both set a title.
 - House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo.
 
-### Adding display titles (batch 3+)
+### Adding display titles (batch 4+)
 
-1. Drop `data/brain/display-titles.batch-3.json` (then 4, 5, …) in the same shape as batch 2:
+1. Drop `data/brain/display-titles.batch-4.json` (then 5, 6, …) in the same shape as batch 2/3:
    `{ "items": [{ "video_id", "display_title", "speaker?" }] }`.
    The loader already globs `display-titles.batch-*.json` and lets the highest N win. No code change.
 2. Use an em dash. If the speaker or credential is unknown, improve the series/date only — do not invent credentials. Expand `NGR` to **New Graduate Roundtable**.

@@ -260,7 +260,7 @@ function loadOverrideFile(filePath: string): Record<string, string> {
  * Later official CoS batches win over earlier ones, and all batches win
  * over extra teaching polish in display-titles.json.
  *
- * To add batch 3: drop `data/brain/display-titles.batch-3.json` in the same
+ * To add batch 4: drop `data/brain/display-titles.batch-4.json` in the same
  * `{ items: [{ video_id, display_title, speaker? }] }` shape. No loader change.
  */
 export function loadDisplayTitleOverrides(
