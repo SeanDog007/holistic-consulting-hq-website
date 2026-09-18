@@ -1,0 +1,73 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Topic — Speaker, Credential",
+  "count": 6,
+  "items": [
+    {
+      "video_id": "1fvdwb-H3oc",
+      "youtube_title": "Mental Health Part 1",
+      "display_title": "Mental Health Part 1 — Dr. Kim Ross",
+      "speaker": "Dr. Kim Ross",
+      "credential": null,
+      "program": null,
+      "published_at": "2024-11-13",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    },
+    {
+      "video_id": "3tNlPl4x7VY",
+      "youtube_title": "Scope of Practice 1",
+      "display_title": "Scope of Practice — Laura Waldo",
+      "speaker": "Laura Waldo",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-03-10",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    },
+    {
+      "video_id": "KDQ9goYpzc0",
+      "youtube_title": "Intro to Herbalism",
+      "display_title": "Intro to Herbalism — Betsy Miller, Registered Herbalist",
+      "speaker": "Betsy Miller",
+      "credential": "Registered Herbalist",
+      "program": "herbal",
+      "published_at": "2026-03-01",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    },
+    {
+      "video_id": "Nqjsrukws2g",
+      "youtube_title": "Module 1 - Intro to Herbalism",
+      "display_title": "Intro to Herbalism, Module 1 — Betsy Miller, Registered Herbalist",
+      "speaker": "Betsy Miller",
+      "credential": "Registered Herbalist",
+      "program": "herbal",
+      "published_at": "2026-03-10",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    },
+    {
+      "video_id": "YtzYbcU0IRA",
+      "youtube_title": "Advancing Your Nutrition Career MS and CNS",
+      "display_title": "Advancing Your Nutrition Career (MS & CNS) — Dr. Kim Ross",
+      "speaker": "Dr. Kim Ross",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-08-06",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    },
+    {
+      "video_id": "cj3TRKZaplY",
+      "youtube_title": "BCHN® Alliance Introduction",
+      "display_title": "BCHN Alliance Introduction — Dr. Mike T. Nelson",
+      "speaker": "Dr. Mike T. Nelson",
+      "credential": null,
+      "program": "BCHN",
+      "published_at": "2024-04-03",
+      "batch": 4,
+      "notes": "speaker from early-transcript roster hit"
+    }
+  ]
+}

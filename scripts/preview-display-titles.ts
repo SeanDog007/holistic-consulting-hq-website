@@ -95,6 +95,19 @@ async function main() {
     console.log(`    speakers: ${row.speakers.join(" · ") || "(none)"}`);
   }
 
+  const rosterSamples = rows.filter((row) =>
+    ["1fvdwb-H3oc", "3tNlPl4x7VY", "KDQ9goYpzc0", "Nqjsrukws2g", "YtzYbcU0IRA", "cj3TRKZaplY"].includes(
+      row.youtubeId,
+    ),
+  );
+  console.log("\nBatch-4 roster samples:");
+  for (const row of rosterSamples) {
+    console.log(`  ${row.youtubeId}`);
+    console.log(`    raw: ${row.title}`);
+    console.log(`    ui:  ${row.displayTitle}`);
+    console.log(`    speakers: ${row.speakers.join(" · ") || "(none)"}`);
+  }
+
   if (empty.length) {
     throw new Error(`Empty browse shelves: ${empty.join(", ")}`);
   }
