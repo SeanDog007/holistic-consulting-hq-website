@@ -1,6 +1,6 @@
 # Holistic Brain bot v1
 
-**Status:** Retrieval shipped (semantic + cited clips). Chat synthesis is next.  
+**Status:** Retrieval shipped (semantic + cited clips). Cite-only Q&A shipped — see `docs/BRAIN-QA-V1.md`.  
 **Owner:** CoS routes; specialist bot later  
 **Standing go:** Sean 2026-09-18 — ship Brain/library follow-through without per-step approval  
 **Host:** Netlify / holisticconsultinghq.com — do **not** put Brain on Old City Vercel
@@ -65,12 +65,12 @@ Query: `What has Betsy said about herbal safety?`
 
 Run `npm run brain:retrieve:verify` to re-check both (plus Principles of Herbal Safety).
 
-## Chat layer (not in this PR)
+## Chat layer
 
-Next increment, still Netlify-only:
+Shipped on Netlify only (`docs/BRAIN-QA-V1.md`):
 
-1. CoS-accessible chat UI that calls `/api/library/search`
-2. Short synthesis **only** from returned citations (refuse if zero hits)
-3. Specialist Brain bot when volume justifies
+1. `POST /api/brain/ask` `{ question }` — hybrid retrieve, ≤2 hits/video, 2–4 citations
+2. Short synthesis **only** from returned citations (template if no LLM key; refuse if no decent hits)
+3. Unlisted noindex UI: `/library/ask`
 
-Non-goals remain: public member chatbot on marketing pages, Circle/Drive corpus, auto protocols without citations.
+Specialist Brain bot when volume justifies. Non-goals remain: public member chatbot on marketing pages, Circle/Drive corpus, auto protocols without citations.

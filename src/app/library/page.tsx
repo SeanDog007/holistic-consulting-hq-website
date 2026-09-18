@@ -77,6 +77,12 @@ export default async function LibraryPage({
             <h2 className="font-display text-4xl text-charcoal md:text-5xl">
               Browse by program, speaker, or the words that were said.
             </h2>
+            <p className="mt-3 text-sm text-slate">
+              CoS / internal:{" "}
+              <Link href="/library/ask" className="font-medium text-emerald hover:underline">
+                ask a cited question
+              </Link>
+            </p>
           </div>
 
           <LibraryBrowseChips filters={filters} />
