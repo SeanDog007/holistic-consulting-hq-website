@@ -5,7 +5,7 @@ import { publicTitle } from "@/lib/format";
 import { parseJsonArray } from "@/lib/json";
 import { isProgram } from "@/lib/programs";
 import { expandForEmbed } from "@/lib/embed";
-import { searchVectorIndex, type SemanticHit } from "@/lib/vector-index";
+import { lastVectorSearchError, searchVectorIndex, type SemanticHit } from "@/lib/vector-index";
 
 export const LIBRARY_PAGE_SIZE = 24;
 export const MAX_HITS_PER_VIDEO = 2;
@@ -50,6 +50,8 @@ export type LibrarySearchPage = {
   pageSize: number;
   pageCount: number;
   semanticUsed: boolean;
+  /** Present when the neural query embed failed; keyword search still ran. */
+  semanticError?: string | null;
 };
 
 function containsFilter(query: string): Prisma.StringFilter {
@@ -128,6 +130,7 @@ function emptyPage(page: number): LibrarySearchPage {
     pageSize: LIBRARY_PAGE_SIZE,
     pageCount: 1,
     semanticUsed: false,
+    semanticError: null,
   };
 }
 
@@ -269,6 +272,7 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
       pageSize: LIBRARY_PAGE_SIZE,
       pageCount,
       semanticUsed: false,
+      semanticError: null,
       results: videos.map((video) => ({ ...mapVideoBase(video), hits: [] })),
     };
   }
@@ -281,7 +285,7 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
   });
   const keywordIds = keywordRows.map((row) => row.id);
 
-  const semanticHits = searchVectorIndex(query, { topK: 48, maxPerVideo: MAX_HITS_PER_VIDEO });
+  const semanticHits = await searchVectorIndex(query, { topK: 48, maxPerVideo: MAX_HITS_PER_VIDEO });
   const semanticByYoutube = new Map<string, SemanticHit[]>();
   for (const hit of semanticHits) {
     const list = semanticByYoutube.get(hit.youtubeId) ?? [];
@@ -292,14 +296,22 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
   const orClauses: Prisma.VideoWhereInput[] = [];
   if (keywordIds.length) orClauses.push({ id: { in: keywordIds } });
   if (semanticByYoutube.size) orClauses.push({ youtubeId: { in: [...semanticByYoutube.keys()] } });
-  if (orClauses.length === 0) return emptyPage(requestedPage);
+  if (orClauses.length === 0) {
+    return { ...emptyPage(requestedPage), semanticError: lastVectorSearchError() };
+  }
 
   const where: Prisma.VideoWhereInput = {
     AND: [filterWhere, { OR: orClauses }],
   };
 
   const videos = await prisma.video.findMany({ where });
-  if (videos.length === 0) return { ...emptyPage(requestedPage), semanticUsed: semanticHits.length > 0 };
+  if (videos.length === 0) {
+    return {
+      ...emptyPage(requestedPage),
+      semanticUsed: semanticHits.length > 0,
+      semanticError: lastVectorSearchError(),
+    };
+  }
 
   const semanticStartMs = [...new Set(semanticHits.map((hit) => hit.startMs))];
   const segments = await prisma.transcriptSegment.findMany({
@@ -352,6 +364,7 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
     pageSize: LIBRARY_PAGE_SIZE,
     pageCount,
     semanticUsed: semanticHits.length > 0,
+    semanticError: lastVectorSearchError(),
     results: ranked.slice(start, start + LIBRARY_PAGE_SIZE),
   };
 }

@@ -3,14 +3,79 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   outputFileTracingIncludes: {
-    "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
+    "/library": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/onnxruntime_binding.node",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1.21.0",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_shared.so",
+    ],
     "/library/[videoId]": ["./prisma/dev.db"],
     "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/library/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
+    "/library/ask": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/onnxruntime_binding.node",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1.21.0",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_shared.so",
+    ],
+    "/api/library/search": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/onnxruntime_binding.node",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1.21.0",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_shared.so",
+    ],
+    "/api/brain/ask": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/onnxruntime_binding.node",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime.so.1.21.0",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_shared.so",
+    ],
   },
-  serverExternalPackages: ["@prisma/client", "prisma"],
+  outputFileTracingExcludes: {
+    "*": [
+      "./data/brain/search_chunks.json.gz",
+      "./data/brain/videos.json",
+      "./docs/**",
+      "./scripts/**",
+      "./public/**",
+      "./node_modules/sharp/**",
+      "./node_modules/@img/**",
+      "./node_modules/**/sharp/**",
+      "./node_modules/**/@img/**",
+      "./node_modules/@huggingface/transformers/node_modules/sharp/**",
+      "./node_modules/@huggingface/transformers/node_modules/@img/**",
+      // onnxruntime-node ships CUDA/TensorRT + every OS (~536MB). Functions only
+      // need the linux x64 CPU binding.
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_cuda.so",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_tensorrt.so",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/arm64/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/darwin/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/win32/**",
+      "./node_modules/onnxruntime-web/**",
+    ],
+  },
+  serverExternalPackages: [
+    "@prisma/client",
+    "prisma",
+    "@huggingface/transformers",
+    "onnxruntime-node",
+    "onnxruntime-web",
+  ],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "i.ytimg.com" },
@@ -27,7 +92,11 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
-    return [{ source: "/", destination: "/index.html" }];
+    return [
+      { source: "/", destination: "/index.html" },
+      { source: "/programs", destination: "/programs.html" },
+      { source: "/results", destination: "/results.html" },
+    ];
   },
   async headers() {
     return [

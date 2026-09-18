@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && next dev",
-    "build": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && tsx prisma/seed.ts && next build",
+    "build": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && tsx prisma/seed.ts && tsx scripts/ensure-minilm.ts && next build",
     "start": "next start",
     "lint": "eslint",
     "db:push": "node scripts/prisma-env.mjs db push",
@@ -12,6 +12,7 @@
     "db:setup": "node scripts/prisma-env.mjs db push && tsx --env-file=.env prisma/seed.ts",
     "brain:import": "tsx --env-file=.env scripts/import-brain-catalog.ts",
     "brain:embed": "tsx scripts/embed-brain-catalog.ts",
+    "brain:ensure-minilm": "tsx scripts/ensure-minilm.ts",
     "brain:retrieve:verify": "tsx scripts/verify-brain-retrieval.ts",
     "brain:ask:verify": "tsx scripts/verify-brain-ask.ts",
     "titles:preview": "tsx scripts/preview-display-titles.ts",
@@ -22,11 +23,13 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "^3.8.1",
     "@netlify/database": "^2.0.1",
     "@prisma/client": "^6.16.2",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "sharp": "file:vendor/sharp-stub"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.13",
@@ -40,5 +43,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.20.5",
     "typescript": "^5"
+  },
+  "overrides": {
+    "sharp": "file:vendor/sharp-stub"
   }
 }

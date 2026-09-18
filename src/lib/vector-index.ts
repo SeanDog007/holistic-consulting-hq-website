@@ -3,18 +3,15 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import {
   cosine,
-  embedText,
-  EMBED_DIM,
-  EMBED_PROVIDER,
+  embedQuery,
   EMBED_VERSION,
   idfFromPairs,
   int8FromBase64,
+  isSupportedProvider,
+  minSemanticScore,
 } from "./embed";
 
-export const DEFAULT_EMBEDDINGS_PATH = path.join(
-  process.cwd(),
-  "data/brain/embeddings.json.gz",
-);
+export const DEFAULT_EMBEDDINGS_PATH = path.join(process.cwd(), "data", "brain", "embeddings.json.gz");
 
 export type IndexedChunk = {
   youtubeId: string;
@@ -56,19 +53,21 @@ export type VectorIndex = {
 const MAX_HITS_PER_VIDEO = 2;
 
 let cached: VectorIndex | null | undefined;
+let lastSemanticError: string | null = null;
+
+/** Last query-embed failure (MiniLM/OpenAI). Search then continues keyword-only. */
+export function lastVectorSearchError(): string | null {
+  return lastSemanticError;
+}
 
 function embeddingsCandidates(): string[] {
-  return [
-    DEFAULT_EMBEDDINGS_PATH,
-    path.join(process.cwd(), "data/brain/embeddings.json.gz"),
-    path.resolve("data/brain/embeddings.json.gz"),
-  ];
+  return [path.join(process.cwd(), "data", "brain", "embeddings.json.gz")];
 }
 
 export function readVectorIndexFile(filePath = DEFAULT_EMBEDDINGS_PATH): VectorIndex {
   const raw = readFileSync(filePath);
   const parsed = JSON.parse(gunzipSync(raw).toString("utf8")) as VectorIndexFile;
-  if (parsed.version !== EMBED_VERSION || parsed.provider !== EMBED_PROVIDER) {
+  if ((parsed.version !== EMBED_VERSION && parsed.version !== 1) || !isSupportedProvider(parsed.provider)) {
     throw new Error(
       `Unsupported embeddings file (version=${parsed.version}, provider=${parsed.provider}). Re-run npm run brain:embed.`,
     );
@@ -80,7 +79,7 @@ export function readVectorIndexFile(filePath = DEFAULT_EMBEDDINGS_PATH): VectorI
     builtAt: parsed.builtAt,
     chunkCount: parsed.chunkCount,
     sourceChunkCount: parsed.sourceChunkCount,
-    idf: idfFromPairs(parsed.idf),
+    idf: idfFromPairs(parsed.idf ?? []),
     chunks: parsed.chunks.map(([youtubeId, startMs, endMs, encoded]) => ({
       youtubeId,
       startMs,
@@ -112,21 +111,31 @@ export function resetVectorIndexCache(): void {
   cached = undefined;
 }
 
-export function searchVectorIndex(
+export async function searchVectorIndex(
   query: string,
   options: { topK?: number; maxPerVideo?: number; index?: VectorIndex | null } = {},
-): SemanticHit[] {
+): Promise<SemanticHit[]> {
+  lastSemanticError = null;
   const index = options.index === undefined ? loadVectorIndex() : options.index;
   if (!index || !query.trim()) return [];
 
   const topK = options.topK ?? 40;
   const maxPerVideo = options.maxPerVideo ?? MAX_HITS_PER_VIDEO;
-  const queryVector = embedText(query, index.idf, index.dim || EMBED_DIM);
+  let queryVector: Float32Array;
+  try {
+    queryVector = await embedQuery(query, index);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    lastSemanticError = `${index.provider}: ${reason}`;
+    console.warn(`Semantic embed failed (${index.provider}): ${reason}. Falling back to keyword search.`);
+    return [];
+  }
 
+  const floor = minSemanticScore(index.provider);
   const scored: SemanticHit[] = [];
   for (const chunk of index.chunks) {
     const score = cosine(queryVector, chunk.vector);
-    if (score <= 0.08) continue;
+    if (score <= floor) continue;
     scored.push({
       youtubeId: chunk.youtubeId,
       startMs: chunk.startMs,

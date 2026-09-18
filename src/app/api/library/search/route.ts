@@ -4,6 +4,7 @@ import { searchLibrary, type LibraryFilters } from "@/lib/search";
 import { loadVectorIndex } from "@/lib/vector-index";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 function firstString(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) return value[0];
@@ -42,6 +43,7 @@ export async function GET(request: Request) {
       query,
       provider: index?.provider ?? null,
       semanticUsed: page.semanticUsed,
+      semanticError: page.semanticError ?? null,
       total: page.total,
       page: page.page,
       pageCount: page.pageCount,

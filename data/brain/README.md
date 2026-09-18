@@ -4,7 +4,7 @@ This folder is the durable source of truth for the member `/library` shelf.
 
 - `videos.json` — Studio inventory metadata (include **Unlisted**; do not filter them out)
 - `search_chunks.json.gz` — merged ASR/search chunks (~45s / ~800 characters) with `start_sec` / `end_sec` / `text`
-- `embeddings.json.gz` — local hashed TF-IDF vectors for hybrid `/library` search (`npm run brain:embed`)
+- `embeddings.json.gz` — baked sentence vectors for hybrid `/library` search (`npm run brain:embed`). Default provider `local-minilm-l6-v2`. Optional OpenAI if `OPENAI_API_KEY` is set at embed time.
 - `display-titles.batch-1.json` — official CoS batch 1 (`video_id` → `display_title`). Keys are YouTube ids, not Prisma cuids.
 - `display-titles.batch-2.json` — official CoS batch 2, guest/teaching talks in `Topic — Speaker, Credential` form. Optional `speaker` fills `Video.speakers` on import.
 - `display-titles.batch-3.json` — official CoS batch 3, topic-polish titles only (no invented speakers).
@@ -42,7 +42,7 @@ npm run brain:import
 npm run db:seed
 ```
 
-3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next `npm run build` (Netlify / local production build) re-seeds the database and ships the committed vector index. Production does not call a paid embed API.
+3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next `npm run build` (Netlify / local production build) re-seeds the database and ships the committed vector index. Production does not re-embed the corpus. MiniLM query encode is local ($0). OpenAI query encode needs `OPENAI_API_KEY` on Netlify only if the committed provider is OpenAI.
 
 Optional paths if the export lives somewhere else:
 
