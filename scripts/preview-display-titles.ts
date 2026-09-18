@@ -19,8 +19,12 @@ async function main() {
     return { ...meta, displayTitle };
   });
 
+  const batchIds = new Set(
+    rows.filter((row) => overrides[row.youtubeId]).map((row) => row.youtubeId),
+  );
   console.log(`Catalog: ${rows.length} videos`);
-  console.log(`Curated overrides: ${Object.keys(overrides).length}`);
+  console.log(`Overrides loaded: ${Object.keys(overrides).length} (YouTube video_id keys)`);
+  console.log(`Catalog rows with an override: ${batchIds.size}`);
   console.log(`Resolved display titles: ${rows.filter((row) => row.displayTitle).length}`);
 
   const empty: string[] = [];

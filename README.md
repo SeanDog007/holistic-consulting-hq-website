@@ -92,13 +92,20 @@ The chips sit above the search form. They are exploration shortcuts; the full se
 | Herbalism | `program=Herbalism` | Existing Program filter (`herbal` in the export + title classify) |
 | BCHN | `program=BCHN` | Existing Program filter (BCHN / NANP) |
 | Mentorship / Community | `browse=community` | Community Live, roundtables, welcomes, mentorship overview. **Not** `program=Mentorship` — that catalog field is over-applied to Business Mastermind recordings. |
-| Office Hours | `program=Office Hours` | Nutritional Grand Rounds (`NGR`) and titled Live Call sessions. The Brain export has no `office hours` program; classify infers it from titles. |
+| Office Hours | `program=Office Hours` | New Graduate Roundtable (`NGR`) and titled Live Call sessions. The Brain export has no `office hours` program; classify infers it from titles. |
 
 ## Display titles
 
-Add or edit curated titles in `data/brain/display-titles.json` (`youtubeId` → title). Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
+House style is `docs/TITLE-CONVENTION.md` (Sean, 2026-09-18). **Library display only** — this repo does not rename YouTube.
 
-Recurring Mastermind / NGR / Community Live / roundtable dates are inferred automatically in `src/lib/display-title.ts` when there is no JSON override. Preview without writing the database:
+Overrides are keyed by **YouTube video id** (`Video.youtubeId` / Brain `video_id`), not the Prisma cuid in `/library/[id]` URLs.
+
+- `data/brain/display-titles.batch-1.json` — official CoS batch 1 (133 videos: Mastermind / NGR→**New Graduate Roundtable** / Community Live date cleanups, plus a few teaching polish titles).
+- `data/brain/display-titles.json` — extra teaching titles not in batch 1. Batch 1 wins on conflict.
+
+Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
+
+Recurring Mastermind / NGR / Community Live / dated roundtables are inferred automatically in `src/lib/display-title.ts` when there is no JSON override. Preview without writing the database:
 
 ```bash
 npm run titles:preview
@@ -112,9 +119,10 @@ Then re-import so SQLite/Postgres picks up the new titles: `npm run db:seed`.
 - `Liz Lipski` and `Dr Mike T Nelson 2026` have no topic in the YouTube title; we did not invent one.
 - Testimonials, Zoom filenames (`GMT…`), and untitled MP4 dumps are left raw unless a date/series pattern is obvious.
 - Brain `program` is often `mentorship` or `null`, so shelves are title/classify-based, not a clean Studio taxonomy.
-- `TranscriptSegment` — `videoId`, `startMs`, `endMs?`, `text` (Brain chunks are stored here; `start_sec` / `end_sec` from the export are converted to milliseconds)
 
 `speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres.
+
+`TranscriptSegment` — `videoId`, `startMs`, `endMs?`, `text` (Brain chunks are stored here; `start_sec` / `end_sec` from the export are converted to milliseconds).
 
 Production uses `prisma/schema.postgres.prisma` whenever `DATABASE_URL` starts with `postgres`. `npm run build` generates the client, pushes the schema, and seeds the Brain catalog.
 

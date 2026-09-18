@@ -15,7 +15,7 @@ export type BrowseQuery = {
  * Brain `program` is usually `mentorship` / `other` / `herbal` / `BCHN` / null.
  * Classified Program values are Title Case (Mentorship, Community, …).
  * Clinical Practice is not a catalog program — it is a curated topic/title shelf.
- * Office Hours is empty in the export; we map Nutritional Grand Rounds (NGR)
+ * Office Hours is empty in the export; we map New Graduate Roundtable (NGR)
  * and titled Live Call sessions onto that chip so the shelf is not vacant.
  *
  * Chip → filter mapping (also listed in README):

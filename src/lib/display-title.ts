@@ -9,6 +9,39 @@ export const DEFAULT_DISPLAY_TITLES_PATH = path.join(
   "data/brain/display-titles.json",
 );
 
+export const DEFAULT_BATCH_TITLES_PATH = path.join(
+  process.cwd(),
+  "data/brain/display-titles.batch-1.json",
+);
+
+type BatchItem = {
+  video_id?: string;
+  display_title?: string;
+};
+
+function collectOverrides(parsed: unknown): Record<string, string> {
+  const overrides: Record<string, string> = {};
+  if (!parsed || typeof parsed !== "object") return overrides;
+
+  const record = parsed as Record<string, unknown>;
+  if (Array.isArray(record.items)) {
+    for (const item of record.items as BatchItem[]) {
+      const id = item.video_id?.trim();
+      const title = item.display_title?.trim();
+      if (id && title) overrides[id] = title;
+    }
+    return overrides;
+  }
+
+  for (const [key, value] of Object.entries(record)) {
+    if (key.startsWith("_")) continue;
+    if (typeof value === "string" && value.trim()) {
+      overrides[key] = value.trim();
+    }
+  }
+  return overrides;
+}
+
 export function formatSeriesDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -100,7 +133,7 @@ export function inferSeriesDisplayTitle(title: string, publishedAt: Date): strin
       spaced ? parseLooseDate(spaced[3], spaced[1], spaced[2]) : null,
       publishedAt,
     );
-    if (date) return `Nutritional Grand Rounds — ${formatSeriesDate(date)}`;
+    if (date) return `New Graduate Roundtable — ${formatSeriesDate(date)}`;
   }
 
   const communityLive = trimmed.match(/^Community Live\s+(\d{8})$/i);
@@ -153,21 +186,26 @@ export function inferSeriesDisplayTitle(title: string, publishedAt: Date): strin
   return null;
 }
 
-export function loadDisplayTitleOverrides(filePath = DEFAULT_DISPLAY_TITLES_PATH): Record<string, string> {
+function loadOverrideFile(filePath: string): Record<string, string> {
   try {
-    const parsed = JSON.parse(readFileSync(filePath, "utf8")) as unknown;
-    if (!parsed || typeof parsed !== "object") return {};
-    const overrides: Record<string, string> = {};
-    for (const [key, value] of Object.entries(parsed as Record<string, unknown>)) {
-      if (key.startsWith("_")) continue;
-      if (typeof value === "string" && value.trim()) {
-        overrides[key] = value.trim();
-      }
-    }
-    return overrides;
+    return collectOverrides(JSON.parse(readFileSync(filePath, "utf8")) as unknown);
   } catch {
     return {};
   }
+}
+
+/**
+ * Keys are YouTube video ids (`Video.youtubeId`), not Prisma cuids.
+ * Official CoS batch-1 wins over extra teaching polish in display-titles.json.
+ */
+export function loadDisplayTitleOverrides(
+  extrasPath = DEFAULT_DISPLAY_TITLES_PATH,
+  batchPath = DEFAULT_BATCH_TITLES_PATH,
+): Record<string, string> {
+  return {
+    ...loadOverrideFile(extrasPath),
+    ...loadOverrideFile(batchPath),
+  };
 }
 
 export function resolveDisplayTitle(

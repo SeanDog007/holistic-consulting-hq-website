@@ -46,7 +46,7 @@ export function classifyPrograms(title: string, description = ""): Program[] {
     found.add("BCHN");
   }
   // Brain program is often mentorship/other/null — Office Hours is inferred from titles.
-  // NGR = Nutritional Grand Rounds, the live drop-in / case-rounds shelf.
+  // NGR = New Graduate Roundtable (display title); titles still say NGR / grand rounds.
   if (/\boffice hours\b|\bngr(?:\b|_)|nutritional grand rounds|\blive call\b/.test(haystack)) {
     found.add("Office Hours");
   }

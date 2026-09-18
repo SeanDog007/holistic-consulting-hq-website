@@ -4,12 +4,14 @@ This folder is the durable source of truth for the member `/library` shelf.
 
 - `videos.json` — Studio inventory metadata (include **Unlisted**; do not filter them out)
 - `search_chunks.json.gz` — merged ASR/search chunks (~45s / ~800 characters) with `start_sec` / `end_sec` / `text`
-- `display-titles.json` — optional public titles keyed by YouTube id. The library UI prefers these over the raw YouTube `title`.
+- `display-titles.batch-1.json` — official CoS batch 1 (`video_id` → `display_title`). Keys are YouTube ids, not Prisma cuids.
+- `display-titles.json` — extra teaching polish not in batch 1. Batch 1 wins if both set a title.
+- House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo.
 
 ### Adding display titles
 
-1. Open `data/brain/display-titles.json`.
-2. Add `"YOUTUBE_ID": "Topic — Speaker, Credential"` (em dash). If the speaker or credential is unknown, improve the series/date only — do not invent credentials.
+1. Prefer a new CoS batch file (`display-titles.batch-2.json` etc.) or add `"YOUTUBE_ID": "Topic — Speaker, Credential"` to `display-titles.json`.
+2. Use an em dash. If the speaker or credential is unknown, improve the series/date only — do not invent credentials. Expand `NGR` to **New Graduate Roundtable**.
 3. Run `npm run titles:preview` to confirm the title and that browse shelves still have videos.
 4. Run `npm run db:seed` (or wait for the next production build) so the catalog writes `displayTitle`.
 
