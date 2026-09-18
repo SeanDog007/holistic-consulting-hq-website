@@ -1,0 +1,150 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Topic — Speaker, Credential",
+  "count": 13,
+  "items": [
+    {
+      "video_id": "1dbKV5Lymk8",
+      "youtube_title": "Psychobiotics for Mental Health - Dr. Kim Ross",
+      "display_title": "Psychobiotics for Mental Health — Dr. Kim Ross",
+      "speaker": "Dr. Kim Ross",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-07-09",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "JU8zEO73Lus",
+      "youtube_title": "Herbal Safety for Nutrition Practice - Betsy Miller, Registered Herbalist",
+      "display_title": "Herbal Safety for Nutrition Practice — Betsy Miller, Registered Herbalist",
+      "speaker": "Betsy Miller",
+      "credential": "Registered Herbalist",
+      "program": "herbal",
+      "published_at": "2026-06-17",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "7D2ddTLxZlk",
+      "youtube_title": "Herbalism for PCOS - Betsy Miller, Registered Herbalist",
+      "display_title": "Herbalism for PCOS — Betsy Miller, Registered Herbalist",
+      "speaker": "Betsy Miller",
+      "credential": "Registered Herbalist",
+      "program": "herbal",
+      "published_at": "2026-04-09",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "mowBWYHvJwg",
+      "youtube_title": "Herbal Medicine for the Nutrition Professional with Betsy Miller",
+      "display_title": "Herbal Medicine for the Nutrition Professional — Betsy Miller, Registered Herbalist",
+      "speaker": "Betsy Miller",
+      "credential": "Registered Herbalist",
+      "program": "herbal",
+      "published_at": "2026-02-12",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "PUftt5qImWE",
+      "youtube_title": "Dr Mike T Nelson 2026",
+      "display_title": "Performance & Physiology — Dr. Mike T. Nelson (2026)",
+      "speaker": "Dr. Mike T. Nelson",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-02-05",
+      "batch": 2,
+      "notes": "topic inferred lightly from known guest role; refine if wrong"
+    },
+    {
+      "video_id": "5oBbkKvqPuY",
+      "youtube_title": "BacoZest for ADHD with Jordan Passwaters",
+      "display_title": "BacoZest for ADHD — Jordan Passwaters",
+      "speaker": "Jordan Passwaters",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-01-15",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "iF5Wuuev8QU",
+      "youtube_title": "Importance of Conventional Bloodwork Yvonne Matthews",
+      "display_title": "Importance of Conventional Bloodwork — Yvonne Matthews",
+      "speaker": "Yvonne Matthews",
+      "credential": null,
+      "program": null,
+      "published_at": "2026-01-08",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "8B7jmNiavNo",
+      "youtube_title": "Workshops for Developing Your Business with Morgan Liner",
+      "display_title": "Workshops for Developing Your Business — Morgan Liner",
+      "speaker": "Morgan Liner",
+      "credential": null,
+      "program": null,
+      "published_at": "2025-07-15",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "_rBuoYPACNU",
+      "youtube_title": "Dietary Supplements with Dr Jose Vega MP4",
+      "display_title": "Dietary Supplements — Dr. Jose Vega",
+      "speaker": "Dr. Jose Vega",
+      "credential": null,
+      "program": null,
+      "published_at": "2025-07-07",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "PFte4d52RZA",
+      "youtube_title": "Scope of Practice with Laura Waldo",
+      "display_title": "Scope of Practice — Laura Waldo",
+      "speaker": "Laura Waldo",
+      "credential": null,
+      "program": null,
+      "published_at": "2025-06-09",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "ZRZx41j9jDM",
+      "youtube_title": "Herbalism with Dr Rachel Knowles",
+      "display_title": "Herbalism — Dr. Rachel Knowles",
+      "speaker": "Dr. Rachel Knowles",
+      "credential": null,
+      "program": "herbal",
+      "published_at": "2025-06-05",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "fBDUxQs8624",
+      "youtube_title": "Dr Kim Ross Amino Acid Therapy Lecture",
+      "display_title": "Amino Acid Therapy Lecture — Dr. Kim Ross",
+      "speaker": "Dr. Kim Ross",
+      "credential": null,
+      "program": null,
+      "published_at": "2024-12-03",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    },
+    {
+      "video_id": "Rbqqe6-XjoM",
+      "youtube_title": "Functional Testing - Dr. Oscar Coetzee",
+      "display_title": "Functional Testing — Dr. Oscar Coetzee",
+      "speaker": "Dr. Oscar Coetzee",
+      "credential": null,
+      "program": null,
+      "published_at": "2024-12-03",
+      "batch": 2,
+      "notes": "guest/teaching speaker attribution from title"
+    }
+  ]
+}

@@ -1,22 +1,32 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { publicTitle } from "./format";
 
 export { publicTitle };
 
+export const DEFAULT_DISPLAY_TITLES_DIR = path.join(process.cwd(), "data/brain");
+
 export const DEFAULT_DISPLAY_TITLES_PATH = path.join(
-  process.cwd(),
-  "data/brain/display-titles.json",
+  DEFAULT_DISPLAY_TITLES_DIR,
+  "display-titles.json",
 );
 
 export const DEFAULT_BATCH_TITLES_PATH = path.join(
-  process.cwd(),
-  "data/brain/display-titles.batch-1.json",
+  DEFAULT_DISPLAY_TITLES_DIR,
+  "display-titles.batch-1.json",
 );
 
 type BatchItem = {
   video_id?: string;
   display_title?: string;
+  speaker?: string | null;
+};
+
+export type DisplayTitleBatchFile = {
+  file: string;
+  batch: number;
+  titles: Record<string, string>;
+  speakers: Record<string, string>;
 };
 
 function collectOverrides(parsed: unknown): Record<string, string> {
@@ -40,6 +50,53 @@ function collectOverrides(parsed: unknown): Record<string, string> {
     }
   }
   return overrides;
+}
+
+function collectSpeakers(parsed: unknown): Record<string, string> {
+  const speakers: Record<string, string> = {};
+  if (!parsed || typeof parsed !== "object") return speakers;
+
+  const record = parsed as Record<string, unknown>;
+  if (!Array.isArray(record.items)) return speakers;
+
+  for (const item of record.items as BatchItem[]) {
+    const id = item.video_id?.trim();
+    const speaker = item.speaker?.trim();
+    if (id && speaker) speakers[id] = speaker;
+  }
+  return speakers;
+}
+
+function parseBatchNumber(fileName: string): number | null {
+  const match = fileName.match(/^display-titles\.batch-(\d+)\.json$/);
+  return match ? Number(match[1]) : null;
+}
+
+export function listDisplayTitleBatchFiles(
+  dir = DEFAULT_DISPLAY_TITLES_DIR,
+): DisplayTitleBatchFile[] {
+  let names: string[] = [];
+  try {
+    names = readdirSync(dir);
+  } catch {
+    return [];
+  }
+
+  return names
+    .map((name) => {
+      const batch = parseBatchNumber(name);
+      if (batch == null) return null;
+      const file = path.join(dir, name);
+      const parsed = readJsonFile(file);
+      return {
+        file,
+        batch,
+        titles: collectOverrides(parsed),
+        speakers: collectSpeakers(parsed),
+      };
+    })
+    .filter((item): item is DisplayTitleBatchFile => item !== null)
+    .sort((a, b) => a.batch - b.batch);
 }
 
 export function formatSeriesDate(date: Date): string {
@@ -186,26 +243,44 @@ export function inferSeriesDisplayTitle(title: string, publishedAt: Date): strin
   return null;
 }
 
-function loadOverrideFile(filePath: string): Record<string, string> {
+function readJsonFile(filePath: string): unknown {
   try {
-    return collectOverrides(JSON.parse(readFileSync(filePath, "utf8")) as unknown);
+    return JSON.parse(readFileSync(filePath, "utf8")) as unknown;
   } catch {
-    return {};
+    return null;
   }
+}
+
+function loadOverrideFile(filePath: string): Record<string, string> {
+  return collectOverrides(readJsonFile(filePath));
 }
 
 /**
  * Keys are YouTube video ids (`Video.youtubeId`), not Prisma cuids.
- * Official CoS batch-1 wins over extra teaching polish in display-titles.json.
+ * Later official CoS batches win over earlier ones, and all batches win
+ * over extra teaching polish in display-titles.json.
+ *
+ * To add batch 3: drop `data/brain/display-titles.batch-3.json` in the same
+ * `{ items: [{ video_id, display_title, speaker? }] }` shape. No loader change.
  */
 export function loadDisplayTitleOverrides(
   extrasPath = DEFAULT_DISPLAY_TITLES_PATH,
-  batchPath = DEFAULT_BATCH_TITLES_PATH,
 ): Record<string, string> {
-  return {
-    ...loadOverrideFile(extrasPath),
-    ...loadOverrideFile(batchPath),
-  };
+  const merged = { ...loadOverrideFile(extrasPath) };
+  for (const batch of listDisplayTitleBatchFiles(path.dirname(extrasPath))) {
+    Object.assign(merged, batch.titles);
+  }
+  return merged;
+}
+
+export function loadSpeakerOverrides(
+  extrasPath = DEFAULT_DISPLAY_TITLES_PATH,
+): Record<string, string> {
+  const merged: Record<string, string> = {};
+  for (const batch of listDisplayTitleBatchFiles(path.dirname(extrasPath))) {
+    Object.assign(merged, batch.speakers);
+  }
+  return merged;
 }
 
 export function resolveDisplayTitle(

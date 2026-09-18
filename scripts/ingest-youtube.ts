@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { loadDisplayTitleOverrides, resolveDisplayTitle } from "../src/lib/display-title";
+import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
+import { loadDisplayTitleOverrides, loadSpeakerOverrides, resolveDisplayTitle } from "../src/lib/display-title";
 import { toJsonArray } from "../src/lib/json";
 import { fetchCaptionCues, fetchChannelUploads, mapYoutubeVideo } from "../src/lib/youtube";
 
@@ -25,6 +26,7 @@ async function main() {
   }
 
   const displayTitles = loadDisplayTitleOverrides();
+  const speakerOverrides = loadSpeakerOverrides();
   const handle = argValue("--handle") ?? process.env.YOUTUBE_CHANNEL_HANDLE ?? "HolisticConsulting";
   const max = Number(argValue("--max") ?? "0");
   const skipCaptions = hasFlag("--skip-captions");
@@ -53,6 +55,11 @@ async function main() {
       video.publishedAt,
       displayTitles,
     );
+    const speakers = mergeSpeakers(
+      video.speakers,
+      displayTitle ? extractSpeakers(displayTitle) : [],
+      speakerOverrides[video.youtubeId],
+    );
     const record = await prisma.video.upsert({
       where: { youtubeId: video.youtubeId },
       create: {
@@ -63,7 +70,7 @@ async function main() {
         publishedAt: video.publishedAt,
         durationSec: video.durationSec,
         thumbnailUrl: video.thumbnailUrl,
-        speakers: toJsonArray(video.speakers),
+        speakers: toJsonArray(speakers),
         programs: toJsonArray(video.programs),
         topics: toJsonArray(video.topics),
         source: video.source,
@@ -75,7 +82,7 @@ async function main() {
         publishedAt: video.publishedAt,
         durationSec: video.durationSec,
         thumbnailUrl: video.thumbnailUrl,
-        speakers: toJsonArray(video.speakers),
+        speakers: toJsonArray(speakers),
         programs: toJsonArray(video.programs),
         topics: toJsonArray(video.topics),
         source: video.source,

@@ -16,9 +16,13 @@ const KNOWN_SPEAKERS = [
   "Jose Vega",
   "Liz Lipski",
   "Elizabeth Lipski",
+  "Dr. Mike T. Nelson",
   "Dr. Mike T Nelson",
   "Dr Mike T Nelson",
   "Mike T Nelson",
+  "Jordan Passwaters",
+  "Yvonne Matthews",
+  "Morgan Liner",
 ] as const;
 
 const SPEAKER_ALIASES: Record<string, string> = {
@@ -31,8 +35,9 @@ const SPEAKER_ALIASES: Record<string, string> = {
   "Jose Vega": "Dr. Jose Vega",
   "Dr Jose Vega": "Dr. Jose Vega",
   "Elizabeth Lipski": "Liz Lipski",
-  "Mike T Nelson": "Dr. Mike T Nelson",
-  "Dr Mike T Nelson": "Dr. Mike T Nelson",
+  "Mike T Nelson": "Dr. Mike T. Nelson",
+  "Dr Mike T Nelson": "Dr. Mike T. Nelson",
+  "Dr. Mike T Nelson": "Dr. Mike T. Nelson",
 };
 
 export function classifyPrograms(title: string, description = ""): Program[] {
@@ -69,13 +74,30 @@ export function classifyPrograms(title: string, description = ""): Program[] {
   return PROGRAMS.filter((program) => found.has(program));
 }
 
+export function canonicalSpeaker(name: string): string {
+  const trimmed = name.trim();
+  return SPEAKER_ALIASES[trimmed] ?? trimmed;
+}
+
+export function mergeSpeakers(...lists: Array<string[] | string | null | undefined>): string[] {
+  const found = new Set<string>();
+  for (const list of lists) {
+    const items = Array.isArray(list) ? list : list ? [list] : [];
+    for (const item of items) {
+      const speaker = canonicalSpeaker(item);
+      if (speaker) found.add(speaker);
+    }
+  }
+  return [...found];
+}
+
 export function extractSpeakers(title: string, description = ""): string[] {
   const haystack = `${title} ${description}`;
   const found = new Set<string>();
 
   for (const name of KNOWN_SPEAKERS) {
     if (haystack.toLowerCase().includes(name.toLowerCase())) {
-      found.add(SPEAKER_ALIASES[name] ?? name);
+      found.add(canonicalSpeaker(name));
     }
   }
 
@@ -83,7 +105,7 @@ export function extractSpeakers(title: string, description = ""): string[] {
   if (withMatch?.[1]) {
     const guessed = withMatch[1].replace(/\s+MP\d*$/i, "").trim();
     if (!/^(elevated|us|pcc|non)\b/i.test(guessed)) {
-      found.add(SPEAKER_ALIASES[guessed] ?? guessed);
+      found.add(canonicalSpeaker(guessed));
     }
   }
 
