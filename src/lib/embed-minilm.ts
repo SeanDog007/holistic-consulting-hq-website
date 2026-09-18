@@ -1,17 +1,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
+import { access } from "node:fs/promises";
 import path from "node:path";
 import { MINILM_DIM, l2Normalize } from "./embed";
 
 export const MINILM_MODEL_ID = "Xenova/all-MiniLM-L6-v2";
-export const DEFAULT_MINILM_CACHE_DIR = path.join(process.cwd(), "data/brain/models");
 
-const MODEL_FILES = [
-  "config.json",
-  "tokenizer.json",
-  "tokenizer_config.json",
-  "special_tokens_map.json",
-  "onnx/model_quantized.onnx",
-] as const;
+/** Statically scoped so Next/Netlify only traces `data/brain/models`, not the whole repo. */
+export const DEFAULT_MINILM_CACHE_DIR = path.join(process.cwd(), "data", "brain", "models");
 
 const HF_BASE = `https://huggingface.co/${MINILM_MODEL_ID}/resolve/main`;
 
@@ -22,13 +17,26 @@ type FeatureExtractor = (
 
 let extractorPromise: Promise<FeatureExtractor> | null = null;
 
+function modelFiles(cacheDir: string): Array<{ url: string; dest: string }> {
+  const root = path.join(cacheDir, "Xenova", "all-MiniLM-L6-v2");
+  return [
+    { url: `${HF_BASE}/config.json`, dest: path.join(root, "config.json") },
+    { url: `${HF_BASE}/tokenizer.json`, dest: path.join(root, "tokenizer.json") },
+    { url: `${HF_BASE}/tokenizer_config.json`, dest: path.join(root, "tokenizer_config.json") },
+    { url: `${HF_BASE}/special_tokens_map.json`, dest: path.join(root, "special_tokens_map.json") },
+    {
+      url: `${HF_BASE}/onnx/model_quantized.onnx`,
+      dest: path.join(root, "onnx", "model_quantized.onnx"),
+    },
+  ];
+}
+
 export function minilmModelDir(cacheDir = DEFAULT_MINILM_CACHE_DIR): string {
-  return path.join(cacheDir, ...MINILM_MODEL_ID.split("/"));
+  return path.join(cacheDir, "Xenova", "all-MiniLM-L6-v2");
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
-    const { access } = await import("node:fs/promises");
     await access(filePath);
     return true;
   } catch {
@@ -48,25 +56,23 @@ async function downloadFile(url: string, dest: string): Promise<void> {
 
 /** Download the quantized MiniLM files if missing. Used by embed + Netlify build. */
 export async function ensureMiniLMModel(cacheDir = DEFAULT_MINILM_CACHE_DIR): Promise<string> {
-  const root = minilmModelDir(cacheDir);
-  for (const relative of MODEL_FILES) {
-    const dest = path.join(root, relative);
-    if (await fileExists(dest)) continue;
-    console.log(`Downloading ${MINILM_MODEL_ID}/${relative} …`);
-    await downloadFile(`${HF_BASE}/${relative}`, dest);
+  for (const file of modelFiles(cacheDir)) {
+    if (await fileExists(file.dest)) continue;
+    console.log(`Downloading ${file.dest} …`);
+    await downloadFile(file.url, file.dest);
   }
-  return root;
+  return minilmModelDir(cacheDir);
 }
 
 async function getExtractor(): Promise<FeatureExtractor> {
   if (!extractorPromise) {
     extractorPromise = (async () => {
-      const cacheDir = process.env.BRAIN_MINILM_CACHE ?? DEFAULT_MINILM_CACHE_DIR;
+      const cacheDir = DEFAULT_MINILM_CACHE_DIR;
       await ensureMiniLMModel(cacheDir);
       const transformers = await import("@huggingface/transformers");
       const { env, pipeline } = transformers;
       env.allowLocalModels = true;
-      env.allowRemoteModels = true;
+      env.allowRemoteModels = false;
       env.localModelPath = cacheDir;
       env.cacheDir = cacheDir;
       if (env.backends.onnx.wasm) {
@@ -90,10 +96,7 @@ function asVectors(output: number[] | number[][], expected: number): Float32Arra
   if (rows.length !== expected) {
     throw new Error(`MiniLM returned ${rows.length} vectors for ${expected} inputs.`);
   }
-  return rows.map((row) => {
-    const vector = Float32Array.from(row.slice(0, MINILM_DIM));
-    return l2Normalize(vector);
-  });
+  return rows.map((row) => l2Normalize(Float32Array.from(row.slice(0, MINILM_DIM))));
 }
 
 export async function embedMiniLM(texts: string[]): Promise<Float32Array[]> {

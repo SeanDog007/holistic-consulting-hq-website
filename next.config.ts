@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
     "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
     "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
   },
+  outputFileTracingExcludes: {
+    "*": [
+      "./data/brain/search_chunks.json.gz",
+      "./docs/**",
+      "./scripts/**",
+      "./public/**",
+      "./node_modules/sharp/**",
+      "./node_modules/@img/**",
+      "./node_modules/@huggingface/transformers/node_modules/sharp/**",
+      "./node_modules/@huggingface/transformers/node_modules/@img/**",
+    ],
+  },
   serverExternalPackages: [
     "@prisma/client",
     "prisma",
