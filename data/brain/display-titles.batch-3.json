@@ -1,0 +1,40 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Topic polish (no invented speakers)",
+  "count": 3,
+  "items": [
+    {
+      "video_id": "fTFtNY7Up8E",
+      "youtube_title": "Understanding Immunoglobulins IgG, IgE, IgA in Food Sensitivity and Testing",
+      "display_title": "Understanding Immunoglobulins (IgG, IgE, IgA) in Food Sensitivity Testing",
+      "speaker": null,
+      "credential": null,
+      "program": null,
+      "published_at": "2025-04-06",
+      "batch": 3,
+      "notes": "topic polish"
+    },
+    {
+      "video_id": "VXwxBl1Ckq0",
+      "youtube_title": "The Potential Risks with Elevated HDL Cholesterol",
+      "display_title": "Potential Risks of Elevated HDL Cholesterol",
+      "speaker": null,
+      "credential": null,
+      "program": null,
+      "published_at": "2025-03-14",
+      "batch": 3,
+      "notes": "topic polish"
+    },
+    {
+      "video_id": "64Y9L1_fNtc",
+      "youtube_title": "GERD From Clinical Guidelines to Current Research",
+      "display_title": "GERD: From Clinical Guidelines to Current Research",
+      "speaker": null,
+      "credential": null,
+      "program": null,
+      "published_at": "2026-07-16",
+      "batch": 3,
+      "notes": "topic polish"
+    }
+  ]
+}
