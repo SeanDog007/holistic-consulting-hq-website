@@ -10,6 +10,7 @@
     "db:push": "node scripts/prisma-env.mjs db push",
     "db:seed": "tsx --env-file=.env prisma/seed.ts",
     "db:setup": "node scripts/prisma-env.mjs db push && tsx --env-file=.env prisma/seed.ts",
+    "brain:import": "tsx --env-file=.env scripts/import-brain-catalog.ts",
     "ingest": "tsx --env-file=.env scripts/ingest-youtube.ts",
     "postinstall": "node scripts/prisma-env.mjs generate"
   },

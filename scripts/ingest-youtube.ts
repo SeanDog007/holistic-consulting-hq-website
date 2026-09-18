@@ -19,7 +19,7 @@ async function main() {
   if (!apiKey) {
     console.error("YOUTUBE_API_KEY is not set.");
     console.error("Add it to .env, then rerun: npm run ingest");
-    console.error("Without a key, use the demo catalog: npm run db:seed");
+    console.error("Without a key, load the Brain catalog: npm run db:seed");
     process.exit(1);
   }
 

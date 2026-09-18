@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WatchWorkspace } from "@/components/WatchWorkspace";
 import { prisma } from "@/lib/db";
-import { ensureDemoData } from "@/lib/ensure-data";
-import { formatDuration, formatPublishedDate } from "@/lib/format";
+import { formatDuration, formatPublishedDate, youtubeWatchUrl } from "@/lib/format";
 import { parseJsonArray } from "@/lib/json";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +14,6 @@ export default async function LibraryVideoPage({
   params: Promise<{ videoId: string }>;
   searchParams: Promise<{ t?: string }>;
 }) {
-  await ensureDemoData();
   const { videoId } = await params;
   const { t } = await searchParams;
 
@@ -71,6 +69,16 @@ export default async function LibraryVideoPage({
             {topics.length ? (
               <p className="mt-4 text-[0.75rem] tracking-[0.04em] text-slate">{topics.join(" · ")}</p>
             ) : null}
+            <p className="mt-5">
+              <a
+                href={youtubeWatchUrl(video.youtubeId, initialTime)}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[0.78rem] font-semibold tracking-[0.08em] text-emerald uppercase hover:underline"
+              >
+                Open on YouTube{initialTime > 0 ? ` at ${Math.floor(initialTime)}s` : ""} ↗
+              </a>
+            </p>
           </div>
         </div>
       </section>

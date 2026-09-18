@@ -29,6 +29,13 @@ export function youtubeThumbnail(youtubeId: string): string {
   return `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
 }
 
+export function youtubeWatchUrl(youtubeId: string, startSec = 0): string {
+  const base = `https://www.youtube.com/watch?v=${youtubeId}`;
+  const seconds = Math.floor(startSec);
+  if (!Number.isFinite(seconds) || seconds <= 0) return base;
+  return `${base}&t=${seconds}s`;
+}
+
 export function highlightMatch(text: string, query: string): string {
   if (!query.trim()) return text;
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

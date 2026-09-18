@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { BotanicalMotif } from "@/components/BotanicalMotif";
+import { LibraryPagination } from "@/components/LibraryPagination";
 import { LibrarySearchForm } from "@/components/LibrarySearchForm";
 import { VideoCard } from "@/components/VideoCard";
-import { ensureDemoData } from "@/lib/ensure-data";
 import { listFilterOptions, searchLibrary, type LibraryFilters } from "@/lib/search";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +12,8 @@ export default async function LibraryPage({
 }: {
   searchParams: Promise<LibraryFilters>;
 }) {
-  await ensureDemoData();
   const filters = await searchParams;
-  const [results, options] = await Promise.all([
+  const [{ results, total, page, pageCount }, options] = await Promise.all([
     searchLibrary(filters),
     listFilterOptions(),
   ]);
@@ -90,10 +89,11 @@ export default async function LibraryPage({
                 {hasFilters ? "Matching recordings" : "All recordings"}
               </p>
               <p className="mt-1 text-sm text-slate">
-                {results.length} {results.length === 1 ? "video" : "videos"}
+                {total} {total === 1 ? "video" : "videos"}
                 {query
-                  ? ` · ${transcriptHits} transcript ${transcriptHits === 1 ? "hit" : "hits"}`
+                  ? ` · ${transcriptHits} transcript ${transcriptHits === 1 ? "hit" : "hits"} on this page`
                   : null}
+                {pageCount > 1 ? ` · page ${page} of ${pageCount}` : null}
               </p>
             </div>
             {hasFilters ? (
@@ -108,17 +108,19 @@ export default async function LibraryPage({
               <p className="font-display text-3xl text-charcoal">Nothing on that shelf yet.</p>
               <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate">
                 Try a broader word, or clear the filters. If this is a new environment, run{" "}
-                <code className="text-charcoal">npm run db:seed</code> for the demo catalog, or{" "}
-                <code className="text-charcoal">npm run ingest</code> once a YouTube API key is
-                set.
+                <code className="text-charcoal">npm run db:seed</code> to load the Brain catalog
+                from <code className="text-charcoal">data/brain/</code>.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {results.map((video) => (
-                <VideoCard key={video.id} video={video} query={query} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                {results.map((video) => (
+                  <VideoCard key={video.id} video={video} query={query} />
+                ))}
+              </div>
+              <LibraryPagination filters={filters} page={page} pageCount={pageCount} />
+            </>
           )}
         </div>
       </section>
