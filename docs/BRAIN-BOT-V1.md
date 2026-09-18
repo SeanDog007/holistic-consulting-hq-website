@@ -1,34 +1,76 @@
-# Holistic Brain bot v1 (brief)
+# Holistic Brain bot v1
 
-**Status:** Draft for build after display-title batch 2  
+**Status:** Retrieval shipped (semantic + cited clips). Chat synthesis is next.  
 **Owner:** CoS routes; specialist bot later  
-**Standing go:** Sean 2026-09-18 — ship Brain/library follow-through without per-step approval
+**Standing go:** Sean 2026-09-18 — ship Brain/library follow-through without per-step approval  
+**Host:** Netlify / holisticconsultinghq.com — do **not** put Brain on Old City Vercel
 
-## Problem
-`/library` keyword search + `&t=` works. Members (and CoS) still can’t ask a question and get **cited clips**.
+## What shipped
 
-## v1 outcome
-Internal-first chat (CoS-accessible): question → 2–4 transcript hits with title, speaker, timestamp deep link (YouTube `&t=` and `/library` watch `?t=`).
+`/library` hybrid search: existing keyword `contains` **union** hashed-embedding retrieve. Results are **cited clips** with `/library/{id}?t=` and YouTube `&t=` deep links. Max **2 hits per video**.
 
-## Stack (proposed)
-1. **Corpus:** existing catalog segments (~348k) + display titles + speaker fields as they land  
-2. **Embeddings:** chunk ~45–90s overlapping windows; store vector + `video_id`, `start_sec`, `end_sec`, text  
-3. **Retrieve:** hybrid keyword (current) + semantic top-k; rerank by diversity (max 2 hits/video)  
-4. **Answer:** short synthesis + citations only (no unsourced clinical advice)  
-5. **Hosting:** stay on Netlify/library stack or small worker; do **not** put Brain on Old City Vercel
+Internal retrieve API (citations only, no unsourced answer):
 
-## Non-goals (v1)
-- Public member chatbot on marketing site  
-- Circle chat / Drive dump as corpus  
-- Auto clinical protocols without citations
+```
+GET /api/library/search?q=What+has+Betsy+said+about+herbal+safety
+```
 
-## Build order
-1. Speaker fields + guest titles (batch 2+)  
-2. Embedding pipeline over ASR segments  
-3. Internal query API + CoS tool  
-4. Specialist Brain bot when volume justifies
+No public marketing chatbot. Do not invent clinical advice — show the clip or say nothing.
 
-## Success
-- “What has Betsy said about herbal safety?” → correct clips with timestamps  
-- “SIBO” / paraphrase queries beat pure keyword  
-- Zero answers without a citation
+## Corpus
+
+- `data/brain/search_chunks.json.gz` — Studio ASR already windowed at ~45s / ~800 characters
+- Existing ~45s chunks are the embed windows (Brain export already chunked; no second windowing pass)
+- Display titles + speakers are prepended to each window so “Betsy / herbal safety” can match title context
+- `JU8zEO73Lus` (Herbal Safety for Nutrition Practice — Betsy) has `missing_transcript` in the export, so retrieve cites Betsy talks that have ASR (`mowBWYHvJwg`) plus Principles of Herbal Safety
+
+## Embeddings (this repo)
+
+| | |
+| --- | --- |
+| Provider | `local-hash-tfidf-v1` — signed feature-hashed TF-IDF (256-d int8) + paraphrase expansion |
+| Paid API | **None. $0.** No OpenAI key. No pgvector. Fits SQLite local + Netlify Postgres without a schema split. |
+| Store | Committed file `data/brain/embeddings.json.gz` (loaded in-process on Netlify) |
+| Why not pgvector / OpenAI | Dual SQLite/Postgres already; Netlify functions need a store that works without an extra extension or runtime key. File index is the same locally and in prod. |
+
+Query-time encode uses the same hasher + IDF map. Cold start is a gzip parse, not a model download.
+
+## Re-embed (new videos / weekday Brain sync)
+
+After replacing the Studio export:
+
+```bash
+# 1. drop new data/brain/videos.json + search_chunks.json.gz
+npm run brain:embed          # rebuild data/brain/embeddings.json.gz
+npm run brain:retrieve:verify
+npm run brain:import         # or npm run db:seed — catalog rows
+# 2. commit export + embeddings.json.gz
+# 3. merge to main → Netlify production build re-seeds Postgres
+```
+
+Tie `npm run brain:embed` into the weekday Brain sync **after** the chunk export lands and **before** or with `brain:import`. Production does not re-embed at build time; it ships the committed index.
+
+Optional paths: `npm run brain:embed -- --videos … --chunks … --out …`
+
+## Example (paraphrase)
+
+Query: `gut bacteria overgrowth in the small bowel`
+
+- Cited talks include **Small Intestinal Bacteria Overgrowth** (`tkINS6S4FDs`) and **SIBO Masterclass** (`9n9oLpV3uag`)
+- Deep link shape: `/library/{prismaId}?t={startSec}` and `https://www.youtube.com/watch?v=9n9oLpV3uag&t={startSec}s`
+
+Query: `What has Betsy said about herbal safety?`
+
+- Expected cited video: **Herbal Medicine for the Nutrition Professional — Betsy Miller** (`mowBWYHvJwg`) — botanical safety / herb–drug clip (~38:00). The dedicated safety lecture `JU8zEO73Lus` has no ASR in the current export.
+
+Run `npm run brain:retrieve:verify` to re-check both (plus Principles of Herbal Safety).
+
+## Chat layer (not in this PR)
+
+Next increment, still Netlify-only:
+
+1. CoS-accessible chat UI that calls `/api/library/search`
+2. Short synthesis **only** from returned citations (refuse if zero hits)
+3. Specialist Brain bot when volume justifies
+
+Non-goals remain: public member chatbot on marketing pages, Circle/Drive corpus, auto protocols without citations.

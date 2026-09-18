@@ -26,7 +26,7 @@ export function LibrarySearchForm({
           id="library-q"
           name="q"
           defaultValue={filters.q ?? ""}
-          placeholder="Search titles, descriptions, and spoken words…"
+          placeholder="Ask a question or search spoken words…"
           className="field flex-1"
         />
         <button type="submit" className="btn-primary whitespace-nowrap">

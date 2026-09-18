@@ -13,8 +13,9 @@ Unlisted: open to anyone with the URL, but not linked from marketing pages. All 
 - `/library` — searchable, paginated catalog with **Browse the Library** chips plus filters (program, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
 - `/library/login` — redirects to the catalog (no password gate)
-- Full-text search across titles, descriptions, and **transcript chunks**
+- Hybrid search: keyword **and** local embeddings over transcript windows (max 2 cited clips / video)
 - A transcript hit opens the in-app player at that timestamp **and** links to `https://www.youtube.com/watch?v={id}&t={floor(start_sec)}s`
+- Internal retrieve API: `GET /api/library/search?q=` (citations only; see `docs/BRAIN-BOT-V1.md`)
 
 The catalog is the real Brain/Studio inventory (hundreds of recordings, including Unlisted member videos). Do not drop `visibility: Unlisted` on import.
 
@@ -38,6 +39,7 @@ Open [http://localhost:3000/library](http://localhost:3000/library). The catalog
 | `DATABASE_URL` | Yes | Local: `file:./dev.db` (SQLite, relative to `prisma/`). Netlify: a Postgres URL (Neon / Prisma Postgres). |
 | `YOUTUBE_API_KEY` | For ingest only | YouTube Data API v3 key. Brain seed works without it. |
 | `YOUTUBE_CHANNEL_HANDLE` | No | Defaults to `HolisticConsulting`. |
+| *(none for embeddings)* | | Brain retrieve uses committed `data/brain/embeddings.json.gz`. Provider `local-hash-tfidf-v1`, **$0**, no OpenAI key. |
 
 ## Brain catalog vs YouTube ingest
 
@@ -52,8 +54,8 @@ npm run brain:import
 Refresh from a future CoS/Studio export:
 
 1. Replace `data/brain/videos.json` and `data/brain/search_chunks.json.gz` (uncompressed `.json` is also accepted).
-2. Run `npm run brain:import` (or `npm run db:seed`).
-3. Commit the new export files. The next production `npm run build` re-seeds the database.
+2. Run `npm run brain:embed` then `npm run brain:import` (or `npm run db:seed`).
+3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next production `npm run build` re-seeds the database.
 
 Optional: `npm run brain:import -- --videos /path/to/videos.json --chunks /path/to/search_chunks.json.gz`
 
@@ -146,6 +148,8 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 | `npm run db:setup` | Push schema and seed the Brain catalog |
 | `npm run db:seed` | Replace the catalog from `data/brain/` |
 | `npm run brain:import` | Same import; accepts `--videos` and `--chunks` |
+| `npm run brain:embed` | Rebuild `data/brain/embeddings.json.gz` from the chunk export (run after new videos; weekday Brain sync) |
+| `npm run brain:retrieve:verify` | Check paraphrase queries return the expected cited videos |
 | `npm run titles:preview` | Print browse-shelf counts, batch match/miss counts, and sample display titles |
 | `npm run ingest` | Pull the public YouTube channel when `YOUTUBE_API_KEY` is set |
 | `npm run build` | Production build (generate, push, seed, next build) |

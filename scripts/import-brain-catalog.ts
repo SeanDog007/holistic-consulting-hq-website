@@ -12,6 +12,7 @@ import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
 import { loadDisplayTitleOverrides, loadSpeakerOverrides, resolveDisplayTitle } from "../src/lib/display-title";
 import { youtubeThumbnail } from "../src/lib/format";
 import { toJsonArray } from "../src/lib/json";
+import { readVectorIndexFile } from "../src/lib/vector-index";
 
 const SEGMENT_BATCH = 200;
 const VIDEO_BATCH = 25;
@@ -178,6 +179,21 @@ export async function importBrainCatalog(
         ? ` (skipped ${skippedUnknown} unknown-video chunks, ${skippedEmpty} empty).`
         : "."),
   );
+
+  try {
+    const index = readVectorIndexFile();
+    if (index.sourceChunkCount !== chunksJson.length) {
+      console.warn(
+        `Embeddings look stale (index source chunks ${index.sourceChunkCount} vs export ${chunksJson.length}). Run npm run brain:embed.`,
+      );
+    } else {
+      console.log(
+        `Embeddings: ${index.chunkCount} windows (${index.provider}) ready for hybrid /library search.`,
+      );
+    }
+  } catch {
+    console.warn("No embeddings index yet. Hybrid search is keyword-only until npm run brain:embed.");
+  }
 
   return { videoCount, segmentCount, unlisted, publicCount };
 }

@@ -14,7 +14,7 @@ export default async function LibraryPage({
   searchParams: Promise<LibraryFilters>;
 }) {
   const filters = await searchParams;
-  const [{ results, total, page, pageCount }, options] = await Promise.all([
+  const [{ results, total, page, pageCount, semanticUsed }, options] = await Promise.all([
     searchLibrary(filters),
     listFilterOptions(),
   ]);
@@ -42,8 +42,8 @@ export default async function LibraryPage({
             </h1>
             <p className="mt-6 max-w-md text-base leading-8 text-slate">
               Live lectures, office hours, and community recordings from the Institute. Search
-              titles, descriptions, and the words spoken on the recording — then jump the player
-              there.
+              titles or ask in your own words — keyword and related-clip search both jump the
+              player to a cited timestamp.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a href="#shelves" className="btn-primary">
@@ -96,7 +96,9 @@ export default async function LibraryPage({
               <p className="mt-1 text-sm text-slate">
                 {total} {total === 1 ? "video" : "videos"}
                 {query
-                  ? ` · ${transcriptHits} transcript ${transcriptHits === 1 ? "hit" : "hits"} on this page`
+                  ? ` · ${transcriptHits} cited ${transcriptHits === 1 ? "clip" : "clips"} on this page${
+                      semanticUsed ? " · includes related moments" : ""
+                    }`
                   : null}
                 {pageCount > 1 ? ` · page ${page} of ${pageCount}` : null}
               </p>

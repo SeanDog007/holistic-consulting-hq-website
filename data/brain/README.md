@@ -4,6 +4,7 @@ This folder is the durable source of truth for the member `/library` shelf.
 
 - `videos.json` — Studio inventory metadata (include **Unlisted**; do not filter them out)
 - `search_chunks.json.gz` — merged ASR/search chunks (~45s / ~800 characters) with `start_sec` / `end_sec` / `text`
+- `embeddings.json.gz` — local hashed TF-IDF vectors for hybrid `/library` search (`npm run brain:embed`)
 - `display-titles.batch-1.json` — official CoS batch 1 (`video_id` → `display_title`). Keys are YouTube ids, not Prisma cuids.
 - `display-titles.batch-2.json` — official CoS batch 2, guest/teaching talks in `Topic — Speaker, Credential` form. Optional `speaker` fills `Video.speakers` on import.
 - `display-titles.json` — extra teaching polish not in an official batch. Later `batch-N` files win if both set a title.
@@ -32,12 +33,14 @@ The library is an internal member shelf. Keep every row, including `visibility: 
 2. From the repo root, reload SQLite/Postgres:
 
 ```bash
+npm run brain:embed
+npm run brain:retrieve:verify
 npm run brain:import
 # or
 npm run db:seed
 ```
 
-3. Commit the new export files. The next `npm run build` (Netlify / local production build) runs the same seed and replaces demo or stale rows.
+3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next `npm run build` (Netlify / local production build) re-seeds the database and ships the committed vector index. Production does not call a paid embed API.
 
 Optional paths if the export lives somewhere else:
 

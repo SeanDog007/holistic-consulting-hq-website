@@ -59,7 +59,12 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
                     className="block transition-colors hover:text-emerald"
                   >
                     <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-gold uppercase">
-                      Transcript · {formatTimestamp(hit.startMs)}
+                      {hit.source === "semantic"
+                        ? "Related clip"
+                        : hit.source === "both"
+                          ? "Cited clip"
+                          : "Transcript"}{" "}
+                      · {formatTimestamp(hit.startMs)}
                     </span>
                     <p className="mt-1 text-sm leading-6 text-charcoal">
                       “<HighlightedText text={hit.text} query={query} />”

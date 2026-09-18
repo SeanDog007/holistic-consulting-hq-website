@@ -3,9 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   outputFileTracingIncludes: {
-    "/library": ["./prisma/dev.db"],
+    "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
     "/library/[videoId]": ["./prisma/dev.db"],
-    "/library/**": ["./prisma/dev.db"],
+    "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
+    "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
   },
   serverExternalPackages: ["@prisma/client", "prisma"],
   images: {
