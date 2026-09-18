@@ -30,7 +30,7 @@ No public marketing chatbot. Do not invent clinical advice — show the clip or 
 | --- | --- |
 | Provider (default) | `local-minilm-l6-v2` — Xenova `all-MiniLM-L6-v2` (384-d int8), $0, no API key |
 | Optional API | `openai-text-embedding-3-small-v1` (512-d) when `OPENAI_API_KEY` is set at `npm run brain:embed` **and** on Netlify for the query vector. ~$0.02 / 1M tokens (~$0.08 to re-embed this catalog; query cost is negligible). |
-| Fallback | `local-hash-tfidf-v1` if MiniLM/OpenAI cannot run — keyword∪hasher still works, prod does not 500 |
+| Fallback | Seed: `local-hash-tfidf-v1` if MiniLM/OpenAI cannot bake the index. Query: keyword-only if the neural encoder fails to load (`semanticError` on `/api/library/search`). Prod does not 500. |
 | Store | Committed file `data/brain/embeddings.json.gz` (loaded in-process on Netlify) |
 | Model files | Downloaded to `data/brain/models/` (gitignored) by `npm run brain:ensure-minilm` / Netlify `npm run build` |
 

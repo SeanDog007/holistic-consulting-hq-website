@@ -43,6 +43,7 @@ export async function GET(request: Request) {
       query,
       provider: index?.provider ?? null,
       semanticUsed: page.semanticUsed,
+      semanticError: page.semanticError ?? null,
       total: page.total,
       page: page.page,
       pageCount: page.pageCount,

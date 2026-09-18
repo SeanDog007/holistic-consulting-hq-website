@@ -5,10 +5,71 @@ import { MINILM_DIM, l2Normalize } from "./embed";
 
 export const MINILM_MODEL_ID = "Xenova/all-MiniLM-L6-v2";
 
-/** Statically scoped so Next/Netlify only traces `data/brain/models`, not the whole repo. */
+/**
+ * Every model path is a static `path.join(process.cwd(), "data", "brain", …)`
+ * literal so Next/Netlify file tracing stays inside `data/brain/models`.
+ * Do not `path.join` a variable directory here — that previously traced the
+ * whole repo (Sharp/libvips) into the library function (~270MB).
+ */
 export const DEFAULT_MINILM_CACHE_DIR = path.join(process.cwd(), "data", "brain", "models");
+export const MINILM_MODEL_DIR = path.join(
+  process.cwd(),
+  "data",
+  "brain",
+  "models",
+  "Xenova",
+  "all-MiniLM-L6-v2",
+);
 
-const HF_BASE = `https://huggingface.co/${MINILM_MODEL_ID}/resolve/main`;
+const HF_BASE = "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main";
+
+const MODEL_FILES = [
+  {
+    url: `${HF_BASE}/config.json`,
+    dest: path.join(process.cwd(), "data", "brain", "models", "Xenova", "all-MiniLM-L6-v2", "config.json"),
+  },
+  {
+    url: `${HF_BASE}/tokenizer.json`,
+    dest: path.join(process.cwd(), "data", "brain", "models", "Xenova", "all-MiniLM-L6-v2", "tokenizer.json"),
+  },
+  {
+    url: `${HF_BASE}/tokenizer_config.json`,
+    dest: path.join(
+      process.cwd(),
+      "data",
+      "brain",
+      "models",
+      "Xenova",
+      "all-MiniLM-L6-v2",
+      "tokenizer_config.json",
+    ),
+  },
+  {
+    url: `${HF_BASE}/special_tokens_map.json`,
+    dest: path.join(
+      process.cwd(),
+      "data",
+      "brain",
+      "models",
+      "Xenova",
+      "all-MiniLM-L6-v2",
+      "special_tokens_map.json",
+    ),
+  },
+  {
+    url: `${HF_BASE}/onnx/model_quantized.onnx`,
+    dest: path.join(
+      process.cwd(),
+      "data",
+      "brain",
+      "models",
+      "Xenova",
+      "all-MiniLM-L6-v2",
+      "onnx",
+      "model_quantized.onnx",
+    ),
+  },
+] as const;
 
 type FeatureExtractor = (
   texts: string | string[],
@@ -17,22 +78,8 @@ type FeatureExtractor = (
 
 let extractorPromise: Promise<FeatureExtractor> | null = null;
 
-function modelFiles(cacheDir: string): Array<{ url: string; dest: string }> {
-  const root = path.join(cacheDir, "Xenova", "all-MiniLM-L6-v2");
-  return [
-    { url: `${HF_BASE}/config.json`, dest: path.join(root, "config.json") },
-    { url: `${HF_BASE}/tokenizer.json`, dest: path.join(root, "tokenizer.json") },
-    { url: `${HF_BASE}/tokenizer_config.json`, dest: path.join(root, "tokenizer_config.json") },
-    { url: `${HF_BASE}/special_tokens_map.json`, dest: path.join(root, "special_tokens_map.json") },
-    {
-      url: `${HF_BASE}/onnx/model_quantized.onnx`,
-      dest: path.join(root, "onnx", "model_quantized.onnx"),
-    },
-  ];
-}
-
-export function minilmModelDir(cacheDir = DEFAULT_MINILM_CACHE_DIR): string {
-  return path.join(cacheDir, "Xenova", "all-MiniLM-L6-v2");
+export function minilmModelDir(): string {
+  return MINILM_MODEL_DIR;
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -55,26 +102,26 @@ async function downloadFile(url: string, dest: string): Promise<void> {
 }
 
 /** Download the quantized MiniLM files if missing. Used by embed + Netlify build. */
-export async function ensureMiniLMModel(cacheDir = DEFAULT_MINILM_CACHE_DIR): Promise<string> {
-  for (const file of modelFiles(cacheDir)) {
+export async function ensureMiniLMModel(): Promise<string> {
+  for (const file of MODEL_FILES) {
     if (await fileExists(file.dest)) continue;
     console.log(`Downloading ${file.dest} …`);
     await downloadFile(file.url, file.dest);
   }
-  return minilmModelDir(cacheDir);
+  return MINILM_MODEL_DIR;
 }
 
 async function getExtractor(): Promise<FeatureExtractor> {
   if (!extractorPromise) {
     extractorPromise = (async () => {
-      const cacheDir = DEFAULT_MINILM_CACHE_DIR;
-      await ensureMiniLMModel(cacheDir);
+      await ensureMiniLMModel();
       const transformers = await import("@huggingface/transformers");
       const { env, pipeline } = transformers;
       env.allowLocalModels = true;
       env.allowRemoteModels = false;
-      env.localModelPath = cacheDir;
-      env.cacheDir = cacheDir;
+      env.localModelPath = DEFAULT_MINILM_CACHE_DIR;
+      env.cacheDir = DEFAULT_MINILM_CACHE_DIR;
+      // Feature-extraction only — do not initialize Sharp / image backends.
       if (env.backends.onnx.wasm) {
         env.backends.onnx.wasm.numThreads = 1;
       }

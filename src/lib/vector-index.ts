@@ -11,10 +11,7 @@ import {
   minSemanticScore,
 } from "./embed";
 
-export const DEFAULT_EMBEDDINGS_PATH = path.join(
-  process.cwd(),
-  "data/brain/embeddings.json.gz",
-);
+export const DEFAULT_EMBEDDINGS_PATH = path.join(process.cwd(), "data", "brain", "embeddings.json.gz");
 
 export type IndexedChunk = {
   youtubeId: string;
@@ -56,13 +53,15 @@ export type VectorIndex = {
 const MAX_HITS_PER_VIDEO = 2;
 
 let cached: VectorIndex | null | undefined;
+let lastSemanticError: string | null = null;
+
+/** Last query-embed failure (MiniLM/OpenAI). Search then continues keyword-only. */
+export function lastVectorSearchError(): string | null {
+  return lastSemanticError;
+}
 
 function embeddingsCandidates(): string[] {
-  return [
-    DEFAULT_EMBEDDINGS_PATH,
-    path.join(process.cwd(), "data/brain/embeddings.json.gz"),
-    path.resolve("data/brain/embeddings.json.gz"),
-  ];
+  return [path.join(process.cwd(), "data", "brain", "embeddings.json.gz")];
 }
 
 export function readVectorIndexFile(filePath = DEFAULT_EMBEDDINGS_PATH): VectorIndex {
@@ -116,6 +115,7 @@ export async function searchVectorIndex(
   query: string,
   options: { topK?: number; maxPerVideo?: number; index?: VectorIndex | null } = {},
 ): Promise<SemanticHit[]> {
+  lastSemanticError = null;
   const index = options.index === undefined ? loadVectorIndex() : options.index;
   if (!index || !query.trim()) return [];
 
@@ -126,7 +126,8 @@ export async function searchVectorIndex(
     queryVector = await embedQuery(query, index);
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    console.warn(`Semantic embed failed (${index.provider}): ${reason}. Keyword search still runs.`);
+    lastSemanticError = `${index.provider}: ${reason}`;
+    console.warn(`Semantic embed failed (${index.provider}): ${reason}. Falling back to keyword search.`);
     return [];
   }
 

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
     "/library/[videoId]": ["./prisma/dev.db"],
-    "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
     "/library/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
     "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
     "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
@@ -13,11 +13,14 @@ const nextConfig: NextConfig = {
   outputFileTracingExcludes: {
     "*": [
       "./data/brain/search_chunks.json.gz",
+      "./data/brain/videos.json",
       "./docs/**",
       "./scripts/**",
       "./public/**",
       "./node_modules/sharp/**",
       "./node_modules/@img/**",
+      "./node_modules/**/sharp/**",
+      "./node_modules/**/@img/**",
       "./node_modules/@huggingface/transformers/node_modules/sharp/**",
       "./node_modules/@huggingface/transformers/node_modules/@img/**",
     ],
