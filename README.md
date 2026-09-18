@@ -101,7 +101,10 @@ House style is `docs/TITLE-CONVENTION.md` (Sean, 2026-09-18). **Library display 
 Overrides are keyed by **YouTube video id** (`Video.youtubeId` / Brain `video_id`), not the Prisma cuid in `/library/[id]` URLs.
 
 - `data/brain/display-titles.batch-1.json` — official CoS batch 1 (133 videos: Mastermind / NGR→**New Graduate Roundtable** / Community Live date cleanups, plus a few teaching polish titles).
-- `data/brain/display-titles.json` — extra teaching titles not in batch 1. Batch 1 wins on conflict.
+- `data/brain/display-titles.batch-2.json` — official CoS batch 2 (13 guest/teaching talks in `Topic — Speaker, Credential` form; optional `speaker` seeds `Video.speakers`).
+- `data/brain/display-titles.json` — extra teaching titles not in an official batch. Later `batch-N` files win on conflict.
+
+To add **batch 3**: create `data/brain/display-titles.batch-3.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`.
 
 Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
 
@@ -116,7 +119,7 @@ Then re-import so SQLite/Postgres picks up the new titles: `npm run db:seed`.
 ### Data gaps
 
 - Most catalog rows have **no speaker field**. Names are inferred from titles when obvious (Betsy Miller, Dr. Kim Ross, …). Many guest talks are first-name only (Danielle, Val, Jade, Julie T, Cara) with **no credential** — those titles use the name as-is.
-- `Liz Lipski` and `Dr Mike T Nelson 2026` have no topic in the YouTube title; we did not invent one.
+- `Liz Lipski` still has no topic in the YouTube title; left as `Guest Talk — Liz Lipski`. Batch 2 lightly inferred `Performance & Physiology` for Dr. Mike T. Nelson.
 - Testimonials, Zoom filenames (`GMT…`), and untitled MP4 dumps are left raw unless a date/series pattern is obvious.
 - Brain `program` is often `mentorship` or `null`, so shelves are title/classify-based, not a clean Studio taxonomy.
 
@@ -143,6 +146,6 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 | `npm run db:setup` | Push schema and seed the Brain catalog |
 | `npm run db:seed` | Replace the catalog from `data/brain/` |
 | `npm run brain:import` | Same import; accepts `--videos` and `--chunks` |
-| `npm run titles:preview` | Print browse-shelf counts and resolved display titles |
+| `npm run titles:preview` | Print browse-shelf counts, batch match/miss counts, and sample display titles |
 | `npm run ingest` | Pull the public YouTube channel when `YOUTUBE_API_KEY` is set |
 | `npm run build` | Production build (generate, push, seed, next build) |

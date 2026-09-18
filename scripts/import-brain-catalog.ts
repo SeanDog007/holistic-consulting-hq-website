@@ -8,7 +8,8 @@ import {
   type BrainChunk,
   type BrainVideo,
 } from "../src/lib/brain-catalog";
-import { loadDisplayTitleOverrides, resolveDisplayTitle } from "../src/lib/display-title";
+import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
+import { loadDisplayTitleOverrides, loadSpeakerOverrides, resolveDisplayTitle } from "../src/lib/display-title";
 import { youtubeThumbnail } from "../src/lib/format";
 import { toJsonArray } from "../src/lib/json";
 
@@ -67,6 +68,7 @@ export async function importBrainCatalog(
   }
 
   const displayTitles = loadDisplayTitleOverrides();
+  const speakerOverrides = loadSpeakerOverrides();
   const videos = videosJson.filter((video) => video?.video_id);
   const unlisted = videos.filter((video) => (video.visibility ?? "").toLowerCase() === "unlisted").length;
   const publicCount = videos.filter((video) => (video.visibility ?? "").toLowerCase() === "public").length;
@@ -92,6 +94,11 @@ export async function importBrainCatalog(
           meta.publishedAt,
           displayTitles,
         );
+        const speakers = mergeSpeakers(
+          meta.speakers,
+          displayTitle ? extractSpeakers(displayTitle) : [],
+          speakerOverrides[meta.youtubeId],
+        );
         const record = await prisma.video.upsert({
           where: { youtubeId: meta.youtubeId },
           create: {
@@ -102,7 +109,7 @@ export async function importBrainCatalog(
             publishedAt: meta.publishedAt,
             durationSec: meta.durationSec,
             thumbnailUrl: youtubeThumbnail(meta.youtubeId),
-            speakers: toJsonArray(meta.speakers),
+            speakers: toJsonArray(speakers),
             programs: toJsonArray(meta.programs),
             topics: toJsonArray(meta.topics),
             source: meta.source,
@@ -114,7 +121,7 @@ export async function importBrainCatalog(
             publishedAt: meta.publishedAt,
             durationSec: meta.durationSec,
             thumbnailUrl: youtubeThumbnail(meta.youtubeId),
-            speakers: toJsonArray(meta.speakers),
+            speakers: toJsonArray(speakers),
             programs: toJsonArray(meta.programs),
             topics: toJsonArray(meta.topics),
             source: meta.source,
