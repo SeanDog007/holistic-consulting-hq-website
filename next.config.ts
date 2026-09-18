@@ -15,6 +15,15 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/residency", destination: "/programs", permanent: false },
+      { source: "/launch", destination: "/programs#launch", permanent: false },
+      { source: "/grow", destination: "/programs#grow", permanent: false },
+      { source: "/master", destination: "/programs#master", permanent: false },
+      { source: "/practitioner-stories", destination: "/results", permanent: false },
+    ];
+  },
   async rewrites() {
     return [{ source: "/", destination: "/index.html" }];
   },
