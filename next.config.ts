@@ -30,6 +30,10 @@ const nextConfig: NextConfig = {
         source: "/library/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      {
+        source: "/api/brain/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
 };
