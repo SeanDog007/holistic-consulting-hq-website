@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { HighlightedText } from "@/components/HighlightedText";
 import { YouTubePlayer, type YouTubePlayerHandle } from "@/components/YouTubePlayer";
-import { formatTimestamp } from "@/lib/format";
+import { formatTimestamp, youtubeWatchUrl } from "@/lib/format";
 
 type Segment = {
   id: string;
@@ -74,6 +74,14 @@ export function WatchWorkspace({
             {filtered.length} {filtered.length === 1 ? "moment" : "moments"}
             {query ? " matching" : ""}
           </p>
+          <a
+            href={youtubeWatchUrl(youtubeId, currentSec)}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-block text-[0.7rem] font-semibold tracking-[0.08em] text-emerald uppercase hover:underline"
+          >
+            YouTube at this timestamp ↗
+          </a>
         </div>
         <div className="flex-1 overflow-y-auto">
           {filtered.length === 0 ? (

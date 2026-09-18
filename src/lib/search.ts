@@ -3,12 +3,15 @@ import { prisma } from "@/lib/db";
 import { parseJsonArray } from "@/lib/json";
 import { isProgram } from "@/lib/programs";
 
+export const LIBRARY_PAGE_SIZE = 24;
+
 export type LibraryFilters = {
   q?: string;
   program?: string;
   speaker?: string;
   year?: string;
   topic?: string;
+  page?: string;
 };
 
 export type TranscriptHit = {
@@ -31,13 +34,25 @@ export type LibraryResult = {
   hits: TranscriptHit[];
 };
 
+export type LibrarySearchPage = {
+  results: LibraryResult[];
+  total: number;
+  page: number;
+  pageSize: number;
+  pageCount: number;
+};
+
 function containsFilter(query: string): Prisma.StringFilter {
   return { contains: query };
 }
 
-export async function searchLibrary(filters: LibraryFilters): Promise<LibraryResult[]> {
+export function parseLibraryPage(value?: string): number {
+  const page = Number(value);
+  return Number.isInteger(page) && page > 0 ? page : 1;
+}
+
+function videoWhere(filters: LibraryFilters): Prisma.VideoWhereInput {
   const query = filters.q?.trim() ?? "";
-  const where: Prisma.VideoWhereInput = {};
   const and: Prisma.VideoWhereInput[] = [];
 
   if (filters.program && isProgram(filters.program)) {
@@ -69,11 +84,22 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibraryRes
       ],
     });
   }
-  if (and.length) where.AND = and;
+
+  return and.length ? { AND: and } : {};
+}
+
+export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySearchPage> {
+  const query = filters.q?.trim() ?? "";
+  const where = videoWhere(filters);
+  const total = await prisma.video.count({ where });
+  const pageCount = Math.max(1, Math.ceil(total / LIBRARY_PAGE_SIZE));
+  const page = Math.min(parseLibraryPage(filters.page), pageCount);
 
   const videos = await prisma.video.findMany({
     where,
     orderBy: { publishedAt: "desc" },
+    skip: (page - 1) * LIBRARY_PAGE_SIZE,
+    take: LIBRARY_PAGE_SIZE,
     include: query
       ? {
           segments: {
@@ -85,26 +111,32 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibraryRes
       : { segments: false },
   });
 
-  return videos.map((video) => ({
-    id: video.id,
-    youtubeId: video.youtubeId,
-    title: video.title,
-    description: video.description,
-    publishedAt: video.publishedAt,
-    durationSec: video.durationSec,
-    thumbnailUrl: video.thumbnailUrl,
-    speakers: parseJsonArray(video.speakers),
-    programs: parseJsonArray(video.programs),
-    topics: parseJsonArray(video.topics),
-    hits:
-      "segments" in video && Array.isArray(video.segments)
-        ? video.segments.map((segment) => ({
-            startMs: segment.startMs,
-            endMs: segment.endMs,
-            text: segment.text,
-          }))
-        : [],
-  }));
+  return {
+    total,
+    page,
+    pageSize: LIBRARY_PAGE_SIZE,
+    pageCount,
+    results: videos.map((video) => ({
+      id: video.id,
+      youtubeId: video.youtubeId,
+      title: video.title,
+      description: video.description,
+      publishedAt: video.publishedAt,
+      durationSec: video.durationSec,
+      thumbnailUrl: video.thumbnailUrl,
+      speakers: parseJsonArray(video.speakers),
+      programs: parseJsonArray(video.programs),
+      topics: parseJsonArray(video.topics),
+      hits:
+        "segments" in video && Array.isArray(video.segments)
+          ? video.segments.map((segment) => ({
+              startMs: segment.startMs,
+              endMs: segment.endMs,
+              text: segment.text,
+            }))
+          : [],
+    })),
+  };
 }
 
 export async function listFilterOptions() {
