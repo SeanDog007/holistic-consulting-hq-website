@@ -21,6 +21,24 @@ export const MINILM_MODEL_DIR = path.join(
   "all-MiniLM-L6-v2",
 );
 
+/** Linux x64 CPU ONNX libs. CUDA/other OS binaries are tracing-excluded. */
+const ORT_LINUX_X64 = path.join(
+  process.cwd(),
+  "node_modules",
+  "onnxruntime-node",
+  "bin",
+  "napi-v3",
+  "linux",
+  "x64",
+);
+
+function prepareOrtLibraryPath(): void {
+  const current = process.env.LD_LIBRARY_PATH ?? "";
+  if (!current.split(":").includes(ORT_LINUX_X64)) {
+    process.env.LD_LIBRARY_PATH = current ? `${ORT_LINUX_X64}:${current}` : ORT_LINUX_X64;
+  }
+}
+
 const HF_BASE = "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main";
 
 const MODEL_FILES = [
@@ -115,6 +133,7 @@ async function getExtractor(): Promise<FeatureExtractor> {
   if (!extractorPromise) {
     extractorPromise = (async () => {
       await ensureMiniLMModel();
+      prepareOrtLibraryPath();
       const transformers = await import("@huggingface/transformers");
       const { env, pipeline } = transformers;
       env.allowLocalModels = true;
