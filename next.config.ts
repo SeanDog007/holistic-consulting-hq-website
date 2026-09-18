@@ -3,12 +3,32 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   outputFileTracingIncludes: {
-    "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/library": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+    ],
     "/library/[videoId]": ["./prisma/dev.db"],
     "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/library/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
-    "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
-    "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/library/ask": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+    ],
+    "/api/library/search": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+    ],
+    "/api/brain/ask": [
+      "./prisma/dev.db",
+      "./data/brain/embeddings.json.gz",
+      "./data/brain/models/**",
+      "./vendor/sharp-stub/**",
+    ],
   },
   outputFileTracingExcludes: {
     "*": [

@@ -28,7 +28,8 @@
     "@prisma/client": "^6.16.2",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "sharp": "file:vendor/sharp-stub"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.15.13",
@@ -42,5 +43,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.20.5",
     "typescript": "^5"
+  },
+  "overrides": {
+    "sharp": "file:vendor/sharp-stub"
   }
 }

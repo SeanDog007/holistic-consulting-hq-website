@@ -1,0 +1,12 @@
+{
+  "name": "sharp",
+  "version": "0.34.4-brain-stub",
+  "description": "No-op sharp stub so @huggingface/transformers can load for MiniLM feature-extraction without libvips.",
+  "type": "module",
+  "main": "./index.cjs",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.cjs",
+    "default": "./index.mjs"
+  }
+}
