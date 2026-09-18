@@ -236,7 +236,11 @@ function scoreVideo(
   const expanded = expandForEmbed(query).toLowerCase();
   let score = semanticHits[0]?.score ?? 0;
   if (keywordHitCount > 0) score = Math.max(score, 0.74);
-  if (needle.length >= 3 && haystack.includes(needle)) score += 0.18;
+  // Title / displayTitle / speaker substring must beat weak semantic neighbors
+  // (otherwise “Immunoglobulins” buries the named talk under Mastermind noise).
+  if (needle.length >= 3 && haystack.includes(needle)) {
+    score = Math.max(score, 0.94);
+  }
   const tokens = expanded.split(/[^a-z0-9+]+/).filter((token) => token.length > 3);
   const titleHits = tokens.filter((token) => haystack.includes(token)).length;
   if (tokens.length) score += Math.min(0.22, titleHits * 0.045);
