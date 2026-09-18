@@ -1,3 +1,8 @@
+export function publicTitle(video: { displayTitle?: string | null; title: string }): string {
+  const curated = video.displayTitle?.trim();
+  return curated || video.title;
+}
+
 export function formatDuration(totalSec: number): string {
   if (!Number.isFinite(totalSec) || totalSec <= 0) return "";
   const hours = Math.floor(totalSec / 3600);

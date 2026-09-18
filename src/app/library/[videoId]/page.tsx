@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WatchWorkspace } from "@/components/WatchWorkspace";
 import { prisma } from "@/lib/db";
-import { formatDuration, formatPublishedDate, youtubeWatchUrl } from "@/lib/format";
+import { formatDuration, formatPublishedDate, publicTitle, youtubeWatchUrl } from "@/lib/format";
 import { parseJsonArray } from "@/lib/json";
 
 export const dynamic = "force-dynamic";
@@ -27,6 +27,8 @@ export default async function LibraryVideoPage({
   const speakers = parseJsonArray(video.speakers);
   const programs = parseJsonArray(video.programs);
   const topics = parseJsonArray(video.topics);
+  const title = publicTitle(video);
+  const rawTitle = video.title.trim();
   const startSec = Number(t);
   const initialTime = Number.isFinite(startSec) && startSec > 0 ? startSec : 0;
 
@@ -51,7 +53,12 @@ export default async function LibraryVideoPage({
                 </span>
               ))}
             </div>
-            <h1 className="font-display max-w-4xl text-4xl text-charcoal md:text-5xl">{video.title}</h1>
+            <h1 className="font-display max-w-4xl text-4xl text-charcoal md:text-5xl">{title}</h1>
+            {rawTitle && rawTitle !== title ? (
+              <p className="mt-3 max-w-3xl text-xs tracking-[0.03em] text-slate/80">
+                YouTube title: {rawTitle}
+              </p>
+            ) : null}
             <p className="mt-4 text-sm tracking-[0.03em] text-slate">
               {speakers.join(" · ") || "Holistic Consulting"}
               <span className="mx-2 text-line">|</span>

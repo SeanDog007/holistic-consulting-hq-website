@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HighlightedText } from "@/components/HighlightedText";
-import { formatDuration, formatPublishedDate, formatTimestamp, youtubeWatchUrl } from "@/lib/format";
+import { formatDuration, formatPublishedDate, formatTimestamp, publicTitle, youtubeWatchUrl } from "@/lib/format";
 import type { LibraryResult } from "@/lib/search";
 
 export function VideoCard({ video, query }: { video: LibraryResult; query?: string }) {
+  const title = publicTitle(video);
   return (
     <article className="flex h-full flex-col bg-white">
       <Link href={`/library/${video.id}`} className="relative block overflow-hidden bg-forest">
         <Image
           src={video.thumbnailUrl}
-          alt={video.title}
+          alt={title}
           width={640}
           height={360}
           className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-[1.03]"
@@ -34,7 +35,7 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
         </div>
         <h3 className="font-display text-[1.7rem] leading-snug text-charcoal">
           <Link href={`/library/${video.id}`} className="hover:text-emerald">
-            <HighlightedText text={video.title} query={query} />
+            <HighlightedText text={title} query={query} />
           </Link>
         </h3>
         <p className="mt-3 text-[0.78rem] tracking-[0.04em] text-slate">

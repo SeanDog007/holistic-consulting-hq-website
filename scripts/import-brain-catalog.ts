@@ -8,6 +8,7 @@ import {
   type BrainChunk,
   type BrainVideo,
 } from "../src/lib/brain-catalog";
+import { loadDisplayTitleOverrides, resolveDisplayTitle } from "../src/lib/display-title";
 import { youtubeThumbnail } from "../src/lib/format";
 import { toJsonArray } from "../src/lib/json";
 
@@ -65,6 +66,7 @@ export async function importBrainCatalog(
     throw new Error(`Search chunks must be an array: ${chunksPath}`);
   }
 
+  const displayTitles = loadDisplayTitleOverrides();
   const videos = videosJson.filter((video) => video?.video_id);
   const unlisted = videos.filter((video) => (video.visibility ?? "").toLowerCase() === "unlisted").length;
   const publicCount = videos.filter((video) => (video.visibility ?? "").toLowerCase() === "public").length;
@@ -72,6 +74,7 @@ export async function importBrainCatalog(
   console.log(
     `Importing Brain catalog: ${videos.length} videos (${unlisted} unlisted, ${publicCount} public) from ${path.relative(process.cwd(), videosPath)}`,
   );
+  console.log(`Display titles: ${Object.keys(displayTitles).length} curated overrides`);
   console.log(
     `Search chunks: ${chunksJson.length} from ${path.relative(process.cwd(), chunksPath)}`,
   );
@@ -83,11 +86,18 @@ export async function importBrainCatalog(
     await Promise.all(
       batch.map(async (video) => {
         const meta = metadataForBrainVideo(video);
+        const displayTitle = resolveDisplayTitle(
+          meta.youtubeId,
+          meta.title,
+          meta.publishedAt,
+          displayTitles,
+        );
         const record = await prisma.video.upsert({
           where: { youtubeId: meta.youtubeId },
           create: {
             youtubeId: meta.youtubeId,
             title: meta.title,
+            displayTitle,
             description: meta.description,
             publishedAt: meta.publishedAt,
             durationSec: meta.durationSec,
@@ -99,6 +109,7 @@ export async function importBrainCatalog(
           },
           update: {
             title: meta.title,
+            displayTitle,
             description: meta.description,
             publishedAt: meta.publishedAt,
             durationSec: meta.durationSec,
