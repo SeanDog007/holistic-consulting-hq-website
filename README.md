@@ -12,10 +12,12 @@ Unlisted: open to anyone with the URL, but not linked from marketing pages. All 
 
 - `/library` — searchable, paginated catalog with **Browse the Library** chips plus filters (program, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
+- `/library/ask` — unlisted noindex CoS Q&A (cited clips + short synthesis)
 - `/library/login` — redirects to the catalog (no password gate)
 - Hybrid search: keyword **and** local embeddings over transcript windows (max 2 cited clips / video)
 - A transcript hit opens the in-app player at that timestamp **and** links to `https://www.youtube.com/watch?v={id}&t={floor(start_sec)}s`
 - Internal retrieve API: `GET /api/library/search?q=` (citations only; see `docs/BRAIN-BOT-V1.md`)
+- Internal ask API: `POST /api/brain/ask` with `{ question }` (see `docs/BRAIN-QA-V1.md`)
 
 The catalog is the real Brain/Studio inventory (hundreds of recordings, including Unlisted member videos). Do not drop `visibility: Unlisted` on import.
 
@@ -40,6 +42,7 @@ Open [http://localhost:3000/library](http://localhost:3000/library). The catalog
 | `YOUTUBE_API_KEY` | For ingest only | YouTube Data API v3 key. Brain seed works without it. |
 | `YOUTUBE_CHANNEL_HANDLE` | No | Defaults to `HolisticConsulting`. |
 | *(none for embeddings)* | | Brain retrieve uses committed `data/brain/embeddings.json.gz`. Provider `local-hash-tfidf-v1`, **$0**, no OpenAI key. |
+| `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` | No | Optional. `POST /api/brain/ask` synthesizes from retrieved clips when set; otherwise returns a template summary of the same citations. Prefer OpenAI if both are present. |
 
 ## Brain catalog vs YouTube ingest
 
@@ -141,6 +144,7 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 2. In Netlify → Site configuration → Environment variables, set `DATABASE_URL` to the Netlify/Postgres connection string when needed (`NETLIFY_DB_URL` is used automatically on this site).
 3. Trigger a production deploy from `main`. Build seeds the Brain catalog from `data/brain/`.
 4. Confirm `https://holisticconsultinghq.com/library` is 200 with no login. Homepage / nav / footer must not mention `/library`.
+5. Confirm `POST /api/brain/ask` and `/library/ask` (noindex) return cited clips. Do not deploy this repo to Old City Vercel.
 
 ## Scripts
 
@@ -152,6 +156,7 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 | `npm run brain:import` | Same import; accepts `--videos` and `--chunks` |
 | `npm run brain:embed` | Rebuild `data/brain/embeddings.json.gz` from the chunk export (run after new videos; weekday Brain sync) |
 | `npm run brain:retrieve:verify` | Check paraphrase queries return the expected cited videos |
+| `npm run brain:ask:verify` | Check cite-only Q&A (Betsy / SIBO / refuse) plus citation unit tests |
 | `npm run titles:preview` | Print browse-shelf counts, batch match/miss counts, and sample display titles |
 | `npm run ingest` | Pull the public YouTube channel when `YOUTUBE_API_KEY` is set |
 | `npm run build` | Production build (generate, push, seed, next build) |
