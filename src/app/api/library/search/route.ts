@@ -4,6 +4,7 @@ import { searchLibrary, type LibraryFilters } from "@/lib/search";
 import { loadVectorIndex } from "@/lib/vector-index";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 function firstString(value: string | string[] | undefined): string | undefined {
   if (Array.isArray(value)) return value[0];

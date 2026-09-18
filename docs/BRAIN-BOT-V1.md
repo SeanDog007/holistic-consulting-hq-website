@@ -7,7 +7,7 @@
 
 ## What shipped
 
-`/library` hybrid search: existing keyword `contains` **union** hashed-embedding retrieve. Results are **cited clips** with `/library/{id}?t=` and YouTube `&t=` deep links. Max **2 hits per video**.
+`/library` hybrid search: existing keyword `contains` **union** sentence-embedding retrieve. Results are **cited clips** with `/library/{id}?t=` and YouTube `&t=` deep links. Max **2 hits per video**.
 
 Internal retrieve API (citations only, no unsourced answer):
 
@@ -28,12 +28,22 @@ No public marketing chatbot. Do not invent clinical advice — show the clip or 
 
 | | |
 | --- | --- |
-| Provider | `local-hash-tfidf-v1` — signed feature-hashed TF-IDF (256-d int8) + paraphrase expansion |
-| Paid API | **None. $0.** No OpenAI key. No pgvector. Fits SQLite local + Netlify Postgres without a schema split. |
+| Provider (default) | `local-minilm-l6-v2` — Xenova `all-MiniLM-L6-v2` (384-d int8), $0, no API key |
+| Optional API | `openai-text-embedding-3-small-v1` (512-d) when `OPENAI_API_KEY` is set at `npm run brain:embed` **and** on Netlify for the query vector. ~$0.02 / 1M tokens (~$0.08 to re-embed this catalog; query cost is negligible). |
+| Fallback | `local-hash-tfidf-v1` if MiniLM/OpenAI cannot run — keyword∪hasher still works, prod does not 500 |
 | Store | Committed file `data/brain/embeddings.json.gz` (loaded in-process on Netlify) |
-| Why not pgvector / OpenAI | Dual SQLite/Postgres already; Netlify functions need a store that works without an extra extension or runtime key. File index is the same locally and in prod. |
+| Model files | Downloaded to `data/brain/models/` (gitignored) by `npm run brain:ensure-minilm` / Netlify `npm run build` |
 
-Query-time encode uses the same hasher + IDF map. Cold start is a gzip parse, not a model download.
+Corpus vectors are baked. Runtime only encodes the query (one MiniLM forward pass, or one OpenAI embeddings call). No pgvector. Same file locally and in prod.
+
+Env (optional, never required for a green prod deploy):
+
+| Variable | Role |
+| --- | --- |
+| `BRAIN_EMBED_PROVIDER` | `auto` (default) / `minilm` / `openai` / `tfidf` |
+| `OPENAI_API_KEY` | Only if you choose OpenAI. Do not invent a key. |
+| `OPENAI_EMBEDDING_MODEL` | Default `text-embedding-3-small` |
+| `OPENAI_EMBEDDING_DIM` | Default `512` |
 
 ## Re-embed (new videos / weekday Brain sync)
 
@@ -59,11 +69,19 @@ Query: `gut bacteria overgrowth in the small bowel`
 - Cited talks include **Small Intestinal Bacteria Overgrowth** (`tkINS6S4FDs`) and **SIBO Masterclass** (`9n9oLpV3uag`)
 - Deep link shape: `/library/{prismaId}?t={startSec}` and `https://www.youtube.com/watch?v=9n9oLpV3uag&t={startSec}s`
 
+Query: `a fungal overgrowth in the gut that thrives when bacteria are wiped out` (no “candida” / “yeast”)
+
+- TF-IDF ranks unrelated Mastermind / guest talks. MiniLM cites **Candida Overgrowth** (`GS5ocaPI2pA`).
+
+Query: `aged cheese wine and leftovers triggering itching and flushing` (no “histamine”)
+
+- TF-IDF misses the histamine lectures. MiniLM cites **Histamine Intolerance** (`xIbvG2brGXA`) and the NGR histamine recap (`faq8U0Rt6fw`).
+
 Query: `What has Betsy said about herbal safety?`
 
 - Expected cited video: **Herbal Medicine for the Nutrition Professional — Betsy Miller** (`mowBWYHvJwg`) — botanical safety / herb–drug clip (~38:00). The dedicated safety lecture `JU8zEO73Lus` has no ASR in the current export.
 
-Run `npm run brain:retrieve:verify` to re-check both (plus Principles of Herbal Safety).
+Run `npm run brain:retrieve:verify` (prints TF-IDF vs neural ranks for the paraphrase-gap cases).
 
 ## Chat layer
 

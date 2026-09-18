@@ -281,7 +281,7 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
   });
   const keywordIds = keywordRows.map((row) => row.id);
 
-  const semanticHits = searchVectorIndex(query, { topK: 48, maxPerVideo: MAX_HITS_PER_VIDEO });
+  const semanticHits = await searchVectorIndex(query, { topK: 48, maxPerVideo: MAX_HITS_PER_VIDEO });
   const semanticByYoutube = new Map<string, SemanticHit[]>();
   for (const hit of semanticHits) {
     const list = semanticByYoutube.get(hit.youtubeId) ?? [];

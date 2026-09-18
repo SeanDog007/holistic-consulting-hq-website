@@ -1,14 +1,67 @@
 /**
- * Local Brain embeddings: hashed TF-IDF vectors + query expansion.
+ * Brain embeddings.
  *
- * Provider: `local-hash-tfidf-v1` (no paid API). Same encoder builds the
- * committed index and embeds queries at request time so Netlify does not
- * need OpenAI/pgvector. Cost is $0.
+ * Default: `local-minilm-l6-v2` (Xenova/all-MiniLM-L6-v2, $0, no API key).
+ * Optional: `openai-text-embedding-3-small-v1` when OPENAI_API_KEY is set at
+ * `npm run brain:embed` (vectors baked) and again at query time (one cheap call).
+ * Fallback: `local-hash-tfidf-v1` if a neural provider cannot run — prod stays up.
  */
 
-export const EMBED_PROVIDER = "local-hash-tfidf-v1";
-export const EMBED_VERSION = 1;
+export const TFIDF_PROVIDER = "local-hash-tfidf-v1";
+export const MINILM_PROVIDER = "local-minilm-l6-v2";
+export const OPENAI_PROVIDER = "openai-text-embedding-3-small-v1";
+
+export const EMBED_VERSION = 2;
 export const EMBED_DIM = 256;
+export const MINILM_DIM = 384;
+export const OPENAI_DEFAULT_DIM = 512;
+export const OPENAI_DEFAULT_MODEL = "text-embedding-3-small";
+
+/** @deprecated use TFIDF_PROVIDER / resolveEmbedProvider() */
+export const EMBED_PROVIDER = TFIDF_PROVIDER;
+
+export type EmbedProviderId =
+  | typeof TFIDF_PROVIDER
+  | typeof MINILM_PROVIDER
+  | typeof OPENAI_PROVIDER;
+
+export function isSupportedProvider(value: string): value is EmbedProviderId {
+  return value === TFIDF_PROVIDER || value === MINILM_PROVIDER || value === OPENAI_PROVIDER;
+}
+
+export function minSemanticScore(provider: string): number {
+  if (provider === TFIDF_PROVIDER) return 0.08;
+  if (provider === OPENAI_PROVIDER) return 0.16;
+  return 0.16;
+}
+
+export function providerDim(provider: string, fallback = EMBED_DIM): number {
+  if (provider === MINILM_PROVIDER) return MINILM_DIM;
+  if (provider === OPENAI_PROVIDER) {
+    const raw = Number(process.env.OPENAI_EMBEDDING_DIM ?? OPENAI_DEFAULT_DIM);
+    return Number.isInteger(raw) && raw >= 256 && raw <= 1536 ? raw : OPENAI_DEFAULT_DIM;
+  }
+  return fallback;
+}
+
+/**
+ * auto → OpenAI when OPENAI_API_KEY is present, otherwise MiniLM.
+ * Explicit `tfidf` keeps the hashed fallback. Missing keys never throw.
+ */
+export function resolveEmbedProvider(explicit?: string): EmbedProviderId {
+  const wanted = (explicit ?? process.env.BRAIN_EMBED_PROVIDER ?? "auto").trim().toLowerCase();
+  const hasOpenAI = Boolean(process.env.OPENAI_API_KEY?.trim());
+
+  if (wanted === "tfidf" || wanted === TFIDF_PROVIDER) return TFIDF_PROVIDER;
+  if (wanted === "minilm" || wanted === MINILM_PROVIDER) return MINILM_PROVIDER;
+  if (wanted === "openai" || wanted === OPENAI_PROVIDER) {
+    if (hasOpenAI) return OPENAI_PROVIDER;
+    console.warn("BRAIN_EMBED_PROVIDER=openai but OPENAI_API_KEY is unset; falling back to MiniLM.");
+    return MINILM_PROVIDER;
+  }
+  if (hasOpenAI) return OPENAI_PROVIDER;
+  return MINILM_PROVIDER;
+}
 
 const STOP = new Set([
   "a",
@@ -288,4 +341,28 @@ export function idfToPairs(idf: Map<string, number>): Array<[string, number]> {
 
 export function idfFromPairs(pairs: Array<[string, number]>): Map<string, number> {
   return new Map(pairs);
+}
+
+export type QueryEmbedContext = {
+  provider: string;
+  dim: number;
+  idf: Map<string, number>;
+};
+
+/** Encode a search query with the same provider that built the committed index. */
+export async function embedQuery(text: string, index: QueryEmbedContext): Promise<Float32Array> {
+  if (index.provider === OPENAI_PROVIDER) {
+    if (!process.env.OPENAI_API_KEY?.trim()) {
+      throw new Error("openai-unavailable");
+    }
+    const { embedOpenAI } = await import("./embed-openai");
+    const [vector] = await embedOpenAI([text], { dimensions: index.dim });
+    return vector;
+  }
+  if (index.provider === MINILM_PROVIDER) {
+    const { embedMiniLM } = await import("./embed-minilm");
+    const [vector] = await embedMiniLM([text]);
+    return vector;
+  }
+  return embedText(text, index.idf, index.dim || EMBED_DIM);
 }

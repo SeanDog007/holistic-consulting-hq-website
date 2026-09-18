@@ -14,7 +14,7 @@ Unlisted: open to anyone with the URL, but not linked from marketing pages. All 
 - `/library/[videoId]` — YouTube player + transcript sidebar
 - `/library/ask` — unlisted noindex CoS Q&A (cited clips + short synthesis)
 - `/library/login` — redirects to the catalog (no password gate)
-- Hybrid search: keyword **and** local embeddings over transcript windows (max 2 cited clips / video)
+- Hybrid search: keyword **and** sentence embeddings over transcript windows (max 2 cited clips / video)
 - A transcript hit opens the in-app player at that timestamp **and** links to `https://www.youtube.com/watch?v={id}&t={floor(start_sec)}s`
 - Internal retrieve API: `GET /api/library/search?q=` (citations only; see `docs/BRAIN-BOT-V1.md`)
 - Internal ask API: `POST /api/brain/ask` with `{ question }` (see `docs/BRAIN-QA-V1.md`)
@@ -41,8 +41,11 @@ Open [http://localhost:3000/library](http://localhost:3000/library). The catalog
 | `DATABASE_URL` | Yes | Local: `file:./dev.db` (SQLite, relative to `prisma/`). Netlify: a Postgres URL (Neon / Prisma Postgres). |
 | `YOUTUBE_API_KEY` | For ingest only | YouTube Data API v3 key. Brain seed works without it. |
 | `YOUTUBE_CHANNEL_HANDLE` | No | Defaults to `HolisticConsulting`. |
-| *(none for embeddings)* | | Brain retrieve uses committed `data/brain/embeddings.json.gz`. Provider `local-hash-tfidf-v1`, **$0**, no OpenAI key. |
-| `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` | No | Optional. `POST /api/brain/ask` synthesizes from retrieved clips when set; otherwise returns a template summary of the same citations. Prefer OpenAI if both are present. |
+| `BRAIN_EMBED_PROVIDER` | No | `auto` (default), `minilm`, `openai`, or `tfidf`. `auto` uses OpenAI only when `OPENAI_API_KEY` is set, otherwise MiniLM. |
+| `OPENAI_API_KEY` | No | Embeddings: if set at `npm run brain:embed`, bake `openai-text-embedding-3-small-v1` (512-d). Also required on Netlify to embed those queries. Missing key → MiniLM, then TF-IDF. Q&A: optional synthesis from retrieved clips (template summary if unset). Do not invent a key. |
+| `OPENAI_EMBEDDING_MODEL` | No | Default `text-embedding-3-small`. |
+| `OPENAI_EMBEDDING_DIM` | No | Default `512`. |
+| `ANTHROPIC_API_KEY` | No | Optional. `POST /api/brain/ask` can synthesize from retrieved clips; OpenAI is preferred if both keys are present. |
 
 ## Brain catalog vs YouTube ingest
 
@@ -57,8 +60,8 @@ npm run brain:import
 Refresh from a future CoS/Studio export:
 
 1. Replace `data/brain/videos.json` and `data/brain/search_chunks.json.gz` (uncompressed `.json` is also accepted).
-2. Run `npm run brain:embed` then `npm run brain:import` (or `npm run db:seed`).
-3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next production `npm run build` re-seeds the database.
+2. Run `npm run brain:embed` then `npm run brain:retrieve:verify` then `npm run brain:import` (or `npm run db:seed`).
+3. Commit the new export files **and** `data/brain/embeddings.json.gz`. The next production `npm run build` re-seeds the database and downloads MiniLM if that is the committed provider.
 
 Optional: `npm run brain:import -- --videos /path/to/videos.json --chunks /path/to/search_chunks.json.gz`
 
@@ -154,9 +157,10 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 | `npm run db:setup` | Push schema and seed the Brain catalog |
 | `npm run db:seed` | Replace the catalog from `data/brain/` |
 | `npm run brain:import` | Same import; accepts `--videos` and `--chunks` |
-| `npm run brain:embed` | Rebuild `data/brain/embeddings.json.gz` from the chunk export (run after new videos; weekday Brain sync) |
-| `npm run brain:retrieve:verify` | Check paraphrase queries return the expected cited videos |
+| `npm run brain:embed` | Rebuild `data/brain/embeddings.json.gz` (MiniLM by default; OpenAI if `OPENAI_API_KEY` is set; `--provider tfidf` for the hasher fallback) |
+| `npm run brain:ensure-minilm` | Download the quantized MiniLM files into `data/brain/models/` (also runs during `npm run build`) |
+| `npm run brain:retrieve:verify` | Check synonym + paraphrase queries; prints TF-IDF vs neural ranks |
 | `npm run brain:ask:verify` | Check cite-only Q&A (Betsy / SIBO / refuse) plus citation unit tests |
 | `npm run titles:preview` | Print browse-shelf counts, batch match/miss counts, and sample display titles |
 | `npm run ingest` | Pull the public YouTube channel when `YOUTUBE_API_KEY` is set |
-| `npm run build` | Production build (generate, push, seed, next build) |
+| `npm run build` | Production build (generate, push, seed, ensure MiniLM, next build) |

@@ -3,14 +3,20 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   agentRules: false,
   outputFileTracingIncludes: {
-    "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
+    "/library": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
     "/library/[videoId]": ["./prisma/dev.db"],
-    "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/library/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
-    "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz"],
+    "/library/**": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/library/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/api/library/search": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
+    "/api/brain/ask": ["./prisma/dev.db", "./data/brain/embeddings.json.gz", "./data/brain/models/**"],
   },
-  serverExternalPackages: ["@prisma/client", "prisma"],
+  serverExternalPackages: [
+    "@prisma/client",
+    "prisma",
+    "@huggingface/transformers",
+    "onnxruntime-node",
+    "onnxruntime-web",
+  ],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "i.ytimg.com" },
@@ -27,7 +33,11 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
-    return [{ source: "/", destination: "/index.html" }];
+    return [
+      { source: "/", destination: "/index.html" },
+      { source: "/programs", destination: "/programs.html" },
+      { source: "/results", destination: "/results.html" },
+    ];
   },
   async headers() {
     return [

@@ -12,16 +12,22 @@ import {
   computeIdf,
   embedTokens,
   EMBED_DIM,
-  EMBED_PROVIDER,
   EMBED_VERSION,
   expandForEmbed,
   idfToPairs,
   int8ToBase64,
+  MINILM_DIM,
+  MINILM_PROVIDER,
   mixVectors,
+  OPENAI_PROVIDER,
+  providerDim,
   quantizeInt8,
+  resolveEmbedProvider,
+  TFIDF_PROVIDER,
   tokenize,
+  type EmbedProviderId,
 } from "../src/lib/embed";
-import { DEFAULT_EMBEDDINGS_PATH, writeVectorIndexFile } from "../src/lib/vector-index";
+import { DEFAULT_EMBEDDINGS_PATH, writeVectorIndexFile, type VectorIndex } from "../src/lib/vector-index";
 import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
 import { publicTitle } from "../src/lib/format";
 
@@ -62,24 +68,34 @@ function contextPrefix(title: string, speakers: string[]): string {
   return speakerText ? `${title}. ${speakerText}.` : `${title}.`;
 }
 
-export async function embedBrainCatalog(options: {
+export type PreparedWindow = {
+  youtubeId: string;
+  startMs: number;
+  endMs: number;
+  prefix: string;
+  text: string;
+  bodyTokens: string[];
+  titleTokens: string[];
+};
+
+export async function loadPreparedWindows(options: {
   videosPath?: string;
   chunksPath?: string;
-  outPath?: string;
-} = {}) {
+} = {}): Promise<{
+  prepared: PreparedWindow[];
+  sourceChunkCount: number;
+  videoCount: number;
+  skippedUnknown: number;
+  skippedEmpty: number;
+}> {
   const videosPath = path.resolve(options.videosPath ?? DEFAULT_VIDEOS_PATH);
   const chunksPath = await resolveChunksPath(options.chunksPath);
-  const outPath = path.resolve(options.outPath ?? DEFAULT_EMBEDDINGS_PATH);
-
   const videosJson = await loadJsonFile<BrainVideo[]>(videosPath);
   const chunksJson = await loadJsonFile<BrainChunk[]>(chunksPath);
   const displayTitles = loadDisplayTitleOverrides();
   const speakerOverrides = loadSpeakerOverrides();
 
-  const metaByYoutubeId = new Map<
-    string,
-    { title: string; speakers: string[] }
-  >();
+  const metaByYoutubeId = new Map<string, { title: string; speakers: string[] }>();
   for (const video of videosJson) {
     if (!video?.video_id) continue;
     const meta = metadataForBrainVideo(video);
@@ -100,15 +116,7 @@ export async function embedBrainCatalog(options: {
     });
   }
 
-  type Prepared = {
-    youtubeId: string;
-    startMs: number;
-    endMs: number;
-    bodyTokens: string[];
-    titleTokens: string[];
-  };
-
-  const prepared: Prepared[] = [];
+  const prepared: PreparedWindow[] = [];
   let skippedUnknown = 0;
   let skippedEmpty = 0;
   const byVideo = new Map<string, BrainChunk[]>();
@@ -139,40 +147,165 @@ export async function embedBrainCatalog(options: {
         youtubeId,
         startMs: segment.startMs,
         endMs: segment.endMs,
+        prefix,
+        text: segment.text,
         bodyTokens: tokenize(expandForEmbed(segment.text)),
         titleTokens: tokenize(expandForEmbed(prefix)),
       });
     }
   }
 
-  console.log(
-    `Embedding ${prepared.length} windows from ${chunksJson.length} ASR chunks ` +
-      `(${metaByYoutubeId.size} videos; skipped ${skippedUnknown} unknown, ${skippedEmpty} empty).`,
-  );
+  return {
+    prepared,
+    sourceChunkCount: chunksJson.length,
+    videoCount: metaByYoutubeId.size,
+    skippedUnknown,
+    skippedEmpty,
+  };
+}
 
+export function buildTfidfIndex(prepared: PreparedWindow[]): VectorIndex {
   const idf = computeIdf(prepared.map((item) => [...item.bodyTokens, ...item.titleTokens]));
-  const chunks: Array<[string, number, number, string]> = prepared.map((item) => {
+  const chunks = prepared.map((item) => {
     const body = embedTokens(item.bodyTokens, idf, EMBED_DIM);
     const title = embedTokens(item.titleTokens, idf, EMBED_DIM);
-    const vector = quantizeInt8(mixVectors(body, title, 0.82));
-    return [item.youtubeId, item.startMs, item.endMs, int8ToBase64(vector)];
+    return {
+      youtubeId: item.youtubeId,
+      startMs: item.startMs,
+      endMs: item.endMs,
+      vector: quantizeInt8(mixVectors(body, title, 0.82)),
+    };
   });
-
-  writeVectorIndexFile(outPath, {
+  return {
     version: EMBED_VERSION,
-    provider: EMBED_PROVIDER,
+    provider: TFIDF_PROVIDER,
     dim: EMBED_DIM,
     builtAt: new Date().toISOString(),
     chunkCount: chunks.length,
-    sourceChunkCount: chunksJson.length,
-    idf: idfToPairs(idf),
+    sourceChunkCount: prepared.length,
+    idf,
+    chunks,
+  };
+}
+
+async function embedNeuralWindows(
+  provider: EmbedProviderId,
+  prepared: PreparedWindow[],
+): Promise<Array<[string, number, number, string]>> {
+  const texts = prepared.map((item) => `${item.prefix} ${item.text}`);
+  let vectors: Float32Array[] = [];
+
+  if (provider === OPENAI_PROVIDER) {
+    const { embedOpenAI, estimateOpenAIEmbedCostUsd } = await import("../src/lib/embed-openai");
+    const chars = texts.reduce((sum, text) => sum + text.length, 0);
+    console.log(
+      `OpenAI ${process.env.OPENAI_EMBEDDING_MODEL ?? "text-embedding-3-small"} · ` +
+        `${texts.length} windows · ~${Math.ceil(chars / 4).toLocaleString()} tokens · ` +
+        `est. $${estimateOpenAIEmbedCostUsd(chars).toFixed(3)}`,
+    );
+    vectors = await embedOpenAI(texts, { dimensions: providerDim(provider) });
+  } else {
+    const { embedMiniLM, ensureMiniLMModel } = await import("../src/lib/embed-minilm");
+    await ensureMiniLMModel();
+    console.log(`MiniLM ${texts.length} windows (local, $0). This may take several minutes on CPU.`);
+    const started = Date.now();
+    const batchLogEvery = 480;
+    vectors = [];
+    const batchSize = 24;
+    for (let start = 0; start < texts.length; start += batchSize) {
+      const batch = texts.slice(start, start + batchSize);
+      vectors.push(...(await embedMiniLM(batch)));
+      if ((start + batch.length) % batchLogEvery < batchSize || start + batch.length === texts.length) {
+        const done = start + batch.length;
+        const elapsed = ((Date.now() - started) / 1000).toFixed(0);
+        console.log(`  encoded ${done}/${texts.length} (${elapsed}s)`);
+      }
+    }
+  }
+
+  return prepared.map((item, index) => [
+    item.youtubeId,
+    item.startMs,
+    item.endMs,
+    int8ToBase64(quantizeInt8(vectors[index])),
+  ]);
+}
+
+export async function embedBrainCatalog(options: {
+  videosPath?: string;
+  chunksPath?: string;
+  outPath?: string;
+  provider?: string;
+} = {}) {
+  const outPath = path.resolve(options.outPath ?? DEFAULT_EMBEDDINGS_PATH);
+  const catalog = await loadPreparedWindows(options);
+  let provider = resolveEmbedProvider(options.provider);
+
+  console.log(
+    `Embedding ${catalog.prepared.length} windows from ${catalog.sourceChunkCount} ASR chunks ` +
+      `(${catalog.videoCount} videos; skipped ${catalog.skippedUnknown} unknown, ${catalog.skippedEmpty} empty).`,
+  );
+
+  let chunks: Array<[string, number, number, string]>;
+  let idfPairs: Array<[string, number]> = [];
+  let dim = providerDim(provider);
+
+  try {
+    if (provider === TFIDF_PROVIDER) {
+      const index = buildTfidfIndex(catalog.prepared);
+      chunks = index.chunks.map((item) => [
+        item.youtubeId,
+        item.startMs,
+        item.endMs,
+        int8ToBase64(item.vector),
+      ]);
+      idfPairs = idfToPairs(index.idf);
+      dim = EMBED_DIM;
+    } else {
+      chunks = await embedNeuralWindows(provider, catalog.prepared);
+      dim = provider === MINILM_PROVIDER ? MINILM_DIM : providerDim(provider);
+    }
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    if (provider === TFIDF_PROVIDER) throw error;
+    console.warn(`${provider} embed failed (${reason}). Falling back to ${TFIDF_PROVIDER} so prod never breaks.`);
+    provider = TFIDF_PROVIDER;
+    const index = buildTfidfIndex(catalog.prepared);
+    chunks = index.chunks.map((item) => [
+      item.youtubeId,
+      item.startMs,
+      item.endMs,
+      int8ToBase64(item.vector),
+    ]);
+    idfPairs = idfToPairs(index.idf);
+    dim = EMBED_DIM;
+  }
+
+  writeVectorIndexFile(outPath, {
+    version: EMBED_VERSION,
+    provider,
+    dim,
+    builtAt: new Date().toISOString(),
+    chunkCount: chunks.length,
+    sourceChunkCount: catalog.sourceChunkCount,
+    idf: idfPairs,
     chunks,
   });
 
+  const costNote =
+    provider === OPENAI_PROVIDER
+      ? "API used at seed time only; bake the file and keep OPENAI_API_KEY on Netlify for query embed"
+      : "$0 API cost";
   console.log(
-    `Wrote ${path.relative(process.cwd(), outPath)} · provider=${EMBED_PROVIDER} · dim=${EMBED_DIM} · $0 API cost`,
+    `Wrote ${path.relative(process.cwd(), outPath)} · provider=${provider} · dim=${dim} · ${costNote}`,
   );
-  return { chunkCount: chunks.length, sourceChunkCount: chunksJson.length, outPath };
+  return {
+    chunkCount: chunks.length,
+    sourceChunkCount: catalog.sourceChunkCount,
+    outPath,
+    provider,
+    dim,
+  };
 }
 
 async function main() {
@@ -180,6 +313,7 @@ async function main() {
     videosPath: argValue("--videos"),
     chunksPath: argValue("--chunks"),
     outPath: argValue("--out"),
+    provider: argValue("--provider"),
   });
 }
 
