@@ -10,7 +10,7 @@ The **live marketing site** is on **Netlify** (`bespoke-elf-113889`) at [holisti
 
 Unlisted: open to anyone with the URL, but not linked from marketing pages. All `/library*` routes send `noindex, nofollow`. The password gate is off.
 
-- `/library` — searchable, paginated catalog with filters (program, speaker, year, topic)
+- `/library` — searchable, paginated catalog with **Browse the Library** chips plus filters (program, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
 - `/library/login` — redirects to the catalog (no password gate)
 - Full-text search across titles, descriptions, and **transcript chunks**
@@ -76,7 +76,42 @@ Program, speaker, and topic fields are classified from titles (and the Brain `pr
 
 Prisma models (SQLite locally, Postgres on Netlify):
 
-- `Video` — `youtubeId`, `title`, `description`, `publishedAt`, `durationSec`, `thumbnailUrl`, `speakers`, `programs`, `topics`, `source`
+- `Video` — `youtubeId`, `title`, optional `displayTitle`, `description`, `publishedAt`, `durationSec`, `thumbnailUrl`, `speakers`, `programs`, `topics`, `source`
+
+Public cards and the watch page prefer `displayTitle` when set; the raw YouTube `title` stays as fallback and is shown in small type on the detail page for debugging.
+
+## Browse chips (`/library`)
+
+The chips sit above the search form. They are exploration shortcuts; the full search + dropdowns stay below. Mapping (see `src/lib/browse.ts`):
+
+| Chip | Query | What it matches |
+| --- | --- | --- |
+| All | `/library` | Clears browse and filters |
+| Clinical Practice | `browse=clinical` | Clinical teaching talks via topics (`digestive health`, `microbiome`, `functional testing`, `supplements`) and catalog title keywords (GI, SIBO, labs, thyroid, etc.). Excludes Mastermind dumps and testimonials. Not a Brain `program` value. |
+| Business & Career | `program=Business` | Existing Program filter (Mastermind + practice-building talks) |
+| Herbalism | `program=Herbalism` | Existing Program filter (`herbal` in the export + title classify) |
+| BCHN | `program=BCHN` | Existing Program filter (BCHN / NANP) |
+| Mentorship / Community | `browse=community` | Community Live, roundtables, welcomes, mentorship overview. **Not** `program=Mentorship` — that catalog field is over-applied to Business Mastermind recordings. |
+| Office Hours | `program=Office Hours` | Nutritional Grand Rounds (`NGR`) and titled Live Call sessions. The Brain export has no `office hours` program; classify infers it from titles. |
+
+## Display titles
+
+Add or edit curated titles in `data/brain/display-titles.json` (`youtubeId` → title). Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
+
+Recurring Mastermind / NGR / Community Live / roundtable dates are inferred automatically in `src/lib/display-title.ts` when there is no JSON override. Preview without writing the database:
+
+```bash
+npm run titles:preview
+```
+
+Then re-import so SQLite/Postgres picks up the new titles: `npm run db:seed`.
+
+### Data gaps
+
+- Most catalog rows have **no speaker field**. Names are inferred from titles when obvious (Betsy Miller, Dr. Kim Ross, …). Many guest talks are first-name only (Danielle, Val, Jade, Julie T, Cara) with **no credential** — those titles use the name as-is.
+- `Liz Lipski` and `Dr Mike T Nelson 2026` have no topic in the YouTube title; we did not invent one.
+- Testimonials, Zoom filenames (`GMT…`), and untitled MP4 dumps are left raw unless a date/series pattern is obvious.
+- Brain `program` is often `mentorship` or `null`, so shelves are title/classify-based, not a clean Studio taxonomy.
 - `TranscriptSegment` — `videoId`, `startMs`, `endMs?`, `text` (Brain chunks are stored here; `start_sec` / `end_sec` from the export are converted to milliseconds)
 
 `speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres.
@@ -100,5 +135,6 @@ Live site: **Netlify** site `bespoke-elf-113889` → [holisticconsultinghq.com](
 | `npm run db:setup` | Push schema and seed the Brain catalog |
 | `npm run db:seed` | Replace the catalog from `data/brain/` |
 | `npm run brain:import` | Same import; accepts `--videos` and `--chunks` |
+| `npm run titles:preview` | Print browse-shelf counts and resolved display titles |
 | `npm run ingest` | Pull the public YouTube channel when `YOUTUBE_API_KEY` is set |
 | `npm run build` | Production build (generate, push, seed, next build) |

@@ -1,16 +1,9 @@
 import Link from "next/link";
+import { librarySearchHref } from "@/lib/browse";
 import type { LibraryFilters } from "@/lib/search";
 
 function hrefForPage(filters: LibraryFilters, page: number): string {
-  const params = new URLSearchParams();
-  if (filters.q?.trim()) params.set("q", filters.q.trim());
-  if (filters.program) params.set("program", filters.program);
-  if (filters.speaker) params.set("speaker", filters.speaker);
-  if (filters.year) params.set("year", filters.year);
-  if (filters.topic) params.set("topic", filters.topic);
-  if (page > 1) params.set("page", String(page));
-  const query = params.toString();
-  return query ? `/library?${query}` : "/library";
+  return librarySearchHref(filters, page);
 }
 
 export function LibraryPagination({

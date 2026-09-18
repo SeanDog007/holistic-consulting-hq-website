@@ -145,6 +145,38 @@ a {
   padding: 0.85rem 1rem;
 }
 
+.browse-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.55rem 1rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.browse-chip:hover {
+  border-color: var(--gold);
+  color: var(--emerald);
+}
+
+.browse-chip-active {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--cream);
+}
+
+.browse-chip-active:hover {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: var(--cream);
+}
+
 .field:focus {
   outline: 2px solid rgba(201, 150, 59, 0.35);
   border-color: var(--gold);

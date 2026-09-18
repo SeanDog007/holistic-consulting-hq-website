@@ -1,4 +1,5 @@
 import type { Prisma } from "@prisma/client";
+import { isBrowseId, videoMatchesBrowse } from "@/lib/browse";
 import { prisma } from "@/lib/db";
 import { parseJsonArray } from "@/lib/json";
 import { isProgram } from "@/lib/programs";
@@ -7,6 +8,7 @@ export const LIBRARY_PAGE_SIZE = 24;
 
 export type LibraryFilters = {
   q?: string;
+  browse?: string;
   program?: string;
   speaker?: string;
   year?: string;
@@ -24,6 +26,7 @@ export type LibraryResult = {
   id: string;
   youtubeId: string;
   title: string;
+  displayTitle: string | null;
   description: string;
   publishedAt: Date;
   durationSec: number;
@@ -51,9 +54,30 @@ export function parseLibraryPage(value?: string): number {
   return Number.isInteger(page) && page > 0 ? page : 1;
 }
 
-function videoWhere(filters: LibraryFilters): Prisma.VideoWhereInput {
+async function browseWhere(browse?: string): Promise<Prisma.VideoWhereInput | null> {
+  if (!browse || !isBrowseId(browse)) return null;
+  const videos = await prisma.video.findMany({
+    select: { id: true, title: true, displayTitle: true, programs: true, topics: true },
+  });
+  const ids = videos
+    .filter((video) =>
+      videoMatchesBrowse(browse, {
+        title: video.title,
+        displayTitle: video.displayTitle,
+        programs: parseJsonArray(video.programs),
+        topics: parseJsonArray(video.topics),
+      }),
+    )
+    .map((video) => video.id);
+  return { id: { in: ids } };
+}
+
+async function videoWhere(filters: LibraryFilters): Promise<Prisma.VideoWhereInput> {
   const query = filters.q?.trim() ?? "";
   const and: Prisma.VideoWhereInput[] = [];
+
+  const browseClause = await browseWhere(filters.browse);
+  if (browseClause) and.push(browseClause);
 
   if (filters.program && isProgram(filters.program)) {
     and.push({ programs: containsFilter(filters.program) });
@@ -77,6 +101,7 @@ function videoWhere(filters: LibraryFilters): Prisma.VideoWhereInput {
     and.push({
       OR: [
         { title: containsFilter(query) },
+        { displayTitle: containsFilter(query) },
         { description: containsFilter(query) },
         { speakers: containsFilter(query) },
         { topics: containsFilter(query) },
@@ -90,7 +115,7 @@ function videoWhere(filters: LibraryFilters): Prisma.VideoWhereInput {
 
 export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySearchPage> {
   const query = filters.q?.trim() ?? "";
-  const where = videoWhere(filters);
+  const where = await videoWhere(filters);
   const total = await prisma.video.count({ where });
   const pageCount = Math.max(1, Math.ceil(total / LIBRARY_PAGE_SIZE));
   const page = Math.min(parseLibraryPage(filters.page), pageCount);
@@ -120,6 +145,7 @@ export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySea
       id: video.id,
       youtubeId: video.youtubeId,
       title: video.title,
+      displayTitle: video.displayTitle,
       description: video.description,
       publishedAt: video.publishedAt,
       durationSec: video.durationSec,

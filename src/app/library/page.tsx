@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BotanicalMotif } from "@/components/BotanicalMotif";
+import { LibraryBrowseChips } from "@/components/LibraryBrowseChips";
 import { LibraryPagination } from "@/components/LibraryPagination";
 import { LibrarySearchForm } from "@/components/LibrarySearchForm";
 import { VideoCard } from "@/components/VideoCard";
@@ -20,7 +21,9 @@ export default async function LibraryPage({
 
   const query = filters.q?.trim() ?? "";
   const transcriptHits = results.reduce((sum, video) => sum + video.hits.length, 0);
-  const hasFilters = Boolean(query || filters.program || filters.speaker || filters.year || filters.topic);
+  const hasFilters = Boolean(
+    query || filters.browse || filters.program || filters.speaker || filters.year || filters.topic,
+  );
 
   return (
     <>
@@ -75,6 +78,8 @@ export default async function LibraryPage({
               Browse by program, speaker, or the words that were said.
             </h2>
           </div>
+
+          <LibraryBrowseChips filters={filters} />
 
           <LibrarySearchForm
             filters={filters}

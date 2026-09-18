@@ -4,6 +4,18 @@ This folder is the durable source of truth for the member `/library` shelf.
 
 - `videos.json` — Studio inventory metadata (include **Unlisted**; do not filter them out)
 - `search_chunks.json.gz` — merged ASR/search chunks (~45s / ~800 characters) with `start_sec` / `end_sec` / `text`
+- `display-titles.json` — optional public titles keyed by YouTube id. The library UI prefers these over the raw YouTube `title`.
+
+### Adding display titles
+
+1. Open `data/brain/display-titles.json`.
+2. Add `"YOUTUBE_ID": "Topic — Speaker, Credential"` (em dash). If the speaker or credential is unknown, improve the series/date only — do not invent credentials.
+3. Run `npm run titles:preview` to confirm the title and that browse shelves still have videos.
+4. Run `npm run db:seed` (or wait for the next production build) so the catalog writes `displayTitle`.
+
+Recurring Business Mastermind, NGR, Community Live, and dated roundtables are cleaned automatically from the raw title/date when no override exists (`src/lib/display-title.ts`).
+
+Browse-chip mapping (Clinical Practice topics vs Program filters) lives in `src/lib/browse.ts`.
 
 The library is an internal member shelf. Keep every row, including `visibility: Unlisted`.
 

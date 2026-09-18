@@ -16,15 +16,23 @@ const KNOWN_SPEAKERS = [
   "Jose Vega",
   "Liz Lipski",
   "Elizabeth Lipski",
+  "Dr. Mike T Nelson",
+  "Dr Mike T Nelson",
+  "Mike T Nelson",
 ] as const;
 
 const SPEAKER_ALIASES: Record<string, string> = {
   "David Feuz": "Dr. David Feuz",
   "Rachel Knowles": "Dr. Rachel Knowles",
+  "Dr Rachel Knowles": "Dr. Rachel Knowles",
   "Oscar Coetzee": "Dr. Oscar Coetzee",
   "Kim Ross": "Dr. Kim Ross",
+  "Dr Kim Ross": "Dr. Kim Ross",
   "Jose Vega": "Dr. Jose Vega",
+  "Dr Jose Vega": "Dr. Jose Vega",
   "Elizabeth Lipski": "Liz Lipski",
+  "Mike T Nelson": "Dr. Mike T Nelson",
+  "Dr Mike T Nelson": "Dr. Mike T Nelson",
 };
 
 export function classifyPrograms(title: string, description = ""): Program[] {
@@ -37,8 +45,16 @@ export function classifyPrograms(title: string, description = ""): Program[] {
   if (/\bbchn\b|board exam|board certif|nanp/.test(haystack)) {
     found.add("BCHN");
   }
-  if (/(office hours|roundtable|community call|grand rounds)/.test(haystack)) {
-    found.add(haystack.includes("office hours") ? "Office Hours" : "Community");
+  // Brain program is often mentorship/other/null — Office Hours is inferred from titles.
+  // NGR = Nutritional Grand Rounds, the live drop-in / case-rounds shelf.
+  if (/\boffice hours\b|\bngr(?:\b|_)|nutritional grand rounds|\blive call\b/.test(haystack)) {
+    found.add("Office Hours");
+  }
+  if (/(community live|community call|roundtable)/.test(haystack)) {
+    found.add("Community");
+  }
+  if (!found.has("Office Hours") && /grand rounds/.test(haystack)) {
+    found.add("Community");
   }
   if (/(career|practice|client|business|niche|story|entrepreneur|traction|0 to 1)/.test(haystack)) {
     found.add("Business");
@@ -65,8 +81,10 @@ export function extractSpeakers(title: string, description = ""): string[] {
 
   const withMatch = haystack.match(/\bwith\s+([A-Z][A-Za-z.]+(?:\s+[A-Z][A-Za-z.]+){1,3})/);
   if (withMatch?.[1]) {
-    const guessed = withMatch[1].replace(/\s+MP4$/i, "").trim();
-    found.add(SPEAKER_ALIASES[guessed] ?? guessed);
+    const guessed = withMatch[1].replace(/\s+MP\d*$/i, "").trim();
+    if (!/^(elevated|us|pcc|non)\b/i.test(guessed)) {
+      found.add(SPEAKER_ALIASES[guessed] ?? guessed);
+    }
   }
 
   return [...found];

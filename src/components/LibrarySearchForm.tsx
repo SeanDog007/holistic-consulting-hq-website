@@ -14,6 +14,7 @@ export function LibrarySearchForm({
 }) {
   return (
     <form action="/library" method="get" className="relative bg-white px-6 py-8 md:px-10 md:py-10">
+      {filters.browse ? <input type="hidden" name="browse" value={filters.browse} /> : null}
       <span className="pathway-num absolute top-4 right-6" aria-hidden>
         01
       </span>
