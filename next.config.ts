@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
       "./node_modules/**/@img/**",
       "./node_modules/@huggingface/transformers/node_modules/sharp/**",
       "./node_modules/@huggingface/transformers/node_modules/@img/**",
+      // onnxruntime-node ships CUDA/TensorRT + every OS (~536MB). Functions only
+      // need the linux x64 CPU binding.
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_cuda.so",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/x64/libonnxruntime_providers_tensorrt.so",
+      "./node_modules/onnxruntime-node/bin/napi-v3/linux/arm64/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/darwin/**",
+      "./node_modules/onnxruntime-node/bin/napi-v3/win32/**",
+      "./node_modules/onnxruntime-web/**",
     ],
   },
   serverExternalPackages: [
