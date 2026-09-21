@@ -189,6 +189,23 @@ async function main() {
     );
   }
 
+  const williamLi = byId.get("OjkzfeJz66o");
+  console.log("\nBatch-10 William Li:");
+  console.log(`  OjkzfeJz66o`);
+  console.log(`    raw: ${williamLi?.title ?? "(missing)"}`);
+  console.log(`    ui:  ${williamLi?.displayTitle ?? "(none)"}`);
+  console.log(`    speakers: ${williamLi?.speakers.join(" · ") || "(none)"}`);
+  if (
+    !williamLi ||
+    williamLi.title !== "Can we eat to starve cancer? - William Li" ||
+    williamLi.displayTitle !== "Cancer, Angiogenesis, and Nutrition — William Li" ||
+    !williamLi.speakers.includes("William Li")
+  ) {
+    throw new Error(
+      `William Li mismatch: raw=${williamLi?.title} ui=${williamLi?.displayTitle} speakers=${williamLi?.speakers.join(", ")}`,
+    );
+  }
+
   const uncovered = rows.filter((row) => !overrides[row.youtubeId]);
   console.log(`Catalog coverage: ${rows.length - uncovered.length}/${rows.length}`);
   if (uncovered.length) {
