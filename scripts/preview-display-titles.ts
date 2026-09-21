@@ -174,6 +174,21 @@ async function main() {
     }
   }
 
+  const grandRounds = byId.get("VXGZZirK56I");
+  console.log("\nBatch-9 Grand Rounds:");
+  console.log(`  VXGZZirK56I`);
+  console.log(`    raw: ${grandRounds?.title ?? "(missing)"}`);
+  console.log(`    ui:  ${grandRounds?.displayTitle ?? "(none)"}`);
+  if (
+    !grandRounds ||
+    grandRounds.title !== "Grand Rounds 09172026" ||
+    grandRounds.displayTitle !== "Grand Rounds — Sep 17, 2026"
+  ) {
+    throw new Error(
+      `Grand Rounds mismatch: raw=${grandRounds?.title} ui=${grandRounds?.displayTitle}`,
+    );
+  }
+
   const uncovered = rows.filter((row) => !overrides[row.youtubeId]);
   console.log(`Catalog coverage: ${rows.length - uncovered.length}/${rows.length}`);
   if (uncovered.length) {

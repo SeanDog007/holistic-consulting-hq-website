@@ -16,7 +16,7 @@ Library display only. `data/brain/videos.json` still stores the original YouTube
 | Batch 8 (Zoom, roundtables, GI, rest) | 105 |
 | Unique override map, batches 1–8 | 384 |
 | Uncovered | 0 |
-| Pending YouTube Studio renames (`docs/STUDIO-RENAME.csv`) | 258 |
+| Pending YouTube Studio renames (`docs/STUDIO-RENAME.csv`) | 259 |
 
 `docs/STUDIO-RENAME.csv` is a reference list of rows where the YouTube title still differs from the display title. It is not applied on YouTube.
 
@@ -27,7 +27,9 @@ Library display only. `data/brain/videos.json` still stores the original YouTube
 - `data/brain/display-titles.batch-7.json`
 - `data/brain/display-titles.batch-8.json`
 
-Later batches win over earlier ones and over `data/brain/display-titles.json` (now empty; batches 1–8 cover the catalog).
+Later batches win over earlier ones and over `data/brain/display-titles.json` (now empty; batches 1–8 covered the 384-video catalog).
+
+Batch 9 adds `VXGZZirK56I` (YouTube `Grand Rounds 09172026` → library **Grand Rounds — Sep 17, 2026**). The catalog is 385 videos, each with a display title. The Studio rename list gained that one row (259 pending).
 
 ## Before → after
 
