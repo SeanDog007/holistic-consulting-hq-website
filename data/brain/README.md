@@ -8,13 +8,17 @@ This folder is the durable source of truth for the member `/library` shelf.
 - `display-titles.batch-1.json` — official CoS batch 1 (`video_id` → `display_title`). Keys are YouTube ids, not Prisma cuids.
 - `display-titles.batch-2.json` — official CoS batch 2, guest/teaching talks in `Topic — Speaker, Credential` form. Optional `speaker` fills `Video.speakers` on import.
 - `display-titles.batch-3.json` — official CoS batch 3, topic-polish titles only (no invented speakers).
-- `display-titles.batch-4.json` — official CoS batch 4, early-transcript roster hits in `Topic — Speaker, Credential` form. Later `batch-N` files win.
-- `display-titles.json` — extra teaching polish not in an official batch. Later `batch-N` files win if both set a title.
-- House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo.
+- `display-titles.batch-4.json` — official CoS batch 4, early-transcript roster hits in `Topic — Speaker, Credential` form.
+- `display-titles.batch-5.json` — official CoS batch 5, series/date cleanups (NGR, Grand Rounds, Q&A, live calls).
+- `display-titles.batch-6.json` — official CoS batch 6, Intro to Herbalism and guest-module polish.
+- `display-titles.batch-7.json` — official CoS batch 7, short orphans and topic polish.
+- `display-titles.batch-8.json` — official CoS batch 8, Zoom `Recording —` dates, roundtables, GI, and the rest of the catalog. Later `batch-N` files win.
+- `display-titles.json` — extra teaching polish not in an official batch. Empty while batches 1–8 cover every video. Later `batch-N` files win if both set a title.
+- House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo. Pending Studio renames are listed in `docs/STUDIO-RENAME.csv` and are not applied here.
 
-### Adding display titles (batch 5+)
+### Adding display titles (batch 9+)
 
-1. Drop `data/brain/display-titles.batch-5.json` (then 6, 7, …) in the same shape as batch 2/4:
+1. Drop `data/brain/display-titles.batch-9.json` (then 10, 11, …) in the same shape as batch 2/4:
    `{ "items": [{ "video_id", "display_title", "speaker?" }] }`.
    The loader already globs `display-titles.batch-*.json` and lets the highest N win. No code change.
 2. Use an em dash. If the speaker or credential is unknown, improve the series/date only — do not invent credentials. Expand `NGR` to **New Graduate Roundtable**.
