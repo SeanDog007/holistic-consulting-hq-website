@@ -12,13 +12,15 @@ This folder is the durable source of truth for the member `/library` shelf.
 - `display-titles.batch-5.json` — official CoS batch 5, series/date cleanups (NGR, Grand Rounds, Q&A, live calls).
 - `display-titles.batch-6.json` — official CoS batch 6, Intro to Herbalism and guest-module polish.
 - `display-titles.batch-7.json` — official CoS batch 7, short orphans and topic polish.
-- `display-titles.batch-8.json` — official CoS batch 8, Zoom `Recording —` dates, roundtables, GI, and the rest of the catalog. Later `batch-N` files win.
-- `display-titles.json` — extra teaching polish not in an official batch. Empty while batches 1–8 cover every video. Later `batch-N` files win if both set a title.
+- `display-titles.batch-8.json` — official CoS batch 8, Zoom `Recording —` dates, roundtables, GI, and the rest of the prior catalog. Later `batch-N` files win.
+- `display-titles.batch-9.json` — official CoS batch 9, Grand Rounds — Sep 17, 2026 (`VXGZZirK56I`). Later `batch-N` files win.
+- `display-titles.batch-10.json` — official CoS batch 10, Cancer, Angiogenesis, and Nutrition — William Li (`OjkzfeJz66o`). Later `batch-N` files win.
+- `display-titles.json` — extra teaching polish not in an official batch. Empty while batches 1–10 cover every video (386). Later `batch-N` files win if both set a title.
 - House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo. Pending Studio renames are listed in `docs/STUDIO-RENAME.csv` and are not applied here.
 
-### Adding display titles (batch 9+)
+### Adding display titles (batch 11+)
 
-1. Drop `data/brain/display-titles.batch-9.json` (then 10, 11, …) in the same shape as batch 2/4:
+1. Drop `data/brain/display-titles.batch-11.json` (then 12, 13, …) in the same shape as batch 2/4:
    `{ "items": [{ "video_id", "display_title", "speaker?" }] }`.
    The loader already globs `display-titles.batch-*.json` and lets the highest N win. No code change.
 2. Use an em dash. If the speaker or credential is unknown, improve the series/date only — do not invent credentials. Expand `NGR` to **New Graduate Roundtable**.

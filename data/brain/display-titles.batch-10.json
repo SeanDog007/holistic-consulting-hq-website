@@ -1,0 +1,18 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Topic — Speaker",
+  "count": 1,
+  "items": [
+    {
+      "video_id": "OjkzfeJz66o",
+      "youtube_title": "Can we eat to starve cancer? - William Li",
+      "display_title": "Cancer, Angiogenesis, and Nutrition — William Li",
+      "speaker": "William Li",
+      "credential": null,
+      "program": null,
+      "published_at": "2014-04-08",
+      "batch": 10,
+      "notes": "topic and speaker from the refreshed catalog export; no credential invented"
+    }
+  ]
+}

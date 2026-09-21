@@ -42,7 +42,7 @@ Keep short and intentional; still avoid date codes.
 2. **YouTube rename** follows in batches after display titles are approved — same string when possible.
 3. Brain catalog keeps `title` from YouTube; library prefers `displayTitle` when set.
 
-Official CoS batches live in `data/brain/display-titles.batch-N.json` (batch 1 = series dates; batch 2 = guest/teaching talks; batch 3 = topic polish; batch 4 = early-transcript roster speakers; batches 5–8 = remaining catalog so every video has a display title). Later batches win. To add batch 9, drop another file in that folder — see `data/brain/README.md`. YouTube Studio renames are a separate follow-up (`docs/STUDIO-RENAME.csv`); this repo does not rename videos on YouTube.
+Official CoS batches live in `data/brain/display-titles.batch-N.json` (batch 1 = series dates; batch 2 = guest/teaching talks; batch 3 = topic polish; batch 4 = early-transcript roster speakers; batches 5–8 = the rest of the prior catalog; batch 9 = Grand Rounds — Sep 17, 2026; batch 10 = Cancer, Angiogenesis, and Nutrition — William Li). Later batches win. To add batch 11, drop another file in that folder — see `data/brain/README.md`. YouTube Studio renames are a separate follow-up (`docs/STUDIO-RENAME.csv`); this repo does not rename videos on YouTube.
 
 ## Browse shelves (library UI)
 

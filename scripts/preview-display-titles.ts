@@ -174,6 +174,38 @@ async function main() {
     }
   }
 
+  const grandRounds = byId.get("VXGZZirK56I");
+  console.log("\nBatch-9 Grand Rounds:");
+  console.log(`  VXGZZirK56I`);
+  console.log(`    raw: ${grandRounds?.title ?? "(missing)"}`);
+  console.log(`    ui:  ${grandRounds?.displayTitle ?? "(none)"}`);
+  if (
+    !grandRounds ||
+    grandRounds.title !== "Grand Rounds 09172026" ||
+    grandRounds.displayTitle !== "Grand Rounds — Sep 17, 2026"
+  ) {
+    throw new Error(
+      `Grand Rounds mismatch: raw=${grandRounds?.title} ui=${grandRounds?.displayTitle}`,
+    );
+  }
+
+  const williamLi = byId.get("OjkzfeJz66o");
+  console.log("\nBatch-10 William Li:");
+  console.log(`  OjkzfeJz66o`);
+  console.log(`    raw: ${williamLi?.title ?? "(missing)"}`);
+  console.log(`    ui:  ${williamLi?.displayTitle ?? "(none)"}`);
+  console.log(`    speakers: ${williamLi?.speakers.join(" · ") || "(none)"}`);
+  if (
+    !williamLi ||
+    williamLi.title !== "Can we eat to starve cancer? - William Li" ||
+    williamLi.displayTitle !== "Cancer, Angiogenesis, and Nutrition — William Li" ||
+    !williamLi.speakers.includes("William Li")
+  ) {
+    throw new Error(
+      `William Li mismatch: raw=${williamLi?.title} ui=${williamLi?.displayTitle} speakers=${williamLi?.speakers.join(", ")}`,
+    );
+  }
+
   const uncovered = rows.filter((row) => !overrides[row.youtubeId]);
   console.log(`Catalog coverage: ${rows.length - uncovered.length}/${rows.length}`);
   if (uncovered.length) {

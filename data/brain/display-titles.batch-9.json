@@ -1,0 +1,16 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Series — Mon D, YYYY",
+  "count": 1,
+  "items": [
+    {
+      "video_id": "VXGZZirK56I",
+      "youtube_title": "Grand Rounds 09172026",
+      "display_title": "Grand Rounds — Sep 17, 2026",
+      "program": null,
+      "published_at": "2026-09-20",
+      "batch": 9,
+      "notes": "series date cleanup; session date 2026-09-17 from Studio title 09172026 (upload Sep 20)"
+    }
+  ]
+}

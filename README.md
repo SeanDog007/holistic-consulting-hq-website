@@ -115,10 +115,12 @@ Overrides are keyed by **YouTube video id** (`Video.youtubeId` / Brain `video_id
 - `data/brain/display-titles.batch-5.json` — official CoS batch 5 (10 series/date cleanups).
 - `data/brain/display-titles.batch-6.json` — official CoS batch 6 (15 Intro to Herbalism / guest-module titles).
 - `data/brain/display-titles.batch-7.json` — official CoS batch 7 (101 short-orphan and topic-polish titles).
-- `data/brain/display-titles.batch-8.json` — official CoS batch 8 (105 remaining titles, including Zoom `Recording —` dates). Later `batch-N` files win on conflict. Together with batches 1–4 these cover all 384 catalog videos.
+- `data/brain/display-titles.batch-8.json` — official CoS batch 8 (105 remaining titles, including Zoom `Recording —` dates). Later `batch-N` files win on conflict.
+- `data/brain/display-titles.batch-9.json` — official CoS batch 9 (`VXGZZirK56I`: Grand Rounds — Sep 17, 2026).
+- `data/brain/display-titles.batch-10.json` — official CoS batch 10 (`OjkzfeJz66o`: Cancer, Angiogenesis, and Nutrition — William Li). Together with batches 1–9 these cover all 386 catalog videos.
 - `data/brain/display-titles.json` — extra teaching titles not in an official batch. Currently empty. Later `batch-N` files win on conflict.
 
-To add **batch 9**: create `data/brain/display-titles.batch-9.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`. YouTube is not renamed from this repo; `docs/STUDIO-RENAME.csv` is the pending Studio list only.
+To add **batch 11**: create `data/brain/display-titles.batch-11.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`. YouTube is not renamed from this repo; `docs/STUDIO-RENAME.csv` is the pending Studio list only.
 
 Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
 
