@@ -1,0 +1,137 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Intro to Herbalism / guest-module polish",
+  "count": 15,
+  "items": [
+    {
+      "video_id": "2NUmejLMD88",
+      "youtube_title": "Business of Functional Testing",
+      "display_title": "Business of Functional Testing",
+      "batch": 6,
+      "notes": "guest-module polish (keep)",
+      "published_at": "2025-04-10"
+    },
+    {
+      "video_id": "G66m080T99E",
+      "youtube_title": "Business of Functional Testing - Session 1",
+      "display_title": "Business of Functional Testing, Session 1",
+      "batch": 6,
+      "notes": "guest-module polish",
+      "published_at": "2025-02-27"
+    },
+    {
+      "video_id": "v7HZDM_1fAk",
+      "youtube_title": "Business of Functional Testing Module 1",
+      "display_title": "Business of Functional Testing, Module 1",
+      "batch": 6,
+      "notes": "guest-module polish",
+      "published_at": "2025-01-04"
+    },
+    {
+      "video_id": "LlRGNUgZcGs",
+      "youtube_title": "Functional Medicine Alliance - Business of Functional Testing",
+      "display_title": "Functional Medicine Alliance: Business of Functional Testing",
+      "batch": 6,
+      "notes": "guest-module polish",
+      "published_at": "2025-04-24"
+    },
+    {
+      "video_id": "4evhQ9yps-A",
+      "youtube_title": "Intro to Herbalism - Digestion",
+      "display_title": "Intro to Herbalism: Digestion",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-04-16"
+    },
+    {
+      "video_id": "lOPmPKH5Kws",
+      "youtube_title": "Intro to Herbalism - Herbal Pharmacy: Infusions & Decoctions",
+      "display_title": "Intro to Herbalism: Herbal Pharmacy: Infusions & Decoctions",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-05-12"
+    },
+    {
+      "video_id": "6ea_d02tdP4",
+      "youtube_title": "Intro to Herbalism - Herbal Pharmacy: Oil Infusions & Salves",
+      "display_title": "Intro to Herbalism: Herbal Pharmacy: Oil Infusions & Salves",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-05-12"
+    },
+    {
+      "video_id": "nJn-2Kzb0mo",
+      "youtube_title": "Intro to Herbalism - Herbal Pharmacy: Tinctures & Glycerites",
+      "display_title": "Intro to Herbalism: Herbal Pharmacy: Tinctures & Glycerites",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-05-12"
+    },
+    {
+      "video_id": "ws4I0lsGuqc",
+      "youtube_title": "Intro to Herbalism - Module 2: Herbal Actions",
+      "display_title": "Intro to Herbalism, Module 2: Herbal Actions",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-03-12"
+    },
+    {
+      "video_id": "uSLhgv7hWYE",
+      "youtube_title": "Intro to Herbalism - Module 2: LIVE Session Recording",
+      "display_title": "Intro to Herbalism, Module 2: Live Session",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-03-12"
+    },
+    {
+      "video_id": "fF7uV73zW18",
+      "youtube_title": "Intro to Herbalism - Module 3: Herbs for the Nervous System",
+      "display_title": "Intro to Herbalism, Module 3: Herbs for the Nervous System",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-03-24"
+    },
+    {
+      "video_id": "KsHrcM_3Ib0",
+      "youtube_title": "Intro to Herbalism LIVE session #1",
+      "display_title": "Intro to Herbalism, Live Session 1",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-03-05"
+    },
+    {
+      "video_id": "zxfPxCIzgxI",
+      "youtube_title": "Introduction to Herbalism - Immune, Respiratory System Overview",
+      "display_title": "Intro to Herbalism: Immune & Respiratory System Overview",
+      "batch": 6,
+      "notes": "intro herbalism polish",
+      "program": "herbal",
+      "published_at": "2026-05-12"
+    },
+    {
+      "video_id": "b-ORMhiJYHw",
+      "youtube_title": "Module 1 Week 3",
+      "display_title": "Module 1 Week 3",
+      "batch": 6,
+      "notes": "module label keep",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "fgBuBZdnVvw",
+      "youtube_title": "Principles of Herbal Safety",
+      "display_title": "Principles of Herbal Safety",
+      "batch": 6,
+      "notes": "herbal module keep (already clear)",
+      "program": "herbal",
+      "published_at": "2026-05-26"
+    }
+  ]
+}

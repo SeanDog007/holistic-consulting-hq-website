@@ -1,0 +1,91 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Series — Mon D, YYYY",
+  "count": 10,
+  "items": [
+    {
+      "video_id": "cY9E_b9si6U",
+      "youtube_title": "08-23-2023 business Q&A lecture",
+      "display_title": "Business Q&A Lecture — Aug 23, 2023",
+      "batch": 5,
+      "notes": "series date cleanup (business Q&A)",
+      "published_at": "2023-08-29"
+    },
+    {
+      "video_id": "jAx3UGHDttk",
+      "youtube_title": "12 29 2025 NGR GOALS",
+      "display_title": "New Graduate Roundtable: Goals — Dec 29, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (NGR)",
+      "program": "mentorship",
+      "published_at": "2025-12-30"
+    },
+    {
+      "video_id": "Efy8rOPgIeY",
+      "youtube_title": "6_18_2025 Nutritional Grand Rounds",
+      "display_title": "Nutritional Grand Rounds — Jun 18, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (Grand Rounds)",
+      "published_at": "2025-06-19"
+    },
+    {
+      "video_id": "SeQQkvqS1q8",
+      "youtube_title": "7_1_}2026 NGR_MidYear Goals",
+      "display_title": "New Graduate Roundtable: Mid-Year Goals — Jul 1, 2026",
+      "batch": 5,
+      "notes": "series date cleanup (NGR)",
+      "program": "mentorship",
+      "published_at": "2026-07-02"
+    },
+    {
+      "video_id": "3xrdFKJve78",
+      "youtube_title": "AI in Nutrition NGR 5 13 26",
+      "display_title": "New Graduate Roundtable: AI in Nutrition — May 13, 2026",
+      "batch": 5,
+      "notes": "series date cleanup (NGR)",
+      "program": "mentorship",
+      "published_at": "2026-05-14"
+    },
+    {
+      "video_id": "HMhQtw_cLNw",
+      "youtube_title": "Fears, Frustrations, Wants, and Aspirations [6/24/25]",
+      "display_title": "Fears, Frustrations, Wants, and Aspirations — Jun 24, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (bracketed date)",
+      "published_at": "2025-06-24"
+    },
+    {
+      "video_id": "59QcWnhbHgc",
+      "youtube_title": "HRB 637 Live Call from 5/19/25",
+      "display_title": "HRB 637 Live Call — May 19, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (HRB live)",
+      "published_at": "2025-05-19"
+    },
+    {
+      "video_id": "Vu7NhmJpbag",
+      "youtube_title": "Mastermind Call 8/12/2025",
+      "display_title": "Business Mastermind — Aug 12, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (Mastermind)",
+      "program": "mentorship",
+      "published_at": "2025-08-14"
+    },
+    {
+      "video_id": "AA1PEf8Hgm8",
+      "youtube_title": "MUIH Intro to HRB 637 4/27/25",
+      "display_title": "MUIH Intro to HRB 637 — Apr 27, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (MUIH/HRB)",
+      "published_at": "2025-04-27"
+    },
+    {
+      "video_id": "HaHk9jT8q4Q",
+      "youtube_title": "PUBMED 11 24 2025",
+      "display_title": "PubMed Session — Nov 24, 2025",
+      "batch": 5,
+      "notes": "series date cleanup (PubMed)",
+      "published_at": "2025-11-25"
+    }
+  ]
+}

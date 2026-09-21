@@ -111,10 +111,14 @@ Overrides are keyed by **YouTube video id** (`Video.youtubeId` / Brain `video_id
 - `data/brain/display-titles.batch-1.json` — official CoS batch 1 (133 videos: Mastermind / NGR→**New Graduate Roundtable** / Community Live date cleanups, plus a few teaching polish titles).
 - `data/brain/display-titles.batch-2.json` — official CoS batch 2 (13 guest/teaching talks in `Topic — Speaker, Credential` form; optional `speaker` seeds `Video.speakers`).
 - `data/brain/display-titles.batch-3.json` — official CoS batch 3 (3 topic-polish titles; no invented speakers).
-- `data/brain/display-titles.batch-4.json` — official CoS batch 4 (6 early-transcript roster hits in `Topic — Speaker, Credential` form). Later `batch-N` files win on conflict.
-- `data/brain/display-titles.json` — extra teaching titles not in an official batch. Later `batch-N` files win on conflict.
+- `data/brain/display-titles.batch-4.json` — official CoS batch 4 (6 early-transcript roster hits in `Topic — Speaker, Credential` form).
+- `data/brain/display-titles.batch-5.json` — official CoS batch 5 (10 series/date cleanups).
+- `data/brain/display-titles.batch-6.json` — official CoS batch 6 (15 Intro to Herbalism / guest-module titles).
+- `data/brain/display-titles.batch-7.json` — official CoS batch 7 (101 short-orphan and topic-polish titles).
+- `data/brain/display-titles.batch-8.json` — official CoS batch 8 (105 remaining titles, including Zoom `Recording —` dates). Later `batch-N` files win on conflict. Together with batches 1–4 these cover all 384 catalog videos.
+- `data/brain/display-titles.json` — extra teaching titles not in an official batch. Currently empty. Later `batch-N` files win on conflict.
 
-To add **batch 5**: create `data/brain/display-titles.batch-5.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`.
+To add **batch 9**: create `data/brain/display-titles.batch-9.json` in the same `{ items: [{ video_id, display_title, speaker? }] }` shape. `src/lib/display-title.ts` already loads every `display-titles.batch-*.json`. Preview with `npm run titles:preview` (miss count must be 0), then `npm run db:seed`. YouTube is not renamed from this repo; `docs/STUDIO-RENAME.csv` is the pending Studio list only.
 
 Format: `Topic — Speaker, Credential` when the speaker is known; series without a guest use `Series — Mon D, YYYY` (em dash). Do not invent credentials.
 
@@ -129,8 +133,8 @@ Then re-import so SQLite/Postgres picks up the new titles: `npm run db:seed`.
 ### Data gaps
 
 - Most catalog rows have **no speaker field**. Names are inferred from titles when obvious (Betsy Miller, Dr. Kim Ross, …). Many guest talks are first-name only (Danielle, Val, Jade, Julie T, Cara) with **no credential** — those titles use the name as-is.
-- `Liz Lipski` still has no topic in the YouTube title; left as `Guest Talk — Liz Lipski`. Batch 2 lightly inferred `Performance & Physiology` for Dr. Mike T. Nelson.
-- Testimonials, Zoom filenames (`GMT…`), and untitled MP4 dumps are left raw unless a date/series pattern is obvious.
+- `Liz Lipski` still has no topic in the YouTube title, so the display title stays `Liz Lipski` rather than inventing one. Batch 2 lightly inferred `Performance & Physiology` for Dr. Mike T. Nelson.
+- Zoom filenames (`GMT…`) display as `Recording — Mon D, YYYY`. The raw YouTube title stays on `Video.title`. One-word roadmap titles (`Fears`, `Vehicle`, and similar) stay short when the session topic is not confirmed.
 - Brain `program` is often `mentorship` or `null`, so shelves are title/classify-based, not a clean Studio taxonomy.
 
 `speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres.

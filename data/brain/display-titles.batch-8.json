@@ -1,0 +1,858 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Zoom recordings, roundtables, GI, and remaining catalog",
+  "count": 105,
+  "items": [
+    {
+      "video_id": "E-vHVlGizos",
+      "youtube_title": "0 to 1 Thursday Call",
+      "display_title": "0 to 1 Thursday Call",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-10-09"
+    },
+    {
+      "video_id": "2j1ArauC_H8",
+      "youtube_title": "0 to 1: Finding Traction for your Practice",
+      "display_title": "0 to 1: Finding Traction for Your Practice",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-10-06"
+    },
+    {
+      "video_id": "JS3s2u1kMxM",
+      "youtube_title": "10 29 2025 Member Roundtable",
+      "display_title": "Member Roundtable — Oct 29, 2025",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "published_at": "2025-10-30"
+    },
+    {
+      "video_id": "n1YTXjjYHwo",
+      "youtube_title": "2026 Career Roundtable",
+      "display_title": "Career Roundtable — 2026",
+      "batch": 8,
+      "notes": "roundtable year polish",
+      "program": "other",
+      "published_at": "2026-05-28"
+    },
+    {
+      "video_id": "zM0gQ3h5EsM",
+      "youtube_title": "3 Big \"First Client\" Wins",
+      "display_title": "3 Big \"First Client\" Wins",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-05-21"
+    },
+    {
+      "video_id": "HDo41x9DF48",
+      "youtube_title": "30 Day Career Jump Start Program Intro",
+      "display_title": "30-Day Career Jump Start Program Intro",
+      "batch": 8,
+      "notes": "hyphen polish",
+      "program": "other",
+      "published_at": "2025-04-19"
+    },
+    {
+      "video_id": "2thsO34BifI",
+      "youtube_title": "30 Day Career Roadmap Webinar",
+      "display_title": "30-Day Career Roadmap Webinar",
+      "batch": 8,
+      "notes": "hyphen polish",
+      "program": "other",
+      "published_at": "2025-05-15"
+    },
+    {
+      "video_id": "UArakME4Vh8",
+      "youtube_title": "Alicia - Finding First Client",
+      "display_title": "Alicia: Finding First Client",
+      "batch": 8,
+      "notes": "colon polish",
+      "published_at": "2024-09-23"
+    },
+    {
+      "video_id": "IbK8aUzj5hQ",
+      "youtube_title": "Alicia Celebrates a BIG win!",
+      "display_title": "Alicia Celebrates a Big Win",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-06-09"
+    },
+    {
+      "video_id": "IvPs_9u7TjM",
+      "youtube_title": "An Overview of Your Client's Journey",
+      "display_title": "An Overview of Your Client's Journey",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-01-18"
+    },
+    {
+      "video_id": "lLpI7EI6KSg",
+      "youtube_title": "Balancing Responsibilities and Goal Setting",
+      "display_title": "Balancing Responsibilities and Goal Setting",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-01-19"
+    },
+    {
+      "video_id": "0lXbOzTR848",
+      "youtube_title": "BCHN Info Session Nicole Hodson",
+      "display_title": "BCHN Info Session — Nicole Hodson",
+      "batch": 8,
+      "notes": "speaker from title",
+      "program": "BCHN",
+      "published_at": "2024-09-15"
+    },
+    {
+      "video_id": "4PH_-eicHRg",
+      "youtube_title": "Blood Work and Functional Medicine Yvonne",
+      "display_title": "Blood Work and Functional Medicine — Yvonne",
+      "batch": 8,
+      "notes": "speaker from title",
+      "published_at": "2024-12-19"
+    },
+    {
+      "video_id": "JUX9wG7BRtQ",
+      "youtube_title": "Business Funnel and Content Marketing 3",
+      "display_title": "Business Funnel and Content Marketing 3",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-11-27"
+    },
+    {
+      "video_id": "FhXdTVvK9M0",
+      "youtube_title": "Candida Overgrowth and Bone Health",
+      "display_title": "Candida Overgrowth and Bone Health",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2026-06-04"
+    },
+    {
+      "video_id": "yS8lMYzbM-c",
+      "youtube_title": "Career Roundtable",
+      "display_title": "Career Roundtable",
+      "batch": 8,
+      "notes": "roundtable keep",
+      "program": "other",
+      "published_at": "2024-11-15"
+    },
+    {
+      "video_id": "L7EJ-CDkR9o",
+      "youtube_title": "Career Roundtable 10 15 2025",
+      "display_title": "Career Roundtable — Oct 15, 2025",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "program": "other",
+      "published_at": "2025-11-29"
+    },
+    {
+      "video_id": "uPPPyWPpNnw",
+      "youtube_title": "Case Roundtable 6 10 2026",
+      "display_title": "Case Roundtable — Jun 10, 2026",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "published_at": "2026-06-11"
+    },
+    {
+      "video_id": "sEgtdERFDJw",
+      "youtube_title": "Chronic Fatigue Syndrome and Mitochondrial Dysfunction",
+      "display_title": "Chronic Fatigue Syndrome and Mitochondrial Dysfunction",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-07-10"
+    },
+    {
+      "video_id": "PRdOniFEmk8",
+      "youtube_title": "Clinical Roundtable 6 17 2026",
+      "display_title": "Clinical Roundtable — Jun 17, 2026",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "published_at": "2026-06-18"
+    },
+    {
+      "video_id": "Mh9H7fCTX30",
+      "youtube_title": "Clinical Roundtable 7 2 2025",
+      "display_title": "Clinical Roundtable — Jul 2, 2025",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "published_at": "2025-07-03"
+    },
+    {
+      "video_id": "SqVG0hNgQs0",
+      "youtube_title": "Conventional Bloodwork Through a Functional Lens",
+      "display_title": "Conventional Bloodwork Through a Functional Lens",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-01-05"
+    },
+    {
+      "video_id": "OBbsxfqKalA",
+      "youtube_title": "Day 30 - Next Steps",
+      "display_title": "Day 30: Next Steps",
+      "batch": 8,
+      "notes": "colon polish",
+      "published_at": "2025-06-12"
+    },
+    {
+      "video_id": "FMNcNW6FOK8",
+      "youtube_title": "Determine your Niche (Quick Version)",
+      "display_title": "Determine Your Niche (Quick Version)",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2023-06-23"
+    },
+    {
+      "video_id": "6ycsDs9NolE",
+      "youtube_title": "Digestion and Microbiome Training Series Part 2 GI Dysfunction and Functional Frameworks",
+      "display_title": "Digestion and Microbiome Training Series, Part 2: GI Dysfunction and Functional Frameworks",
+      "batch": 8,
+      "notes": "GI series polish",
+      "published_at": "2026-03-26"
+    },
+    {
+      "video_id": "tw33rflrvVU",
+      "youtube_title": "End of Year Wrap Up [Live Call] - 2024",
+      "display_title": "End of Year Wrap-Up (Live Call) — 2024",
+      "batch": 8,
+      "notes": "bracket/em polish",
+      "published_at": "2025-01-02"
+    },
+    {
+      "video_id": "ZUQV-il8-q0",
+      "youtube_title": "Finding Leads & Making Sales [Lecture]",
+      "display_title": "Finding Leads & Making Sales (Lecture)",
+      "batch": 8,
+      "notes": "bracket polish",
+      "published_at": "2024-07-17"
+    },
+    {
+      "video_id": "-Sv1FThxkNA",
+      "youtube_title": "Finding Leads and Making Sales",
+      "display_title": "Finding Leads and Making Sales",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-07-17"
+    },
+    {
+      "video_id": "GV9eiATj4cc",
+      "youtube_title": "Finding Your First Client   Defining Your Program",
+      "display_title": "Finding Your First Client: Defining Your Program",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "ufTzi3g-keQ",
+      "youtube_title": "Finding Your First Client   Discovery Call and Making the Sale",
+      "display_title": "Finding Your First Client: Discovery Call and Making the Sale",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "HxW41HDz8Qg",
+      "youtube_title": "Finding Your First Client   Friends and Family",
+      "display_title": "Finding Your First Client: Friends and Family",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "O7kNFWTubUw",
+      "youtube_title": "Finding Your First Client   Mindset",
+      "display_title": "Finding Your First Client: Mindset",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "mRyHQgxcZck",
+      "youtube_title": "Finding Your First Client   Workshop Model",
+      "display_title": "Finding Your First Client: Workshop Model",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "cLdBt0Jr6GA",
+      "youtube_title": "Finding Your First Client - Discovery Call and Making the Sale",
+      "display_title": "Finding Your First Client: Discovery Call and Making the Sale",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2025-03-25"
+    },
+    {
+      "video_id": "BE38IyUnxyA",
+      "youtube_title": "Finding Your First Client - Strategy Call Invite",
+      "display_title": "Finding Your First Client: Strategy Call Invite",
+      "batch": 8,
+      "notes": "series polish",
+      "published_at": "2024-09-25"
+    },
+    {
+      "video_id": "GwmorDZbDKw",
+      "youtube_title": "Finding Your First Client Intro",
+      "display_title": "Finding Your First Client Intro",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-09-19"
+    },
+    {
+      "video_id": "R67lLMvT9Pg",
+      "youtube_title": "FMA Blood pattern YM week 1",
+      "display_title": "FMA Blood Pattern YM Week 1",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-01-05"
+    },
+    {
+      "video_id": "KI1XM5bXv7E",
+      "youtube_title": "FMA Welcome Meeting 1",
+      "display_title": "FMA Welcome Meeting 1",
+      "batch": 8,
+      "notes": "keep",
+      "program": "other",
+      "published_at": "2025-02-14"
+    },
+    {
+      "video_id": "oO8GHOvelOM",
+      "youtube_title": "Four Pillars of Restorative Sleep",
+      "display_title": "Four Pillars of Restorative Sleep",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2026-08-20"
+    },
+    {
+      "video_id": "uWYEco2Ng0I",
+      "youtube_title": "Functional Approach to Menopause and Hypertension",
+      "display_title": "Functional Approach to Menopause and Hypertension",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-04-17"
+    },
+    {
+      "video_id": "sTaUIqLUkR4",
+      "youtube_title": "Functional Testing with Danielle 2025",
+      "display_title": "Functional Testing with Danielle (2025)",
+      "batch": 8,
+      "notes": "year polish",
+      "published_at": "2025-12-05"
+    },
+    {
+      "video_id": "wyoyXUdaOHw",
+      "youtube_title": "Functional Testing with Danielle A",
+      "display_title": "Functional Testing with Danielle A",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-12-12"
+    },
+    {
+      "video_id": "Xdl13-m4FdU",
+      "youtube_title": "GI Digestive Health Microbiome Pt 1b",
+      "display_title": "GI Digestive Health: Microbiome, Part 1b",
+      "batch": 8,
+      "notes": "GI series polish",
+      "published_at": "2026-03-23"
+    },
+    {
+      "video_id": "Bzy8G9BAqpg",
+      "youtube_title": "GI Digestive Health Pt 1a",
+      "display_title": "GI Digestive Health, Part 1a",
+      "batch": 8,
+      "notes": "GI series polish",
+      "published_at": "2026-03-23"
+    },
+    {
+      "video_id": "HkOlHqzTS_4",
+      "youtube_title": "GMT20260429 233158 Recording 1920x1080",
+      "display_title": "Recording — Apr 29, 2026",
+      "batch": 8,
+      "notes": "Zoom garbage title → Recording + date",
+      "published_at": "2026-04-30"
+    },
+    {
+      "video_id": "wQyMOaYFRaE",
+      "youtube_title": "Group Call with PCC",
+      "display_title": "Group Call with PCC",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-11"
+    },
+    {
+      "video_id": "ceh95Ekz8Gk",
+      "youtube_title": "How Alicia W. found her first client.",
+      "display_title": "How Alicia W. Found Her First Client",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2024-09-23"
+    },
+    {
+      "video_id": "VHoJxlAXnME",
+      "youtube_title": "How Corinne Found her First Client",
+      "display_title": "How Corinne Found Her First Client",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2024-09-23"
+    },
+    {
+      "video_id": "e5Ux7Yub5bc",
+      "youtube_title": "HRB 637 Business Plan Conversation",
+      "display_title": "HRB 637 Business Plan Conversation",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-08"
+    },
+    {
+      "video_id": "bhUTxuAGUxk",
+      "youtube_title": "Immune Balance Part 1",
+      "display_title": "Immune Balance Part 1",
+      "batch": 8,
+      "notes": "series keep",
+      "published_at": "2026-03-12"
+    },
+    {
+      "video_id": "V_3KWZxM544",
+      "youtube_title": "Immune Balance Part 2",
+      "display_title": "Immune Balance Part 2",
+      "batch": 8,
+      "notes": "series keep",
+      "published_at": "2026-03-12"
+    },
+    {
+      "video_id": "WZXLmWh0Hd8",
+      "youtube_title": "Immune Balance Part 2 Intolerance allergy sensitivity",
+      "display_title": "Immune Balance Part 2: Intolerance, Allergy, Sensitivity",
+      "batch": 8,
+      "notes": "series topic polish",
+      "published_at": "2025-11-13"
+    },
+    {
+      "video_id": "3Xe64tvUXs4",
+      "youtube_title": "Immune Microbiome Development and A1 Beta Casein",
+      "display_title": "Immune Microbiome Development and A1 Beta-Casein",
+      "batch": 8,
+      "notes": "hyphen polish",
+      "published_at": "2025-08-07"
+    },
+    {
+      "video_id": "gIXYpdY6Uys",
+      "youtube_title": "Infertility and NaPro Technology with Julie T",
+      "display_title": "Infertility and NaPro Technology — Julie T",
+      "batch": 8,
+      "notes": "speaker from title",
+      "published_at": "2025-10-23"
+    },
+    {
+      "video_id": "X3Tv38VP6IA",
+      "youtube_title": "Inflammation Savannah Limbaugh",
+      "display_title": "Inflammation — Savannah Limbaugh",
+      "batch": 8,
+      "notes": "speaker from title",
+      "published_at": "2025-10-09"
+    },
+    {
+      "video_id": "RdLIFeAr6uM",
+      "youtube_title": "Interested in working with us?",
+      "display_title": "Interested in Working with Us?",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-09-18"
+    },
+    {
+      "video_id": "fwZz9ZHX-Dk",
+      "youtube_title": "Journal Roundtable 8 20 2025",
+      "display_title": "Journal Roundtable — Aug 20, 2025",
+      "batch": 8,
+      "notes": "roundtable date cleanup",
+      "published_at": "2025-08-21"
+    },
+    {
+      "video_id": "J_-O_j1Sb-w",
+      "youtube_title": "Julie T NaPro 2",
+      "display_title": "Julie T: NaPro Technology Part 2",
+      "batch": 8,
+      "notes": "topic polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "yJrh_-45fQ0",
+      "youtube_title": "Keys to Rapid Career Growth",
+      "display_title": "Keys to Rapid Career Growth",
+      "batch": 8,
+      "notes": "keep",
+      "program": "other",
+      "published_at": "2025-05-01"
+    },
+    {
+      "video_id": "M_7VOAIQiEE",
+      "youtube_title": "Leveraging a Portfolio Career",
+      "display_title": "Leveraging a Portfolio Career",
+      "batch": 8,
+      "notes": "keep",
+      "program": "other",
+      "published_at": "2025-04-30"
+    },
+    {
+      "video_id": "aGaRlDUJGAc",
+      "youtube_title": "Master Immune Balance Using PubMed",
+      "display_title": "Master Immune Balance Using PubMed",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2026-03-12"
+    },
+    {
+      "video_id": "75UShhbIJOo",
+      "youtube_title": "Mental Health Part 2",
+      "display_title": "Mental Health Part 2",
+      "batch": 8,
+      "notes": "keep (no speaker invented)",
+      "published_at": "2024-11-13"
+    },
+    {
+      "video_id": "gJbZpvakSnQ",
+      "youtube_title": "Mental Health Part 3",
+      "display_title": "Mental Health Part 3",
+      "batch": 8,
+      "notes": "keep (no speaker invented)",
+      "published_at": "2024-11-13"
+    },
+    {
+      "video_id": "EjME-KBCWW0",
+      "youtube_title": "NANP Board Certification Info Session",
+      "display_title": "NANP Board Certification Info Session",
+      "batch": 8,
+      "notes": "keep",
+      "program": "other",
+      "published_at": "2024-01-01"
+    },
+    {
+      "video_id": "5jGeJvDROdg",
+      "youtube_title": "NANP Legislative Affairs 2025",
+      "display_title": "NANP Legislative Affairs 2025",
+      "batch": 8,
+      "notes": "keep",
+      "program": "other",
+      "published_at": "2025-08-14"
+    },
+    {
+      "video_id": "SDZKmjD_h7I",
+      "youtube_title": "Non-Compliant Clients and the Entrepreneurial Mindset",
+      "display_title": "Non-Compliant Clients and the Entrepreneurial Mindset",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-11-13"
+    },
+    {
+      "video_id": "T3svpVLeYSg",
+      "youtube_title": "Nutrigenomics w/ Val",
+      "display_title": "Nutrigenomics — Val",
+      "batch": 8,
+      "notes": "speaker from title",
+      "published_at": "2026-05-21"
+    },
+    {
+      "video_id": "173iN1C0Jys",
+      "youtube_title": "Nutrition and Cancer Overview",
+      "display_title": "Nutrition and Cancer Overview",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-19"
+    },
+    {
+      "video_id": "Uej6mrmb01I",
+      "youtube_title": "Nutrition for Cancer Email Clip",
+      "display_title": "Nutrition for Cancer Email Clip",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-19"
+    },
+    {
+      "video_id": "sPIwheyO4mM",
+      "youtube_title": "Nutrition for Cancer Overview",
+      "display_title": "Nutrition for Cancer Overview",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-19"
+    },
+    {
+      "video_id": "POwt0TMD2uA",
+      "youtube_title": "Nutritional Genomics Pt 1",
+      "display_title": "Nutritional Genomics Part 1",
+      "batch": 8,
+      "notes": "Pt→Part polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "tYlfQhFEekY",
+      "youtube_title": "Nutritional Genomics Pt 2",
+      "display_title": "Nutritional Genomics Part 2",
+      "batch": 8,
+      "notes": "Pt→Part polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "gIwVI8AiP60",
+      "youtube_title": "Nutritional Genomics Pt 3",
+      "display_title": "Nutritional Genomics Part 3",
+      "batch": 8,
+      "notes": "Pt→Part polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "K5JXZ8rAYak",
+      "youtube_title": "Nutritional Genomics Pt 4",
+      "display_title": "Nutritional Genomics Part 4",
+      "batch": 8,
+      "notes": "Pt→Part polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "LbhnKgbZwGs",
+      "youtube_title": "Nutritional Genomics Pt 5",
+      "display_title": "Nutritional Genomics Part 5",
+      "batch": 8,
+      "notes": "Pt→Part polish",
+      "published_at": "2024-09-16"
+    },
+    {
+      "video_id": "ETvc5KGCEnw",
+      "youtube_title": "Nutritional Genomics Pt 6 FH",
+      "display_title": "Nutritional Genomics Part 6: Family History",
+      "batch": 8,
+      "notes": "Pt→Part + FH expand",
+      "published_at": "2024-10-17"
+    },
+    {
+      "video_id": "0Snc499izkI",
+      "youtube_title": "Optimizing your Discovery Call [Case study w/Cara]",
+      "display_title": "Optimizing Your Discovery Call (Case Study with Cara)",
+      "batch": 8,
+      "notes": "bracket polish",
+      "published_at": "2025-01-11"
+    },
+    {
+      "video_id": "7DWLHRCxo3o",
+      "youtube_title": "Options to Continue Working with Us",
+      "display_title": "Options to Continue Working with Us",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-06-12"
+    },
+    {
+      "video_id": "wwglfhLZrEk",
+      "youtube_title": "Outline your Dream End State",
+      "display_title": "Outline Your Dream End State",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-04-19"
+    },
+    {
+      "video_id": "JpDinvJq0OQ",
+      "youtube_title": "Overview of Functional Testing",
+      "display_title": "Overview of Functional Testing",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-12-29"
+    },
+    {
+      "video_id": "p1qGm9e4KwA",
+      "youtube_title": "Overview of Metabolomics",
+      "display_title": "Overview of Metabolomics",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-01-14"
+    },
+    {
+      "video_id": "fbSWTnhpDfo",
+      "youtube_title": "Paige Testimonial David Nutrition Advice",
+      "display_title": "Paige Testimonial: David Nutrition Advice",
+      "batch": 8,
+      "notes": "colon polish",
+      "published_at": "2025-06-05"
+    },
+    {
+      "video_id": "rc1RQVVHLAk",
+      "youtube_title": "Paige Testimonial David Nutrition Advice",
+      "display_title": "Paige Testimonial: David Nutrition Advice",
+      "batch": 8,
+      "notes": "colon polish",
+      "published_at": "2025-05-22"
+    },
+    {
+      "video_id": "YGpH2PIRGIU",
+      "youtube_title": "Pediatric Microbiome and Eczema",
+      "display_title": "Pediatric Microbiome and Eczema",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-05-31"
+    },
+    {
+      "video_id": "TFTUfkC1OzU",
+      "youtube_title": "Professional Outreach Engaging w Purpose",
+      "display_title": "Professional Outreach: Engaging with Purpose",
+      "batch": 8,
+      "notes": "expand w/ polish",
+      "published_at": "2025-04-26"
+    },
+    {
+      "video_id": "oH2nt3fH0jo",
+      "youtube_title": "Savannah Thyroid Case Study 2",
+      "display_title": "Savannah Thyroid Case Study 2",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-09-18"
+    },
+    {
+      "video_id": "FlHf-SwnF8I",
+      "youtube_title": "Sean & David Program Overview",
+      "display_title": "Sean & David Program Overview",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-12-02"
+    },
+    {
+      "video_id": "bvBK3Tg366g",
+      "youtube_title": "Simplifying Client Consultations",
+      "display_title": "Simplifying Client Consultations",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-10-02"
+    },
+    {
+      "video_id": "51QGw7fAy1g",
+      "youtube_title": "Social Media & Functional Testing [Live Recording]",
+      "display_title": "Social Media & Functional Testing (Live Recording)",
+      "batch": 8,
+      "notes": "bracket polish",
+      "published_at": "2025-03-27"
+    },
+    {
+      "video_id": "s7Ha2baIGes",
+      "youtube_title": "Sofia Health Demo",
+      "display_title": "Sofia Health Demo",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-09-23"
+    },
+    {
+      "video_id": "0jfs7u--ZeM",
+      "youtube_title": "Spiraling Up! The required mindset for growing yourself and your business!",
+      "display_title": "Spiraling Up: The Required Mindset for Growing Yourself and Your Business",
+      "batch": 8,
+      "notes": "punctuation polish",
+      "published_at": "2025-07-22"
+    },
+    {
+      "video_id": "_V5bn-7th5g",
+      "youtube_title": "Sporebiotics Part 2",
+      "display_title": "Sporebiotics Part 2",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2026-03-21"
+    },
+    {
+      "video_id": "arPBVZ6bf7I",
+      "youtube_title": "Sporebiotics Pt 2 Red Clover GERD",
+      "display_title": "Sporebiotics Part 2: Red Clover & GERD",
+      "batch": 8,
+      "notes": "topic polish",
+      "published_at": "2026-03-05"
+    },
+    {
+      "video_id": "426Ghqq-AVQ",
+      "youtube_title": "Strategic Business Relationships Case Study & Deep Dive",
+      "display_title": "Strategic Business Relationships: Case Study & Deep Dive",
+      "batch": 8,
+      "notes": "colon polish",
+      "published_at": "2025-04-17"
+    },
+    {
+      "video_id": "j4m-TEU3sY8",
+      "youtube_title": "Strategic Business Relationships with Jade",
+      "display_title": "Strategic Business Relationships — Jade",
+      "batch": 8,
+      "notes": "speaker from title",
+      "published_at": "2025-04-22"
+    },
+    {
+      "video_id": "wb-JIUxx4Ac",
+      "youtube_title": "Stress in Cancer Development Webinar",
+      "display_title": "Stress in Cancer Development Webinar",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2024-09-26"
+    },
+    {
+      "video_id": "QKq5EHLFvT0",
+      "youtube_title": "Synergistic Business Connections [Overview]",
+      "display_title": "Synergistic Business Connections (Overview)",
+      "batch": 8,
+      "notes": "bracket polish",
+      "published_at": "2025-04-29"
+    },
+    {
+      "video_id": "MkoPoAKiWz8",
+      "youtube_title": "Tell a Story Someone Cares About",
+      "display_title": "Tell a Story Someone Cares About",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-01-18"
+    },
+    {
+      "video_id": "O4TWnnpjWOc",
+      "youtube_title": "Telling Better Stories for your Program",
+      "display_title": "Telling Better Stories for Your Program",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-06-03"
+    },
+    {
+      "video_id": "3TnAXedY8ZI",
+      "youtube_title": "The Parts of the Business Roadmap [what we're building]",
+      "display_title": "The Parts of the Business Roadmap (What We're Building)",
+      "batch": 8,
+      "notes": "bracket polish",
+      "published_at": "2025-01-18"
+    },
+    {
+      "video_id": "9as5s7ScKHE",
+      "youtube_title": "The Power of Following up",
+      "display_title": "The Power of Following Up",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-04-29"
+    },
+    {
+      "video_id": "ableUZwkl5w",
+      "youtube_title": "The Science of Sporebiotics",
+      "display_title": "The Science of Sporebiotics",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2026-02-21"
+    },
+    {
+      "video_id": "48j5chIu8uY",
+      "youtube_title": "Understanding Conventional Lab Panels",
+      "display_title": "Understanding Conventional Lab Panels",
+      "batch": 8,
+      "notes": "keep",
+      "published_at": "2025-05-22"
+    },
+    {
+      "video_id": "1nDGWugLMEY",
+      "youtube_title": "What we're trying to build",
+      "display_title": "What We're Trying to Build",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-01-18"
+    },
+    {
+      "video_id": "VDXusJfpgAk",
+      "youtube_title": "Who do you serve?",
+      "display_title": "Who Do You Serve?",
+      "batch": 8,
+      "notes": "casing polish",
+      "published_at": "2025-01-18"
+    }
+  ]
+}
