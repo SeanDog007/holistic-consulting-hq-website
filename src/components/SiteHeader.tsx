@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const LINKS = [
-  { href: "/about.html", label: "About" },
-  { href: "/programs.html", label: "Programs" },
-  { href: "/results.html", label: "Results" },
-  { href: "/faq.html", label: "FAQ" },
+  { href: "https://holisticconsultinghq.com/about", label: "About" },
+  { href: "https://holisticconsultinghq.com/programs", label: "Programs" },
+  { href: "https://holisticconsultinghq.com/results", label: "Results" },
+  { href: "https://holisticconsultinghq.com/programs", label: "FAQ" },
 ];
 
 export function SiteHeader({
@@ -25,7 +25,7 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-50 bg-forest">
       <div className="container-site flex items-center justify-between py-4">
-        <Link href="/index.html" className="flex items-center gap-3">
+        <Link href="https://holisticconsultinghq.com/" className="flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/50 text-gold">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path
@@ -71,7 +71,7 @@ export function SiteHeader({
             </form>
           ) : null}
           <Link
-            href="/enroll.html"
+            href="https://holisticconsultinghq.com/enroll"
             className="bg-gold px-5 py-2.5 text-[0.75rem] font-semibold tracking-[0.1em] text-white uppercase hover:bg-gold-lt"
           >
             Book a Call
@@ -108,7 +108,7 @@ export function SiteHeader({
                 </button>
               </form>
             ) : null}
-            <Link href="/enroll.html" className="btn-primary w-fit">
+            <Link href="https://holisticconsultinghq.com/enroll" className="btn-primary w-fit">
               Book a Call
             </Link>
           </div>

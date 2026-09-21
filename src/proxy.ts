@@ -4,7 +4,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname === "/") {
-    return NextResponse.rewrite(new URL("/index.html", request.url));
+    return NextResponse.redirect(new URL("/library", request.url));
   }
 
   if (pathname === "/library/login" || pathname.startsWith("/library/login/")) {

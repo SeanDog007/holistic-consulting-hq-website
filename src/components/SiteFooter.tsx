@@ -22,17 +22,17 @@ export function SiteFooter() {
             </h4>
             <ul className="space-y-2.5 text-[0.85rem] text-cream/65">
               <li>
-                <Link href="/programs.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/programs" className="hover:text-cream">
                   Mentorship
                 </Link>
               </li>
               <li>
-                <Link href="/programs.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/programs" className="hover:text-cream">
                   Herbalism
                 </Link>
               </li>
               <li>
-                <Link href="/programs.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/programs" className="hover:text-cream">
                   BCHN Exam Prep
                 </Link>
               </li>
@@ -44,22 +44,22 @@ export function SiteFooter() {
             </h4>
             <ul className="space-y-2.5 text-[0.85rem] text-cream/65">
               <li>
-                <Link href="/about.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/about" className="hover:text-cream">
                   About & Mission
                 </Link>
               </li>
               <li>
-                <Link href="/results.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/results" className="hover:text-cream">
                   Results & Testimonials
                 </Link>
               </li>
               <li>
-                <Link href="/blog.html" className="hover:text-cream">
+                <Link href="https://journal.holisticconsultinghq.com/" className="hover:text-cream">
                   Blog & Resources
                 </Link>
               </li>
               <li>
-                <Link href="/faq.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/programs" className="hover:text-cream">
                   FAQ
                 </Link>
               </li>
@@ -71,7 +71,7 @@ export function SiteFooter() {
             </h4>
             <ul className="space-y-2.5 text-[0.85rem] text-cream/65">
               <li>
-                <Link href="/enroll.html" className="hover:text-cream">
+                <Link href="https://holisticconsultinghq.com/enroll" className="hover:text-cream">
                   Book a Discovery Call
                 </Link>
               </li>
