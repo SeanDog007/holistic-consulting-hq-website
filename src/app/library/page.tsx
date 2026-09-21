@@ -49,7 +49,7 @@ export default async function LibraryPage({
               <a href="#shelves" className="btn-primary">
                 Search recordings
               </a>
-              <Link href="/programs.html" className="btn-outline">
+              <Link href="https://holisticconsultinghq.com/programs" className="btn-outline">
                 Explore Programs
               </Link>
             </div>

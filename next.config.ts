@@ -83,19 +83,44 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
+    // This project serves only the recording library, at
+    // library.holisticconsultinghq.com. It also carries a long-outdated copy of
+    // the marketing site in public/ — left over from when this project briefly
+    // held the apex domain. Every marketing path below now redirects to the
+    // real marketing site so that stale copy is never served to anyone.
+    const site = "https://holisticconsultinghq.com";
+    const journal = "https://journal.holisticconsultinghq.com";
+    const marketing = (from: string, to: string) => ({
+      source: from,
+      destination: to,
+      permanent: false,
+    });
+
     return [
-      { source: "/residency", destination: "/programs", permanent: false },
-      { source: "/launch", destination: "/programs#launch", permanent: false },
-      { source: "/grow", destination: "/programs#grow", permanent: false },
-      { source: "/master", destination: "/programs#master", permanent: false },
-      { source: "/practitioner-stories", destination: "/results", permanent: false },
-    ];
-  },
-  async rewrites() {
-    return [
-      { source: "/", destination: "/index.html" },
-      { source: "/programs", destination: "/programs.html" },
-      { source: "/results", destination: "/results.html" },
+      marketing("/index.html", site),
+      marketing("/home.html", site),
+      marketing("/about.html", `${site}/about`),
+      marketing("/programs.html", `${site}/programs`),
+      marketing("/results.html", `${site}/results`),
+      marketing("/enroll.html", `${site}/enroll`),
+      marketing("/faq.html", `${site}/programs`),
+      marketing("/blog.html", journal),
+
+      // pretty-URL forms of the same pages
+      marketing("/about", `${site}/about`),
+      marketing("/programs", `${site}/programs`),
+      marketing("/results", `${site}/results`),
+      marketing("/enroll", `${site}/enroll`),
+      marketing("/faq", `${site}/programs`),
+      marketing("/blog", journal),
+
+      // legacy aliases. LAUNCH/GROW/MASTER were retired in the July 2026
+      // restructure, so these land on /programs rather than dead anchors.
+      marketing("/residency", `${site}/programs`),
+      marketing("/launch", `${site}/programs`),
+      marketing("/grow", `${site}/programs`),
+      marketing("/master", `${site}/programs`),
+      marketing("/practitioner-stories", `${site}/results`),
     ];
   },
   async headers() {
