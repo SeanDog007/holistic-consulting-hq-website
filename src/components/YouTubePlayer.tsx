@@ -33,10 +33,38 @@ declare global {
 }
 
 type YtPlayer = {
-  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
-  getCurrentTime: () => number;
-  destroy: () => void;
+  seekTo?: (seconds: number, allowSeekAhead: boolean) => void;
+  getCurrentTime?: () => number;
+  destroy?: () => void;
 };
+
+function readCurrentTime(player: YtPlayer | null): number | null {
+  if (!player || typeof player.getCurrentTime !== "function") return null;
+  try {
+    const time = player.getCurrentTime();
+    return Number.isFinite(time) ? time : null;
+  } catch {
+    return null;
+  }
+}
+
+function seekPlayer(player: YtPlayer | null, seconds: number): void {
+  if (!player || typeof player.seekTo !== "function") return;
+  try {
+    player.seekTo(seconds, true);
+  } catch {
+    // The iframe can exist before YouTube installs seekTo.
+  }
+}
+
+function destroyPlayer(player: YtPlayer | null): void {
+  if (!player || typeof player.destroy !== "function") return;
+  try {
+    player.destroy();
+  } catch {
+    // Already torn down.
+  }
+}
 
 function loadApi(): Promise<void> {
   if (window.YT?.Player) return Promise.resolve();
@@ -64,10 +92,10 @@ export function YouTubePlayer({ videoId, startSec = 0, onTime, playerRef }: Prop
 
   useImperativeHandle(playerRef, () => ({
     seekTo(seconds: number) {
-      playerInstance.current?.seekTo(seconds, true);
+      seekPlayer(playerInstance.current, seconds);
     },
     getCurrentTime() {
-      return playerInstance.current?.getCurrentTime() ?? 0;
+      return readCurrentTime(playerInstance.current) ?? 0;
     },
   }));
 
@@ -78,7 +106,7 @@ export function YouTubePlayer({ videoId, startSec = 0, onTime, playerRef }: Prop
     async function setup() {
       await loadApi();
       if (cancelled || !hostRef.current || !window.YT) return;
-      playerInstance.current?.destroy();
+      destroyPlayer(playerInstance.current);
       playerInstance.current = new window.YT.Player(hostRef.current, {
         videoId,
         playerVars: {
@@ -89,21 +117,25 @@ export function YouTubePlayer({ videoId, startSec = 0, onTime, playerRef }: Prop
         },
         events: {
           onReady: (event) => {
-            if (startSec > 0) event.target.seekTo(startSec, true);
+            if (cancelled) return;
+            playerInstance.current = event.target;
+            if (startSec > 0) seekPlayer(event.target, startSec);
+            if (!onTime) return;
+            timer = window.setInterval(() => {
+              const time = readCurrentTime(playerInstance.current);
+              if (time === null) return;
+              onTime(time);
+            }, 500);
           },
         },
       });
-      timer = window.setInterval(() => {
-        if (!playerInstance.current || !onTime) return;
-        onTime(playerInstance.current.getCurrentTime());
-      }, 500);
     }
 
     void setup();
     return () => {
       cancelled = true;
       if (timer) window.clearInterval(timer);
-      playerInstance.current?.destroy();
+      destroyPlayer(playerInstance.current);
       playerInstance.current = null;
     };
   }, [videoId, startSec, onTime]);
