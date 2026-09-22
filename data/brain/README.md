@@ -33,6 +33,17 @@ Browse-chip mapping (Clinical Practice topics vs Program filters) lives in `src/
 
 The library is an internal member shelf. Keep every row, including `visibility: Unlisted`.
 
+## YouTube ids already swapped in production (2026-09-22)
+
+Production Prisma `Video.youtubeId` was updated in place before this catalog change. The cuids below did not change. `npm run build` / `brain:import` upserts on `youtubeId` and then deletes videos that are absent from this export, so these files keep the new ids and the next seed updates the existing rows.
+
+| Title | cuid (unchanged) | youtube id |
+| --- | --- | --- |
+| Four Pillars of Restorative Sleep | `cmu786seg000nff1uj45qr8sr` | `gxBYKliBTQo` |
+| Program Welcome | `cmu786sct0002ff1u2cmn5g26` | `9q3G6_6kBMs` |
+
+Previous ids were `oO8GHOvelOM` and `UcjRDYFOZP0`. The same two ids are remapped in `videos.json` (including `youtube_url`), `search_chunks.json.gz`, `embeddings.json.gz`, and the display-title batches that key these talks. Chunk counts are unchanged: 54 for Four Pillars of Restorative Sleep and 23 for Program Welcome. A later Studio export that still lists the previous ids would insert those rows and delete the live ones.
+
 ## Refresh from a future export
 
 1. Replace the files in this folder with the new CoS/Studio export:
