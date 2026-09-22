@@ -17,7 +17,7 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
           className="aspect-video w-full object-cover transition-transform duration-300 hover:scale-[1.03]"
         />
         {video.durationSec > 0 ? (
-          <span className="absolute right-3 bottom-3 bg-forest-deep/85 px-2 py-1 text-[0.7rem] font-medium tracking-wide text-cream">
+          <span className="absolute right-3 bottom-3 bg-charcoal/85 px-2 py-1 text-[0.7rem] font-medium tracking-wide text-cream">
             {formatDuration(video.durationSec)}
           </span>
         ) : null}

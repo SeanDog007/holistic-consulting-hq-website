@@ -145,7 +145,7 @@ export default async function LibraryPage({
         </div>
       </section>
 
-      <section className="bg-forest-deep py-24 text-cream">
+      <section className="bg-charcoal py-24 text-cream">
         <div className="container-site grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="mb-6 flex items-center gap-4">

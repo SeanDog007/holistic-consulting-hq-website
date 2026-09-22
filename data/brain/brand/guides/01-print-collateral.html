@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holistic Consulting — Print & Collateral Brand Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: { DEFAULT: '#2E7D32', light: '#4CAF50', sage: '#E8F5E9', forest: '#1B5E20' },
+            charcoal: '#2D3436',
+            slate: '#636E72',
+            gold: { DEFAULT: '#C9963B', light: '#D4A84B' },
+            offwhite: '#FAFAFA',
+            warmgray: '#F5F0EB',
+            bordergray: '#DFE6E9',
+            darkfooter: '#363B3E',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: #2D3436; background: #F5F0EB; }
+
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .gold-line::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 2px;
+      background: #C9963B;
+      margin-top: 12px;
+    }
+
+    .sidebar-link {
+      transition: color 0.2s ease, padding-left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      color: #2E7D32;
+      padding-left: 4px;
+    }
+
+    *:focus-visible {
+      outline: 2px solid #2E7D32;
+      outline-offset: 2px;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F5F0EB; }
+    ::-webkit-scrollbar-thumb { background: #DFE6E9; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C9963B; }
+
+    /* Mockup frame styles */
+    .mockup-frame {
+      background: white;
+      border: 1px solid #DFE6E9;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .mockup-page {
+      aspect-ratio: 8.5 / 11;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-slide {
+      aspect-ratio: 16 / 9;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-landscape {
+      aspect-ratio: 11 / 8.5;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media print {
+      .sidebar { display: none !important; }
+      main { margin-left: 0 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar fixed left-0 top-0 h-full w-56 bg-white border-r border-bordergray z-50 hidden lg:flex flex-col py-10 px-6 overflow-y-auto">
+    <a href="#cover" class="font-display text-2xl font-semibold text-charcoal leading-tight mb-1">Holistic<br>Consulting</a>
+    <p class="font-body text-[0.6rem] font-semibold tracking-[0.22em] uppercase text-gold mb-8">Print &amp; Collateral</p>
+
+    <nav class="flex flex-col gap-1">
+      <a href="#print-colors" class="sidebar-link font-body text-sm text-slate py-1.5">Print Colors</a>
+      <a href="#print-type" class="sidebar-link font-body text-sm text-slate py-1.5">Print Typography</a>
+      <a href="#logo-usage" class="sidebar-link font-body text-sm text-slate py-1.5">Logo Usage</a>
+      <a href="#handouts" class="sidebar-link font-body text-sm text-slate py-1.5">Handouts &amp; PDFs</a>
+      <a href="#flyers" class="sidebar-link font-body text-sm text-slate py-1.5">Flyers &amp; Posters</a>
+      <a href="#lessons" class="sidebar-link font-body text-sm text-slate py-1.5">Lesson Templates</a>
+      <a href="#presentations" class="sidebar-link font-body text-sm text-slate py-1.5">Presentations</a>
+      <a href="#certificates" class="sidebar-link font-body text-sm text-slate py-1.5">Certificates</a>
+      <a href="#social" class="sidebar-link font-body text-sm text-slate py-1.5">Social Media</a>
+      <a href="#email" class="sidebar-link font-body text-sm text-slate py-1.5">Email &amp; Signatures</a>
+      <a href="#donts" class="sidebar-link font-body text-sm text-slate py-1.5">Do's &amp; Don'ts</a>
+    </nav>
+
+    <div class="mt-auto pt-8 border-t border-bordergray">
+      <a href="brand-guide.html" class="font-body text-xs text-emerald hover:text-emerald-light">&larr; Web Brand Guide</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="lg:ml-56">
+
+    <!-- Cover Section -->
+    <section id="cover" class="relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 py-28 lg:py-44">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-8 gold-line">Print &amp; Collateral Guide</p>
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-[5.5rem] font-semibold text-charcoal leading-[1.05] tracking-[-0.01em] mb-5">Holistic<br>Consulting</h1>
+        <p class="font-display text-3xl sm:text-4xl lg:text-[3.8rem] font-normal italic text-emerald leading-[1.1] mb-12">Impactful Careers</p>
+        <p class="font-body text-lg text-slate max-w-xl leading-[1.75]">
+          Specifications for printed materials, documents, presentations, social media, and all off-screen brand applications.
+        </p>
+        <div class="mt-10 flex items-center gap-4">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald"></span>
+          <span class="font-body text-sm text-slate">Companion to the Web Brand Guide &mdash; February 2026</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 75% 15%, rgba(201,150,59,0.08) 0%, transparent 45%), radial-gradient(ellipse at 15% 75%, rgba(46,125,50,0.08) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(46,125,50,0.03) 0%, transparent 70%);"></div>
+    </section>
+
+
+    <!-- ==================== PRINT COLORS ==================== -->
+    <section id="print-colors" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">01</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Print Color Specifications</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">CMYK and Pantone equivalents for all brand colors. Always use CMYK values for offset printing and Pantone for spot color work.</p>
+
+        <!-- Primary Print Colors -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Primary Colors</h3>
+        <div class="grid md:grid-cols-2 gap-6 mb-12">
+          <!-- Emerald -->
+          <div class="bg-offwhite rounded-lg border border-bordergray overflow-hidden">
+            <div class="flex">
+              <div class="w-28 flex-shrink-0" style="background: #2E7D32;"></div>
+              <div class="p-5 flex-1">
+                <p class="font-body text-sm font-semibold text-charcoal mb-3">Emerald</p>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">HEX</p>
+                    <p class="font-body text-sm text-charcoal">#2E7D32</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">RGB</p>
+                    <p class="font-body text-sm text-charcoal">46, 125, 50</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">CMYK</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">82, 18, 95, 4</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">Pantone</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">PMS 7731 C</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Gold -->
+          <div class="bg-offwhite rounded-lg border border-bordergray overflow-hidden">
+            <div class="flex">
+              <div class="w-28 flex-shrink-0" style="background: #C9963B;"></div>
+              <div class="p-5 flex-1">
+                <p class="font-body text-sm font-semibold text-charcoal mb-3">Gold</p>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">HEX</p>
+                    <p class="font-body text-sm text-charcoal">#C9963B</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">RGB</p>
+                    <p class="font-body text-sm text-charcoal">201, 150, 59</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">CMYK</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">15, 33, 82, 2</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">Pantone</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">PMS 7407 C</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Charcoal -->
+          <div class="bg-offwhite rounded-lg border border-bordergray overflow-hidden">
+            <div class="flex">
+              <div class="w-28 flex-shrink-0" style="background: #2D3436;"></div>
+              <div class="p-5 flex-1">
+                <p class="font-body text-sm font-semibold text-charcoal mb-3">Charcoal</p>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">HEX</p>
+                    <p class="font-body text-sm text-charcoal">#2D3436</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">RGB</p>
+                    <p class="font-body text-sm text-charcoal">45, 52, 54</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">CMYK</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">72, 57, 52, 48</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">Pantone</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">PMS 446 C</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Warm Gray -->
+          <div class="bg-offwhite rounded-lg border border-bordergray overflow-hidden">
+            <div class="flex">
+              <div class="w-28 flex-shrink-0 border-r border-bordergray" style="background: #F5F0EB;"></div>
+              <div class="p-5 flex-1">
+                <p class="font-body text-sm font-semibold text-charcoal mb-3">Warm Gray</p>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">HEX</p>
+                    <p class="font-body text-sm text-charcoal">#F5F0EB</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">RGB</p>
+                    <p class="font-body text-sm text-charcoal">245, 240, 235</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">CMYK</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">3, 3, 5, 0</p>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50">Pantone</p>
+                    <p class="font-body text-sm text-charcoal font-semibold">PMS Warm Gray 1 C</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paper Stock -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Recommended Paper Stock</h3>
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Everyday Print</p>
+            <p class="font-body text-xs text-slate leading-[1.75]">80 lb text weight, uncoated warm white. For handouts, lesson materials, and internal documents.</p>
+          </div>
+          <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Premium Print</p>
+            <p class="font-body text-xs text-slate leading-[1.75]">100 lb cover weight, soft-touch matte. For business cards, certificates, and marketing flyers.</p>
+          </div>
+          <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Presentation Folders</p>
+            <p class="font-body text-xs text-slate leading-[1.75]">130 lb cover, spot UV on logo. For enrollment packets and professional handouts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== PRINT TYPOGRAPHY ==================== -->
+    <section id="print-type" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">02</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Print Typography</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">The same font pairing applies to print. Ensure fonts are embedded in all PDFs. Minimum body text size is 9pt for readability.</p>
+
+        <!-- Print Type Scale -->
+        <div class="bg-white rounded-lg border border-bordergray divide-y divide-bordergray overflow-hidden mb-12">
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Document Title</p>
+              <p class="font-display text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.1]">Cormorant Garamond</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">28–36pt<br><span class="text-[0.65rem]">Semibold 600</span></p>
+          </div>
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Section Heading</p>
+              <p class="font-display text-2xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15]">Cormorant Garamond</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">20–24pt<br><span class="text-[0.65rem]">Semibold 600</span></p>
+          </div>
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Sub-heading</p>
+              <p class="font-display text-xl font-semibold text-charcoal leading-[1.2]">Cormorant Garamond</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">16–18pt<br><span class="text-[0.65rem]">Semibold 600</span></p>
+          </div>
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Body Copy</p>
+              <p class="font-body text-base font-light text-charcoal leading-[1.75]">DM Sans — The body text of all printed materials should use DM Sans at a light weight with generous line spacing for comfortable reading.</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">10–11pt<br><span class="text-[0.65rem]">Light 300, leading 15pt</span></p>
+          </div>
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Caption / Footnote</p>
+              <p class="font-body text-xs font-light text-slate leading-[1.7]">DM Sans — Smaller supporting text for captions, footnotes, source attributions, and legal copy.</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">8–9pt<br><span class="text-[0.65rem]">Light 300</span></p>
+          </div>
+          <div class="p-6 lg:p-8 grid grid-cols-[1fr_auto] gap-8 items-end">
+            <div>
+              <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-2">Label / Tag</p>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-gold">Holistic Consulting Institute</p>
+            </div>
+            <p class="font-body text-sm text-slate text-right">7–8pt<br><span class="text-[0.65rem]">Semibold 600, uppercase</span></p>
+          </div>
+        </div>
+
+        <!-- Print Rules -->
+        <div class="bg-emerald-sage/50 rounded-lg border border-emerald/20 p-6">
+          <p class="font-body text-sm font-semibold text-emerald-forest mb-3">Print Typography Rules</p>
+          <ul class="font-body text-sm text-charcoal leading-[1.8] space-y-1">
+            <li>Minimum body text: <strong>9pt</strong> (10pt preferred)</li>
+            <li>Minimum caption text: <strong>7pt</strong></li>
+            <li>Line-height for body: <strong>140–150%</strong> of font size (e.g., 10pt text / 14pt leading)</li>
+            <li>Always embed fonts in PDF exports &mdash; never rely on system fonts</li>
+            <li>Use <strong>Charcoal #2D3436</strong> for body text, never pure black #000000</li>
+            <li>Paragraph spacing: <strong>6pt after</strong> for body, <strong>12pt before</strong> headings</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== LOGO USAGE ==================== -->
+    <section id="logo-usage" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">03</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Logo Usage for Print</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Clear space, minimum sizing, and placement rules for all printed and digital documents.</p>
+
+        <!-- Logo Versions -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Logo Versions</h3>
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <!-- Full lockup -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="bg-warmgray p-8 flex flex-col items-center justify-center min-h-[160px]">
+              <p class="font-display text-2xl font-semibold text-charcoal tracking-[-0.01em] text-center leading-tight">Holistic Consulting</p>
+              <p class="font-body text-[0.5rem] font-semibold tracking-[0.22em] uppercase text-gold mt-1.5">Impactful Careers</p>
+            </div>
+            <div class="bg-offwhite p-4 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal">Full Lockup</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">Primary use on all materials</p>
+            </div>
+          </div>
+          <!-- Wordmark only -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="bg-warmgray p-8 flex flex-col items-center justify-center min-h-[160px]">
+              <p class="font-display text-2xl font-semibold text-charcoal tracking-[-0.01em] text-center leading-tight">Holistic Consulting</p>
+            </div>
+            <div class="bg-offwhite p-4 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal">Wordmark Only</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">When space is limited</p>
+            </div>
+          </div>
+          <!-- Reversed -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="bg-charcoal p-8 flex flex-col items-center justify-center min-h-[160px]">
+              <p class="font-display text-2xl font-semibold text-white tracking-[-0.01em] text-center leading-tight">Holistic Consulting</p>
+              <p class="font-body text-[0.5rem] font-semibold tracking-[0.22em] uppercase text-gold mt-1.5">Impactful Careers</p>
+            </div>
+            <div class="bg-offwhite p-4 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal">Reversed (on Dark)</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">Dark backgrounds, photos</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear Space & Min Size -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Clear Space -->
+          <div class="bg-offwhite rounded-lg border border-bordergray p-8">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Clear Space</p>
+            <div class="flex items-center justify-center py-6">
+              <div class="relative">
+                <div class="border-2 border-dashed border-emerald/30 p-6 rounded">
+                  <p class="font-display text-xl font-semibold text-charcoal tracking-[-0.01em] leading-tight text-center">Holistic Consulting</p>
+                  <p class="font-body text-[0.45rem] font-semibold tracking-[0.22em] uppercase text-gold mt-1 text-center">Impactful Careers</p>
+                </div>
+                <!-- Measurement arrows -->
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <p class="font-body text-[0.55rem] font-semibold text-emerald bg-offwhite px-1">x</p>
+                </div>
+                <div class="absolute -bottom-3 left-1/2 -translate-x-1/2">
+                  <p class="font-body text-[0.55rem] font-semibold text-emerald bg-offwhite px-1">x</p>
+                </div>
+                <div class="absolute top-1/2 -left-3 -translate-y-1/2">
+                  <p class="font-body text-[0.55rem] font-semibold text-emerald bg-offwhite px-1">x</p>
+                </div>
+                <div class="absolute top-1/2 -right-3 -translate-y-1/2">
+                  <p class="font-body text-[0.55rem] font-semibold text-emerald bg-offwhite px-1">x</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-xs text-slate leading-[1.7] mt-4">Minimum clear space equals the cap-height of the "H" in "Holistic" on all four sides. No text, imagery, or other elements should enter this zone.</p>
+          </div>
+          <!-- Minimum Size -->
+          <div class="bg-offwhite rounded-lg border border-bordergray p-8">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Minimum Sizes</p>
+            <div class="space-y-6 mt-6">
+              <div class="flex items-end gap-6">
+                <p class="font-display text-xl font-semibold text-charcoal tracking-[-0.01em] leading-tight">Holistic Consulting</p>
+                <p class="font-body text-[0.65rem] text-slate flex-shrink-0">Print: 1.5" wide</p>
+              </div>
+              <div class="flex items-end gap-6">
+                <p class="font-display text-sm font-semibold text-charcoal tracking-[-0.01em] leading-tight">Holistic Consulting</p>
+                <p class="font-body text-[0.65rem] text-slate flex-shrink-0">Digital: 120px wide</p>
+              </div>
+              <div class="flex items-end gap-6">
+                <p class="font-display text-[0.6rem] font-semibold text-charcoal tracking-[-0.01em] leading-tight">Holistic Consulting</p>
+                <p class="font-body text-[0.65rem] text-red-500 flex-shrink-0">Too small &mdash; do not use</p>
+              </div>
+            </div>
+            <p class="font-body text-xs text-slate leading-[1.7] mt-6">Below minimum size the tagline "Impactful Careers" should be dropped. Use wordmark only.</p>
+          </div>
+        </div>
+
+        <!-- Placement -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Standard Placement</h3>
+        <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div>
+              <p class="font-body text-sm font-semibold text-charcoal mb-2">Documents &amp; Handouts</p>
+              <p class="font-body text-xs text-slate leading-[1.7]">Top-left of header or centered at top. Use full lockup with tagline. Minimum 0.5" from page edges.</p>
+            </div>
+            <div>
+              <p class="font-body text-sm font-semibold text-charcoal mb-2">Presentations</p>
+              <p class="font-body text-xs text-slate leading-[1.7]">Bottom-right of content slides. Full lockup on title slide. Wordmark only on dense content slides.</p>
+            </div>
+            <div>
+              <p class="font-body text-sm font-semibold text-charcoal mb-2">Flyers &amp; Posters</p>
+              <p class="font-body text-xs text-slate leading-[1.7]">Top center or top-left at prominent size. Must be the most visible brand element on the page.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== HANDOUTS & PDFS ==================== -->
+    <section id="handouts" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">04</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Handouts &amp; PDFs</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Standard document format for client handouts, informational sheets, and downloadable PDF resources.</p>
+
+        <div class="grid lg:grid-cols-[320px_1fr] gap-10">
+          <!-- Mockup -->
+          <div class="mockup-frame">
+            <div class="mockup-page p-6">
+              <!-- Header -->
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <p class="font-display text-[0.5rem] font-semibold text-charcoal leading-tight">Holistic Consulting</p>
+                  <p class="font-body text-[0.25rem] font-semibold tracking-[0.2em] uppercase text-gold">Impactful Careers</p>
+                </div>
+                <div class="w-6 h-[1.5px] bg-gold mt-1.5"></div>
+              </div>
+              <div class="w-full h-[0.5px] bg-bordergray mb-4"></div>
+              <!-- Title -->
+              <p class="font-display text-[0.6rem] font-semibold text-charcoal leading-tight mb-1">Document Title Goes Here</p>
+              <p class="font-body text-[0.25rem] font-semibold tracking-[0.15em] uppercase text-gold mb-3">Section Label</p>
+              <!-- Content blocks -->
+              <div class="space-y-2">
+                <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                <div class="w-11/12 h-1 bg-slate/10 rounded-full"></div>
+                <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                <div class="w-9/12 h-1 bg-slate/10 rounded-full"></div>
+              </div>
+              <div class="mt-4 mb-3">
+                <p class="font-display text-[0.4rem] font-semibold text-charcoal mb-2">Sub-heading</p>
+                <div class="space-y-1.5">
+                  <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                  <div class="w-10/12 h-1 bg-slate/10 rounded-full"></div>
+                  <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                </div>
+              </div>
+              <!-- Callout box -->
+              <div class="bg-emerald-sage/50 rounded p-2 mb-3">
+                <p class="font-body text-[0.3rem] font-semibold text-emerald-forest mb-1">Key Takeaway</p>
+                <div class="space-y-1">
+                  <div class="w-full h-0.5 bg-emerald/10 rounded-full"></div>
+                  <div class="w-9/12 h-0.5 bg-emerald/10 rounded-full"></div>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                <div class="w-11/12 h-1 bg-slate/10 rounded-full"></div>
+                <div class="w-8/12 h-1 bg-slate/10 rounded-full"></div>
+              </div>
+              <!-- Footer -->
+              <div class="absolute bottom-4 left-6 right-6">
+                <div class="w-full h-[0.5px] bg-bordergray mb-2"></div>
+                <div class="flex justify-between items-center">
+                  <p class="font-body text-[0.22rem] text-slate">holisticconsulting.com</p>
+                  <p class="font-body text-[0.22rem] text-slate">Page 1</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specifications -->
+          <div class="space-y-6">
+            <div class="bg-white rounded-lg border border-bordergray p-6">
+              <p class="font-body text-sm font-semibold text-charcoal mb-4">Page Setup</p>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Page Size</p>
+                  <p class="font-body text-sm text-charcoal">US Letter (8.5" &times; 11")</p>
+                </div>
+                <div>
+                  <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Margins</p>
+                  <p class="font-body text-sm text-charcoal">Top: 1" / Bottom: 0.75" / Sides: 1"</p>
+                </div>
+                <div>
+                  <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Columns</p>
+                  <p class="font-body text-sm text-charcoal">Single column, 6.5" text width</p>
+                </div>
+                <div>
+                  <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Orientation</p>
+                  <p class="font-body text-sm text-charcoal">Portrait (default)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg border border-bordergray p-6">
+              <p class="font-body text-sm font-semibold text-charcoal mb-4">Header &amp; Footer</p>
+              <div class="space-y-3">
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Header:</span> Logo lockup (top-left), gold accent line (top-right). Separated from body by a 0.5pt warm gray rule.</p>
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Footer:</span> Website URL (left), page number (right). Separated by 0.5pt warm gray rule. Set in DM Sans 8pt, Slate color.</p>
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">First page:</span> Full header with logo. Subsequent pages use a minimal header (gold line only).</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg border border-bordergray p-6">
+              <p class="font-body text-sm font-semibold text-charcoal mb-4">Callout Boxes</p>
+              <div class="space-y-3">
+                <div class="flex gap-3 items-start">
+                  <div class="w-3 h-3 rounded bg-emerald-sage flex-shrink-0 mt-0.5 border border-emerald/20"></div>
+                  <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Green callout:</span> Key takeaways, important notes. bg #E8F5E9, border-left 3px #2E7D32.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                  <div class="w-3 h-3 rounded bg-gold/10 flex-shrink-0 mt-0.5 border border-gold/20"></div>
+                  <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Gold callout:</span> Action items, next steps, CTAs. bg #C9963B at 10%, border-left 3px #C9963B.</p>
+                </div>
+                <div class="flex gap-3 items-start">
+                  <div class="w-3 h-3 rounded bg-warmgray flex-shrink-0 mt-0.5 border border-bordergray"></div>
+                  <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Gray callout:</span> Supplementary info, quotes, definitions. bg #F5F0EB, no colored border.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== FLYERS & POSTERS ==================== -->
+    <section id="flyers" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">05</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Flyers &amp; Posters</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Marketing materials for events, programs, and recruitment. Designed to be attention-grabbing while staying on-brand.</p>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+          <!-- Light Flyer Mockup -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-page p-6 bg-warmgray relative">
+                <!-- Logo -->
+                <div class="text-center mb-4">
+                  <p class="font-display text-[0.55rem] font-semibold text-charcoal">Holistic Consulting</p>
+                  <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold">Impactful Careers</p>
+                </div>
+                <!-- Hero area -->
+                <div class="bg-charcoal rounded-sm p-4 text-center mb-3 relative overflow-hidden">
+                  <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 70%, rgba(46,125,50,0.15) 0%, transparent 60%);"></div>
+                  <p class="font-display text-[0.65rem] font-semibold text-white leading-tight relative z-10 mb-1">Clinical Residency<br><span class="font-normal italic text-emerald-light">Now Enrolling</span></p>
+                  <div class="w-6 h-[1px] bg-gold mx-auto my-1.5 relative z-10"></div>
+                  <p class="font-body text-[0.22rem] text-white/70 relative z-10">Structured practitioner training</p>
+                </div>
+                <!-- Content -->
+                <div class="space-y-2 mb-3">
+                  <div class="flex gap-2 items-start">
+                    <span class="w-1 h-1 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-full h-0.5 bg-slate/10 rounded-full mt-0.5"></div>
+                  </div>
+                  <div class="flex gap-2 items-start">
+                    <span class="w-1 h-1 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-10/12 h-0.5 bg-slate/10 rounded-full mt-0.5"></div>
+                  </div>
+                  <div class="flex gap-2 items-start">
+                    <span class="w-1 h-1 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-11/12 h-0.5 bg-slate/10 rounded-full mt-0.5"></div>
+                  </div>
+                </div>
+                <!-- CTA -->
+                <div class="text-center">
+                  <div class="inline-block bg-gold rounded-sm px-3 py-1">
+                    <p class="font-body text-[0.22rem] font-semibold text-white tracking-[0.04em]">Book a Discovery Call</p>
+                  </div>
+                </div>
+                <!-- Footer -->
+                <div class="absolute bottom-3 left-6 right-6 text-center">
+                  <p class="font-body text-[0.2rem] text-slate">holisticconsulting.com</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Light Background Variant</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Warm gray base with dark hero section. Best for informational flyers and event announcements.</p>
+          </div>
+
+          <!-- Dark Flyer Mockup -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-page p-6 bg-charcoal relative overflow-hidden">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 20% 80%, rgba(201,150,59,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(46,125,50,0.1) 0%, transparent 50%);"></div>
+                <!-- Logo -->
+                <div class="text-center mb-4 relative z-10">
+                  <p class="font-display text-[0.55rem] font-semibold text-white">Holistic Consulting</p>
+                  <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold">Impactful Careers</p>
+                </div>
+                <!-- Content -->
+                <div class="text-center relative z-10 mt-8 mb-6">
+                  <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold mb-2">Upcoming Workshop</p>
+                  <p class="font-display text-[0.8rem] font-semibold text-white leading-tight mb-1">Become a<br><span class="italic text-emerald-light">Board Certified</span><br>Holistic Nutritionist</p>
+                  <div class="w-8 h-[1px] bg-gold mx-auto my-3"></div>
+                  <p class="font-body text-[0.22rem] text-white/60 leading-relaxed">Structured clinical training with<br>live mentorship and supervision</p>
+                </div>
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-2 mb-4 relative z-10">
+                  <div class="text-center border border-white/10 rounded-sm p-1.5">
+                    <p class="font-display text-[0.4rem] font-semibold text-gold">300+</p>
+                    <p class="font-body text-[0.18rem] text-white/50">Practitioners</p>
+                  </div>
+                  <div class="text-center border border-white/10 rounded-sm p-1.5">
+                    <p class="font-display text-[0.4rem] font-semibold text-gold">3</p>
+                    <p class="font-body text-[0.18rem] text-white/50">Pathways</p>
+                  </div>
+                  <div class="text-center border border-white/10 rounded-sm p-1.5">
+                    <p class="font-display text-[0.4rem] font-semibold text-gold">Live</p>
+                    <p class="font-body text-[0.18rem] text-white/50">Mentorship</p>
+                  </div>
+                </div>
+                <!-- CTA -->
+                <div class="text-center relative z-10">
+                  <div class="inline-block bg-gold rounded-sm px-3 py-1">
+                    <p class="font-body text-[0.22rem] font-semibold text-white tracking-[0.04em]">Learn More</p>
+                  </div>
+                </div>
+                <div class="absolute bottom-3 left-6 right-6 text-center z-10">
+                  <p class="font-body text-[0.2rem] text-white/30">holisticconsulting.com</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Dark Background Variant</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Charcoal base with emerald/gold gradient glows. Best for premium marketing, recruitment, and events.</p>
+          </div>
+        </div>
+
+        <!-- Flyer Specs -->
+        <div class="mt-10 bg-offwhite rounded-lg border border-bordergray p-6">
+          <p class="font-body text-sm font-semibold text-charcoal mb-4">Flyer Specifications</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Standard Size</p>
+              <p class="font-body text-sm text-charcoal">8.5" &times; 11" (with 0.125" bleed)</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Half Sheet</p>
+              <p class="font-body text-sm text-charcoal">5.5" &times; 8.5"</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Safe Margin</p>
+              <p class="font-body text-sm text-charcoal">0.25" from trim on all sides</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Resolution</p>
+              <p class="font-body text-sm text-charcoal">300 DPI minimum for print</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== LESSON TEMPLATES ==================== -->
+    <section id="lessons" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">06</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Lesson Templates</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Standardized formats for course materials, worksheets, case study forms, and clinical training documents.</p>
+
+        <div class="grid lg:grid-cols-2 gap-10 mb-12">
+          <!-- Lesson Plan -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-page p-5 relative">
+                <!-- Header bar -->
+                <div class="bg-emerald-forest rounded-sm p-2 mb-3 relative overflow-hidden">
+                  <div class="absolute inset-0 opacity-10" style="background: radial-gradient(ellipse at 80% 50%, rgba(201,150,59,0.3) 0%, transparent 50%);"></div>
+                  <div class="flex justify-between items-start relative z-10">
+                    <div>
+                      <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold">Module 3 &mdash; Lesson Plan</p>
+                      <p class="font-display text-[0.45rem] font-semibold text-white leading-tight mt-0.5">Clinical Assessment<br>Fundamentals</p>
+                    </div>
+                    <div class="text-right">
+                      <p class="font-display text-[0.35rem] font-semibold text-white/80">Holistic Consulting</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Meta row -->
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                  <div class="border border-bordergray rounded-sm p-1.5">
+                    <p class="font-body text-[0.18rem] font-semibold text-slate/50 uppercase tracking-wider">Duration</p>
+                    <p class="font-body text-[0.25rem] text-charcoal font-semibold">90 min</p>
+                  </div>
+                  <div class="border border-bordergray rounded-sm p-1.5">
+                    <p class="font-body text-[0.18rem] font-semibold text-slate/50 uppercase tracking-wider">Level</p>
+                    <p class="font-body text-[0.25rem] text-charcoal font-semibold">Intermediate</p>
+                  </div>
+                  <div class="border border-bordergray rounded-sm p-1.5">
+                    <p class="font-body text-[0.18rem] font-semibold text-slate/50 uppercase tracking-wider">Instructor</p>
+                    <p class="font-body text-[0.25rem] text-charcoal font-semibold">Sean Emery</p>
+                  </div>
+                </div>
+                <!-- Objectives -->
+                <p class="font-display text-[0.3rem] font-semibold text-charcoal mb-1">Learning Objectives</p>
+                <div class="space-y-1 mb-3">
+                  <div class="flex gap-1 items-start">
+                    <span class="w-0.5 h-0.5 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-11/12 h-0.5 bg-slate/10 rounded-full"></div>
+                  </div>
+                  <div class="flex gap-1 items-start">
+                    <span class="w-0.5 h-0.5 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-10/12 h-0.5 bg-slate/10 rounded-full"></div>
+                  </div>
+                  <div class="flex gap-1 items-start">
+                    <span class="w-0.5 h-0.5 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+                    <div class="w-full h-0.5 bg-slate/10 rounded-full"></div>
+                  </div>
+                </div>
+                <!-- Agenda -->
+                <p class="font-display text-[0.3rem] font-semibold text-charcoal mb-1">Session Outline</p>
+                <div class="border border-bordergray rounded-sm overflow-hidden mb-3">
+                  <div class="grid grid-cols-[30px_1fr] text-[0.2rem]">
+                    <div class="bg-offwhite p-1 border-b border-bordergray font-semibold text-slate">0:00</div>
+                    <div class="p-1 border-b border-bordergray text-charcoal">Welcome &amp; Review</div>
+                    <div class="bg-offwhite p-1 border-b border-bordergray font-semibold text-slate">0:15</div>
+                    <div class="p-1 border-b border-bordergray text-charcoal">Lecture: Assessment</div>
+                    <div class="bg-offwhite p-1 border-b border-bordergray font-semibold text-slate">0:45</div>
+                    <div class="p-1 border-b border-bordergray text-charcoal">Case Study Practice</div>
+                    <div class="bg-offwhite p-1 font-semibold text-slate">1:15</div>
+                    <div class="p-1 text-charcoal">Debrief &amp; Q&A</div>
+                  </div>
+                </div>
+                <!-- Footer -->
+                <div class="absolute bottom-3 left-5 right-5">
+                  <div class="w-full h-[0.5px] bg-bordergray mb-1"></div>
+                  <div class="flex justify-between text-[0.18rem] text-slate">
+                    <span>Holistic Consulting Institute</span>
+                    <span>Confidential</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Lesson Plan</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Colored header bar (Emerald Forest) with module number, title, and metadata grid. Timed agenda table format.</p>
+          </div>
+
+          <!-- Worksheet -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-page p-5 relative">
+                <!-- Header -->
+                <div class="flex items-start justify-between mb-2">
+                  <div>
+                    <p class="font-display text-[0.4rem] font-semibold text-charcoal leading-tight">Holistic Consulting</p>
+                    <p class="font-body text-[0.18rem] font-semibold tracking-[0.2em] uppercase text-gold">Impactful Careers</p>
+                  </div>
+                  <div class="bg-emerald-sage rounded-sm px-1.5 py-0.5">
+                    <p class="font-body text-[0.18rem] font-semibold text-emerald">Worksheet</p>
+                  </div>
+                </div>
+                <div class="w-full h-[0.5px] bg-bordergray mb-3"></div>
+                <!-- Title -->
+                <p class="font-display text-[0.5rem] font-semibold text-charcoal leading-tight mb-1">Client Intake Assessment</p>
+                <p class="font-body text-[0.22rem] text-slate mb-3">Complete this form during your initial client consultation.</p>
+                <!-- Form fields -->
+                <div class="space-y-2">
+                  <div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Client Name</p>
+                    <div class="w-full h-3 border border-bordergray rounded-sm"></div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Date</p>
+                      <div class="w-full h-3 border border-bordergray rounded-sm"></div>
+                    </div>
+                    <div>
+                      <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Session #</p>
+                      <div class="w-full h-3 border border-bordergray rounded-sm"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Primary Health Concerns</p>
+                    <div class="w-full h-8 border border-bordergray rounded-sm"></div>
+                  </div>
+                  <div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Dietary History</p>
+                    <div class="w-full h-8 border border-bordergray rounded-sm"></div>
+                  </div>
+                </div>
+                <!-- Note -->
+                <div class="mt-2 bg-gold/5 border-l-2 border-gold rounded-sm p-1.5">
+                  <p class="font-body text-[0.18rem] text-charcoal"><span class="font-semibold">Note:</span> Review responses with your mentor before the follow-up session.</p>
+                </div>
+                <!-- Footer -->
+                <div class="absolute bottom-3 left-5 right-5">
+                  <div class="w-full h-[0.5px] bg-bordergray mb-1"></div>
+                  <div class="flex justify-between text-[0.18rem] text-slate">
+                    <span>holisticconsulting.com</span>
+                    <span>Page 1 of 2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Worksheet / Form</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Standard header with "Worksheet" tag badge. Form fields with light borders. Gold callout for instructor notes.</p>
+          </div>
+        </div>
+
+        <!-- Template Types -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Available Template Types</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-lg border border-bordergray p-5 border-t-[3px] border-t-emerald">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Lesson Plan</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Module header, objectives, timed agenda, materials list, assessment criteria.</p>
+          </div>
+          <div class="bg-white rounded-lg border border-bordergray p-5 border-t-[3px] border-t-gold">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Worksheet</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Fill-in forms, client intake sheets, self-assessment checklists, reflection prompts.</p>
+          </div>
+          <div class="bg-white rounded-lg border border-bordergray p-5 border-t-[3px] border-t-emerald">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Case Study</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Client background, presenting concerns, protocol development, follow-up tracking.</p>
+          </div>
+          <div class="bg-white rounded-lg border border-bordergray p-5 border-t-[3px] border-t-gold">
+            <p class="font-body text-sm font-semibold text-charcoal mb-2">Reference Sheet</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Quick-reference guides, protocol summaries, supplement charts, food lists.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== PRESENTATIONS ==================== -->
+    <section id="presentations" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">07</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Presentations</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">PowerPoint, Google Slides, and Keynote templates. Widescreen 16:9 format. Limit text per slide &mdash; favor visuals and key points.</p>
+
+        <!-- Slide Mockups -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Title Slide -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-slide bg-charcoal p-6 relative overflow-hidden flex flex-col justify-center">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 20% 80%, rgba(201,150,59,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(46,125,50,0.12) 0%, transparent 50%);"></div>
+                <div class="relative z-10">
+                  <p class="font-body text-[0.25rem] font-semibold tracking-[0.2em] uppercase text-gold mb-2">Clinical Residency Program</p>
+                  <p class="font-display text-[0.8rem] font-semibold text-white leading-tight mb-2">Assessment<br>Fundamentals</p>
+                  <div class="w-8 h-[1px] bg-gold mb-2"></div>
+                  <p class="font-body text-[0.22rem] text-white/50">Module 3 &mdash; Sean Emery, MS, CNS</p>
+                </div>
+                <div class="absolute bottom-3 right-4 z-10">
+                  <p class="font-display text-[0.3rem] text-white/30">Holistic Consulting</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Title Slide</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Charcoal background with gradient glows. Gold label, white serif headline, gold divider, subtitle. Logo bottom-right.</p>
+          </div>
+
+          <!-- Content Slide -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-slide bg-warmgray p-5 relative flex flex-col">
+                <!-- Top bar -->
+                <div class="flex justify-between items-start mb-3">
+                  <div>
+                    <p class="font-body text-[0.18rem] font-semibold tracking-[0.15em] uppercase text-gold">Module 3</p>
+                    <p class="font-display text-[0.5rem] font-semibold text-charcoal leading-tight">Key Assessment Areas</p>
+                  </div>
+                  <p class="font-display text-[0.25rem] text-slate/40">Holistic Consulting</p>
+                </div>
+                <!-- Content grid -->
+                <div class="grid grid-cols-3 gap-2 flex-1">
+                  <div class="bg-white rounded-sm p-2 border border-bordergray">
+                    <div class="w-3 h-3 rounded-full bg-emerald-sage flex items-center justify-center mb-1">
+                      <span class="text-[0.18rem] font-semibold text-emerald">1</span>
+                    </div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Health History</p>
+                    <div class="space-y-0.5">
+                      <div class="w-full h-0.5 bg-slate/8 rounded-full"></div>
+                      <div class="w-9/12 h-0.5 bg-slate/8 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-sm p-2 border border-bordergray">
+                    <div class="w-3 h-3 rounded-full bg-emerald-sage flex items-center justify-center mb-1">
+                      <span class="text-[0.18rem] font-semibold text-emerald">2</span>
+                    </div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Dietary Analysis</p>
+                    <div class="space-y-0.5">
+                      <div class="w-full h-0.5 bg-slate/8 rounded-full"></div>
+                      <div class="w-10/12 h-0.5 bg-slate/8 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-sm p-2 border border-bordergray">
+                    <div class="w-3 h-3 rounded-full bg-emerald-sage flex items-center justify-center mb-1">
+                      <span class="text-[0.18rem] font-semibold text-emerald">3</span>
+                    </div>
+                    <p class="font-body text-[0.2rem] font-semibold text-charcoal mb-0.5">Lab Markers</p>
+                    <div class="space-y-0.5">
+                      <div class="w-full h-0.5 bg-slate/8 rounded-full"></div>
+                      <div class="w-8/12 h-0.5 bg-slate/8 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Page number -->
+                <div class="flex justify-end mt-2">
+                  <p class="font-body text-[0.18rem] text-slate/40">12</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Content Slide</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Warm gray background. Module label + serif heading top-left, wordmark top-right. Card grid for content blocks.</p>
+          </div>
+
+          <!-- Section Divider -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-slide bg-emerald-forest p-6 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 50%, rgba(201,150,59,0.06) 0%, transparent 60%);"></div>
+                <div class="text-center relative z-10">
+                  <div class="w-8 h-[1px] bg-gold mx-auto mb-3"></div>
+                  <p class="font-display text-[0.7rem] font-semibold text-white leading-tight">Part Two</p>
+                  <p class="font-display text-[0.45rem] font-normal italic text-emerald-light mt-1">Practical Application</p>
+                  <div class="w-8 h-[1px] bg-gold mx-auto mt-3"></div>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Section Divider</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Emerald Forest background. Centered serif text with gold divider lines above and below. Italic subtitle.</p>
+          </div>
+
+          <!-- Quote Slide -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="mockup-slide bg-warmgray p-6 relative flex items-center justify-center">
+                <div class="max-w-[70%] text-center">
+                  <p class="font-display text-[0.8rem] text-gold/15 leading-none mb-1">&ldquo;</p>
+                  <p class="font-display text-[0.35rem] italic text-charcoal leading-relaxed">This program transformed how I approach clinical practice with every single client.</p>
+                  <div class="w-6 h-[1px] bg-gold mx-auto my-2"></div>
+                  <p class="font-body text-[0.2rem] font-semibold text-charcoal">Jane Doe, BCHN®</p>
+                  <p class="font-body text-[0.18rem] text-slate">Clinical Residency Graduate, 2025</p>
+                </div>
+                <div class="absolute bottom-3 right-4">
+                  <p class="font-display text-[0.25rem] text-slate/30">Holistic Consulting</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Quote / Testimonial Slide</p>
+            <p class="font-body text-xs text-slate leading-[1.7]">Warm gray background. Large gold quote mark, italic serif quote, gold divider, attribution below.</p>
+          </div>
+        </div>
+
+        <!-- Presentation Specs -->
+        <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+          <p class="font-body text-sm font-semibold text-charcoal mb-4">Presentation Specifications</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Aspect Ratio</p>
+              <p class="font-body text-sm text-charcoal">16:9 widescreen</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Slide Size</p>
+              <p class="font-body text-sm text-charcoal">13.33" &times; 7.5" (default)</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Max Text Per Slide</p>
+              <p class="font-body text-sm text-charcoal">6 lines or 3 key points</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Min Font Size</p>
+              <p class="font-body text-sm text-charcoal">18pt body, 28pt headings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== CERTIFICATES ==================== -->
+    <section id="certificates" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">08</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Certificates</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Program completion certificates and credentials. Landscape orientation, premium paper stock with gold foil and embossing options.</p>
+
+        <!-- Primary Certificate — Cream / Classic -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Program Completion Certificate</h3>
+        <div class="max-w-3xl mx-auto mb-16">
+          <div class="mockup-frame mb-6" style="box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(201,150,59,0.06);">
+            <div class="mockup-landscape relative overflow-hidden" style="background: linear-gradient(135deg, #FDFBF7 0%, #F8F4ED 50%, #FDFBF7 100%);">
+
+              <!-- Ornamental corner flourishes (SVG) -->
+              <svg class="absolute top-0 left-0 w-12 h-12 text-gold/20" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M 5 40 Q 5 5, 40 5" /><path d="M 5 30 Q 5 10, 30 5" /><path d="M 5 20 Q 5 15, 20 5" />
+                <circle cx="5" cy="5" r="2" fill="currentColor" />
+              </svg>
+              <svg class="absolute top-0 right-0 w-12 h-12 text-gold/20 -scale-x-100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M 5 40 Q 5 5, 40 5" /><path d="M 5 30 Q 5 10, 30 5" /><path d="M 5 20 Q 5 15, 20 5" />
+                <circle cx="5" cy="5" r="2" fill="currentColor" />
+              </svg>
+              <svg class="absolute bottom-0 left-0 w-12 h-12 text-gold/20 -scale-y-100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M 5 40 Q 5 5, 40 5" /><path d="M 5 30 Q 5 10, 30 5" /><path d="M 5 20 Q 5 15, 20 5" />
+                <circle cx="5" cy="5" r="2" fill="currentColor" />
+              </svg>
+              <svg class="absolute bottom-0 right-0 w-12 h-12 text-gold/20 scale-[-1]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M 5 40 Q 5 5, 40 5" /><path d="M 5 30 Q 5 10, 30 5" /><path d="M 5 20 Q 5 15, 20 5" />
+                <circle cx="5" cy="5" r="2" fill="currentColor" />
+              </svg>
+
+              <!-- Double border frame -->
+              <div class="absolute inset-[10px] border border-gold/15 pointer-events-none"></div>
+              <div class="absolute inset-[14px] border border-gold/8 pointer-events-none"></div>
+
+              <!-- Subtle radial glow -->
+              <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 35%, rgba(201,150,59,0.06) 0%, transparent 55%);"></div>
+
+              <!-- Certificate content -->
+              <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-10 py-6">
+
+                <!-- Decorative top flourish -->
+                <svg class="w-16 h-3 text-gold/30 mb-2" viewBox="0 0 200 30" fill="none" stroke="currentColor" stroke-width="1">
+                  <path d="M 40 15 Q 60 2, 80 15 Q 90 22, 100 15 Q 110 8, 120 15 Q 140 28, 160 15" />
+                  <line x1="0" y1="15" x2="35" y2="15" /><line x1="165" y1="15" x2="200" y2="15" />
+                  <circle cx="100" cy="15" r="2" fill="currentColor" />
+                </svg>
+
+                <!-- Brand name -->
+                <p class="font-display text-[0.55rem] font-semibold text-charcoal tracking-[0.02em] leading-tight">Holistic Consulting</p>
+                <p class="font-body text-[0.18rem] font-semibold tracking-[0.3em] uppercase text-gold mt-0.5 mb-2">Institute</p>
+
+                <!-- Gold rule -->
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-6 h-[0.5px] bg-gold/40"></div>
+                  <svg class="w-2 h-2 text-gold/40" viewBox="0 0 20 20" fill="currentColor"><path d="M10 0 L12 8 L20 10 L12 12 L10 20 L8 12 L0 10 L8 8 Z"/></svg>
+                  <div class="w-6 h-[0.5px] bg-gold/40"></div>
+                </div>
+
+                <!-- Certificate type -->
+                <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-slate/70 mb-2">Certificate of Completion</p>
+
+                <!-- Recipient intro -->
+                <p class="font-body text-[0.22rem] text-slate/60 italic mb-0.5">This is to certify that</p>
+
+                <!-- Recipient name -->
+                <p class="font-display text-[0.75rem] font-semibold text-charcoal italic leading-tight mb-0.5">Alexandra M. Bennett</p>
+                <!-- Underline beneath name -->
+                <div class="w-28 h-[0.5px] mb-1.5" style="background: linear-gradient(to right, transparent, #C9963B, transparent);"></div>
+
+                <!-- Description -->
+                <p class="font-body text-[0.2rem] text-slate/60 leading-relaxed mb-1">has successfully completed all requirements of the</p>
+
+                <!-- Program name -->
+                <p class="font-display text-[0.4rem] font-semibold text-emerald-forest tracking-[0.01em] mb-0.5">Clinical Residency Program</p>
+                <p class="font-body text-[0.18rem] text-slate/50 mb-2">Board Certified Holistic Nutritionist (BCHN®) Preparation Track</p>
+
+                <!-- Bottom gold ornament -->
+                <svg class="w-12 h-2 text-gold/30 mb-2" viewBox="0 0 200 20" fill="none" stroke="currentColor" stroke-width="1">
+                  <line x1="20" y1="10" x2="80" y2="10" />
+                  <circle cx="90" cy="10" r="2" fill="currentColor" />
+                  <circle cx="100" cy="10" r="3" fill="currentColor" />
+                  <circle cx="110" cy="10" r="2" fill="currentColor" />
+                  <line x1="120" y1="10" x2="180" y2="10" />
+                </svg>
+
+                <!-- Signature block -->
+                <div class="grid grid-cols-3 gap-6 w-full max-w-[80%] mt-1">
+                  <div class="text-center">
+                    <p class="font-display text-[0.22rem] italic text-charcoal/40 mb-0.5">February 23, 2026</p>
+                    <div class="w-full h-[0.5px] bg-gold/25 mb-0.5"></div>
+                    <p class="font-body text-[0.15rem] font-semibold tracking-[0.1em] uppercase text-slate/40">Date Awarded</p>
+                  </div>
+                  <div class="text-center flex flex-col items-center justify-end">
+                    <!-- Seal -->
+                    <div class="w-6 h-6 rounded-full border border-gold/30 flex items-center justify-center mb-0.5" style="background: radial-gradient(circle, rgba(201,150,59,0.08) 0%, transparent 70%);">
+                      <div class="w-4 h-4 rounded-full border border-gold/20 flex items-center justify-center">
+                        <p class="font-display text-[0.15rem] font-semibold text-gold/50">HC</p>
+                      </div>
+                    </div>
+                    <p class="font-body text-[0.12rem] font-semibold tracking-[0.1em] uppercase text-slate/30">Official Seal</p>
+                  </div>
+                  <div class="text-center">
+                    <p class="font-display text-[0.22rem] italic text-charcoal/40 mb-0.5">Sean Emery, MS, CNS</p>
+                    <div class="w-full h-[0.5px] bg-gold/25 mb-0.5"></div>
+                    <p class="font-body text-[0.15rem] font-semibold tracking-[0.1em] uppercase text-slate/40">Program Director</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="font-body text-sm font-semibold text-charcoal mb-1 text-center">Classic Cream Variant</p>
+          <p class="font-body text-xs text-slate leading-[1.7] text-center max-w-lg mx-auto">Warm cream stock with double gold-rule border, corner flourishes, ornamental dividers, official seal, and three-column signature block. Primary certificate for all program completions.</p>
+        </div>
+
+        <!-- Dark Prestige Certificate -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Prestige / Honors Certificate</h3>
+        <div class="max-w-3xl mx-auto mb-16">
+          <div class="mockup-frame mb-6" style="box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(201,150,59,0.08);">
+            <div class="mockup-landscape relative overflow-hidden bg-charcoal">
+
+              <!-- Subtle texture -->
+              <div class="absolute inset-0 noise"></div>
+
+              <!-- Gradient atmosphere -->
+              <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 30%, rgba(201,150,59,0.1) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(46,125,50,0.06) 0%, transparent 40%), radial-gradient(ellipse at 80% 70%, rgba(201,150,59,0.04) 0%, transparent 40%);"></div>
+
+              <!-- Gold border frame -->
+              <div class="absolute inset-[10px] border border-gold/15 pointer-events-none"></div>
+              <div class="absolute inset-[14px] border border-gold/8 pointer-events-none"></div>
+
+              <!-- Corner ornaments -->
+              <svg class="absolute top-2 left-2 w-10 h-10 text-gold/15" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M 10 50 Q 10 10, 50 10" /><path d="M 10 35 Q 10 15, 35 10" />
+                <circle cx="10" cy="10" r="2.5" fill="currentColor" />
+              </svg>
+              <svg class="absolute top-2 right-2 w-10 h-10 text-gold/15 -scale-x-100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M 10 50 Q 10 10, 50 10" /><path d="M 10 35 Q 10 15, 35 10" />
+                <circle cx="10" cy="10" r="2.5" fill="currentColor" />
+              </svg>
+              <svg class="absolute bottom-2 left-2 w-10 h-10 text-gold/15 -scale-y-100" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M 10 50 Q 10 10, 50 10" /><path d="M 10 35 Q 10 15, 35 10" />
+                <circle cx="10" cy="10" r="2.5" fill="currentColor" />
+              </svg>
+              <svg class="absolute bottom-2 right-2 w-10 h-10 text-gold/15 scale-[-1]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M 10 50 Q 10 10, 50 10" /><path d="M 10 35 Q 10 15, 35 10" />
+                <circle cx="10" cy="10" r="2.5" fill="currentColor" />
+              </svg>
+
+              <!-- Content -->
+              <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-10 py-6">
+
+                <!-- Top flourish -->
+                <svg class="w-16 h-3 text-gold/25 mb-2" viewBox="0 0 200 30" fill="none" stroke="currentColor" stroke-width="1">
+                  <path d="M 40 15 Q 60 2, 80 15 Q 90 22, 100 15 Q 110 8, 120 15 Q 140 28, 160 15" />
+                  <line x1="0" y1="15" x2="35" y2="15" /><line x1="165" y1="15" x2="200" y2="15" />
+                  <circle cx="100" cy="15" r="2" fill="currentColor" />
+                </svg>
+
+                <p class="font-display text-[0.55rem] font-semibold text-white tracking-[0.02em] leading-tight">Holistic Consulting</p>
+                <p class="font-body text-[0.18rem] font-semibold tracking-[0.3em] uppercase text-gold mt-0.5 mb-2">Institute</p>
+
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-6 h-[0.5px] bg-gold/30"></div>
+                  <svg class="w-2 h-2 text-gold/30" viewBox="0 0 20 20" fill="currentColor"><path d="M10 0 L12 8 L20 10 L12 12 L10 20 L8 12 L0 10 L8 8 Z"/></svg>
+                  <div class="w-6 h-[0.5px] bg-gold/30"></div>
+                </div>
+
+                <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold/70 mb-2">Certificate of Excellence</p>
+
+                <p class="font-body text-[0.22rem] text-white/40 italic mb-0.5">With distinction, this is to honor</p>
+
+                <p class="font-display text-[0.75rem] font-semibold text-white italic leading-tight mb-0.5">Alexandra M. Bennett</p>
+                <div class="w-28 h-[0.5px] mb-1.5" style="background: linear-gradient(to right, transparent, rgba(201,150,59,0.4), transparent);"></div>
+
+                <p class="font-body text-[0.2rem] text-white/40 leading-relaxed mb-1">for outstanding achievement in</p>
+
+                <p class="font-display text-[0.4rem] font-semibold text-emerald-light tracking-[0.01em] mb-0.5">Clinical Residency Program</p>
+                <p class="font-body text-[0.18rem] text-white/30 mb-2">Awarded with Honors &mdash; BCHN® Preparation Track</p>
+
+                <!-- Ornament -->
+                <svg class="w-12 h-2 text-gold/25 mb-2" viewBox="0 0 200 20" fill="none" stroke="currentColor" stroke-width="1">
+                  <line x1="20" y1="10" x2="80" y2="10" />
+                  <circle cx="90" cy="10" r="2" fill="currentColor" />
+                  <circle cx="100" cy="10" r="3" fill="currentColor" />
+                  <circle cx="110" cy="10" r="2" fill="currentColor" />
+                  <line x1="120" y1="10" x2="180" y2="10" />
+                </svg>
+
+                <!-- Signatures -->
+                <div class="grid grid-cols-3 gap-6 w-full max-w-[80%] mt-1">
+                  <div class="text-center">
+                    <p class="font-display text-[0.22rem] italic text-white/30 mb-0.5">February 23, 2026</p>
+                    <div class="w-full h-[0.5px] bg-gold/20 mb-0.5"></div>
+                    <p class="font-body text-[0.15rem] font-semibold tracking-[0.1em] uppercase text-white/25">Date Awarded</p>
+                  </div>
+                  <div class="text-center flex flex-col items-center justify-end">
+                    <div class="w-6 h-6 rounded-full border border-gold/25 flex items-center justify-center mb-0.5" style="background: radial-gradient(circle, rgba(201,150,59,0.1) 0%, transparent 70%);">
+                      <div class="w-4 h-4 rounded-full border border-gold/15 flex items-center justify-center">
+                        <p class="font-display text-[0.15rem] font-semibold text-gold/40">HC</p>
+                      </div>
+                    </div>
+                    <p class="font-body text-[0.12rem] font-semibold tracking-[0.1em] uppercase text-white/20">Official Seal</p>
+                  </div>
+                  <div class="text-center">
+                    <p class="font-display text-[0.22rem] italic text-white/30 mb-0.5">Sean Emery, MS, CNS</p>
+                    <div class="w-full h-[0.5px] bg-gold/20 mb-0.5"></div>
+                    <p class="font-body text-[0.15rem] font-semibold tracking-[0.1em] uppercase text-white/25">Program Director</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="font-body text-sm font-semibold text-charcoal mb-1 text-center">Dark Prestige Variant</p>
+          <p class="font-body text-xs text-slate leading-[1.7] text-center max-w-lg mx-auto">Charcoal stock with gold foil border, atmospheric gradient glows, and noise texture. Reserved for honors, excellence awards, and special recognition.</p>
+        </div>
+
+        <!-- Specifications -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Certificate Specifications</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-lg border border-bordergray p-6">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Dimensions &amp; Stock</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Size</p>
+                <p class="font-body text-sm text-charcoal">11" &times; 8.5" (landscape)</p>
+              </div>
+              <div>
+                <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Paper — Classic</p>
+                <p class="font-body text-sm text-charcoal">120 lb cover, warm cream linen</p>
+              </div>
+              <div>
+                <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Paper — Prestige</p>
+                <p class="font-body text-sm text-charcoal">130 lb cover, black uncoated</p>
+              </div>
+              <div>
+                <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Bleed</p>
+                <p class="font-body text-sm text-charcoal">0.125" on all sides</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg border border-bordergray p-6">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Premium Finishes</p>
+            <div class="space-y-3">
+              <div class="flex gap-3 items-start">
+                <div class="w-3 h-3 rounded-full bg-gold/15 border border-gold/30 flex-shrink-0 mt-0.5"></div>
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Gold foil:</span> On logo wordmark, corner flourishes, and ornamental dividers. Use hot foil stamping.</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <div class="w-3 h-3 rounded-full bg-warmgray border border-bordergray flex-shrink-0 mt-0.5"></div>
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Embossing:</span> Blind emboss on border frame and official seal for tactile prestige.</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <div class="w-3 h-3 rounded-full bg-offwhite border border-bordergray flex-shrink-0 mt-0.5"></div>
+                <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Spot UV:</span> Gloss varnish on seal and "HC" monogram for the prestige dark variant.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design Elements Breakdown -->
+        <div class="mt-6 bg-white rounded-lg border border-bordergray p-6">
+          <p class="font-body text-sm font-semibold text-charcoal mb-4">Design Elements</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Border</p>
+              <p class="font-body text-xs text-charcoal leading-[1.7]">Double-rule: outer 0.5pt + inner 0.25pt, gold at 15% and 8% opacity. 10px + 14px inset.</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Corner Flourishes</p>
+              <p class="font-body text-xs text-charcoal leading-[1.7]">Triple curved strokes with terminal dot. Mirrored on all four corners. Gold at 20% opacity.</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Dividers</p>
+              <p class="font-body text-xs text-charcoal leading-[1.7]">Wave ornament (top) and triple-dot rule (bottom). Centered star separator below brand name.</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-slate/50 mb-1">Official Seal</p>
+              <p class="font-body text-xs text-charcoal leading-[1.7]">Double-ring with "HC" monogram. Centered between signature blocks. Gold foil or spot UV.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== SOCIAL MEDIA ==================== -->
+    <section id="social" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">09</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Social Media</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Branded templates for Instagram, Facebook, and LinkedIn. Maintain consistent color, typography, and layout across platforms.</p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <!-- Instagram Post -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="aspect-square bg-charcoal p-5 relative overflow-hidden flex flex-col justify-end">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 30%, rgba(46,125,50,0.12) 0%, transparent 50%);"></div>
+                <div class="relative z-10">
+                  <p class="font-body text-[0.2rem] font-semibold tracking-[0.2em] uppercase text-gold mb-1">Did You Know?</p>
+                  <p class="font-display text-[0.45rem] font-semibold text-white leading-tight mb-2">Practitioner Tip<br><span class="italic text-emerald-light">of the Week</span></p>
+                  <div class="w-6 h-[0.5px] bg-gold mb-2"></div>
+                  <div class="space-y-0.5">
+                    <div class="w-11/12 h-0.5 bg-white/10 rounded-full"></div>
+                    <div class="w-9/12 h-0.5 bg-white/10 rounded-full"></div>
+                  </div>
+                </div>
+                <div class="absolute top-4 right-4 z-10">
+                  <p class="font-display text-[0.2rem] text-white/30">HC</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Instagram Post</p>
+            <p class="font-body text-xs text-slate">1080 &times; 1080px</p>
+          </div>
+
+          <!-- Instagram Story -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="aspect-[9/16] max-h-[280px] bg-emerald-forest p-4 relative overflow-hidden flex flex-col justify-center items-center">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 30%, rgba(201,150,59,0.08) 0%, transparent 60%);"></div>
+                <div class="relative z-10 text-center">
+                  <p class="font-display text-[0.3rem] font-semibold text-white/40 mb-2">Holistic Consulting</p>
+                  <p class="font-body text-[0.15rem] font-semibold tracking-[0.2em] uppercase text-gold mb-2">Now Enrolling</p>
+                  <p class="font-display text-[0.5rem] font-semibold text-white leading-tight mb-2">Clinical<br>Residency</p>
+                  <div class="w-6 h-[0.5px] bg-gold mx-auto mb-2"></div>
+                  <div class="inline-block bg-gold rounded-sm px-2 py-0.5">
+                    <p class="font-body text-[0.15rem] font-semibold text-white">Swipe Up to Apply</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">Instagram Story</p>
+            <p class="font-body text-xs text-slate">1080 &times; 1920px</p>
+          </div>
+
+          <!-- LinkedIn Banner -->
+          <div>
+            <div class="mockup-frame mb-4">
+              <div class="aspect-[4/1] bg-charcoal p-4 relative overflow-hidden flex items-center">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 80% 50%, rgba(46,125,50,0.1) 0%, transparent 50%);"></div>
+                <div class="relative z-10 flex items-center gap-4 px-2">
+                  <div>
+                    <p class="font-display text-[0.4rem] font-semibold text-white leading-tight">Holistic Consulting</p>
+                    <p class="font-body text-[0.15rem] font-semibold tracking-[0.2em] uppercase text-gold mt-0.5">Impactful Careers</p>
+                  </div>
+                  <div class="w-[0.5px] h-5 bg-white/10"></div>
+                  <p class="font-body text-[0.18rem] text-white/50">Practitioner Training &amp; Clinical Residency</p>
+                </div>
+              </div>
+            </div>
+            <p class="font-body text-sm font-semibold text-charcoal mb-1">LinkedIn Banner</p>
+            <p class="font-body text-xs text-slate">1584 &times; 396px</p>
+          </div>
+        </div>
+
+        <!-- Social Specs -->
+        <div class="bg-offwhite rounded-lg border border-bordergray p-6">
+          <p class="font-body text-sm font-semibold text-charcoal mb-4">Social Media Sizing Reference</p>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-bordergray">
+                  <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.12em] uppercase text-charcoal p-3">Format</th>
+                  <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.12em] uppercase text-charcoal p-3">Dimensions</th>
+                  <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.12em] uppercase text-charcoal p-3">Ratio</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-bordergray">
+                <tr><td class="p-3 font-body text-sm text-charcoal">Instagram Post</td><td class="p-3 font-body text-sm text-slate">1080 &times; 1080</td><td class="p-3 font-body text-sm text-slate">1:1</td></tr>
+                <tr><td class="p-3 font-body text-sm text-charcoal">Instagram Story</td><td class="p-3 font-body text-sm text-slate">1080 &times; 1920</td><td class="p-3 font-body text-sm text-slate">9:16</td></tr>
+                <tr><td class="p-3 font-body text-sm text-charcoal">Facebook Post</td><td class="p-3 font-body text-sm text-slate">1200 &times; 630</td><td class="p-3 font-body text-sm text-slate">1.91:1</td></tr>
+                <tr><td class="p-3 font-body text-sm text-charcoal">Facebook Cover</td><td class="p-3 font-body text-sm text-slate">1640 &times; 856</td><td class="p-3 font-body text-sm text-slate">1.91:1</td></tr>
+                <tr><td class="p-3 font-body text-sm text-charcoal">LinkedIn Banner</td><td class="p-3 font-body text-sm text-slate">1584 &times; 396</td><td class="p-3 font-body text-sm text-slate">4:1</td></tr>
+                <tr><td class="p-3 font-body text-sm text-charcoal">LinkedIn Post</td><td class="p-3 font-body text-sm text-slate">1200 &times; 627</td><td class="p-3 font-body text-sm text-slate">1.91:1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== EMAIL & SIGNATURES ==================== -->
+    <section id="email" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">10</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Email &amp; Signatures</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Standardized email signature format and newsletter header styling.</p>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+          <!-- Email Signature -->
+          <div>
+            <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-4">Email Signature</h3>
+            <div class="bg-white rounded-lg border border-bordergray p-8 mb-4">
+              <div class="border-l-[3px] border-emerald pl-4">
+                <p class="font-display text-lg font-semibold text-charcoal leading-tight">Sean Emery</p>
+                <p class="font-body text-sm text-slate mt-0.5">MS, CNS &mdash; Founder &amp; Director</p>
+                <p class="font-body text-sm font-semibold text-emerald mt-1">Holistic Consulting Institute</p>
+                <div class="w-8 h-[1px] bg-gold mt-3 mb-3"></div>
+                <div class="space-y-0.5">
+                  <p class="font-body text-xs text-slate">sean@holisticconsulting.com</p>
+                  <p class="font-body text-xs text-slate">holisticconsulting.com</p>
+                </div>
+                <p class="font-body text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-gold mt-3">Impactful Careers</p>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Name:</span> Cormorant Garamond, 16pt, Semibold, Charcoal</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Title:</span> DM Sans, 12pt, Regular, Slate</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Company:</span> DM Sans, 12pt, Semibold, Emerald</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Divider:</span> 32px gold line</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Border-left:</span> 3px Emerald #2E7D32</p>
+            </div>
+          </div>
+
+          <!-- Newsletter Header -->
+          <div>
+            <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-4">Newsletter Header</h3>
+            <div class="mockup-frame mb-4">
+              <div class="bg-charcoal p-6 relative overflow-hidden">
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 100%, rgba(46,125,50,0.1) 0%, transparent 50%);"></div>
+                <div class="text-center relative z-10">
+                  <p class="font-display text-lg font-semibold text-white">Holistic Consulting</p>
+                  <p class="font-body text-[0.5rem] font-semibold tracking-[0.22em] uppercase text-gold mt-1">Monthly Newsletter</p>
+                  <div class="w-12 h-[1px] bg-gold/30 mx-auto mt-3"></div>
+                </div>
+              </div>
+              <div class="bg-warmgray p-6">
+                <p class="font-display text-base font-semibold text-charcoal mb-2">This Month&rsquo;s Focus</p>
+                <div class="space-y-1.5">
+                  <div class="w-full h-1 bg-slate/10 rounded-full"></div>
+                  <div class="w-11/12 h-1 bg-slate/10 rounded-full"></div>
+                  <div class="w-9/12 h-1 bg-slate/10 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Header bg:</span> Charcoal #2D3436 with gradient</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Max width:</span> 600px for email clients</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Body bg:</span> Warm Gray #F5F0EB</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">Link color:</span> Emerald #2E7D32</p>
+              <p class="font-body text-xs text-slate leading-[1.7]"><span class="text-charcoal font-semibold">CTA button:</span> Gold #C9963B, white text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== DO'S & DON'TS ==================== -->
+    <section id="donts" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">11</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Do&rsquo;s &amp; Don&rsquo;ts</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Common mistakes to avoid across all branded materials.</p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- DO -->
+          <div class="rounded-lg border border-emerald/20 overflow-hidden">
+            <div class="bg-emerald-sage px-6 py-3">
+              <p class="font-body text-sm font-semibold text-emerald-forest">Do</p>
+            </div>
+            <div class="bg-offwhite p-6 space-y-4">
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use Charcoal #2D3436 for body text instead of pure black</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Maintain minimum clear space around the logo at all times</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use Cormorant Garamond for headings and DM Sans for body &mdash; always pair them</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use the gold accent line under section labels consistently</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Embed fonts in all PDFs before sharing</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use CMYK color values for all professional print jobs</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-emerald/10 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-emerald text-xs font-bold">&check;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Keep generous white space &mdash; let the design breathe</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DON'T -->
+          <div class="rounded-lg border border-red-200 overflow-hidden">
+            <div class="bg-red-50 px-6 py-3">
+              <p class="font-body text-sm font-semibold text-red-700">Don&rsquo;t</p>
+            </div>
+            <div class="bg-offwhite p-6 space-y-4">
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use default blue/indigo as a brand color &mdash; always use Emerald or Gold</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Stretch, rotate, or recolor the logo in any way</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use the same font for both headings and body text</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Place the logo on busy backgrounds without sufficient contrast</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Set body text smaller than 9pt in print or 14px on screen</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Use low-resolution images (below 300 DPI) for printed materials</p>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="w-4 h-4 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><span class="text-red-500 text-xs font-bold">&times;</span></span>
+                <p class="font-body text-sm text-charcoal leading-[1.7]">Crowd slides with text &mdash; 6 lines maximum per slide</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== FOOTER ==================== -->
+    <section class="py-16 px-6 lg:px-12 bg-charcoal">
+      <div class="max-w-5xl mx-auto text-center">
+        <p class="font-display text-2xl font-semibold text-white mb-2">Holistic Consulting</p>
+        <p class="font-body text-[0.55rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6">Print &amp; Collateral Guide</p>
+        <div class="w-12 h-[1px] bg-white/10 mx-auto mb-6"></div>
+        <p class="font-body text-xs text-white/40 mb-2">Companion to the Web Brand Guide</p>
+        <p class="font-body text-xs text-white/30">February 2026</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Sidebar active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>

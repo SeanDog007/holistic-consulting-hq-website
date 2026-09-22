@@ -2,6 +2,8 @@
 
 This folder is the durable source of truth for the member `/library` shelf.
 
+Brand identity documents (February 2026) live in `data/brain/brand/`. They are a reference corpus for CoS. They are not seeded into the recording search index. See `data/brain/brand/README.md`.
+
 - `videos.json` — Studio inventory metadata (include **Unlisted**; do not filter them out)
 - `search_chunks.json.gz` — merged ASR/search chunks (~45s / ~800 characters) with `start_sec` / `end_sec` / `text`
 - `embeddings.json.gz` — baked sentence vectors for hybrid `/library` search (`npm run brain:embed`). Default provider `local-minilm-l6-v2`. Optional OpenAI if `OPENAI_API_KEY` is set at embed time.
