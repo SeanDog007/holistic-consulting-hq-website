@@ -18,7 +18,7 @@ Library display only. `data/brain/videos.json` still stores the original YouTube
 | Uncovered | 0 |
 | Pending YouTube Studio renames (`docs/STUDIO-RENAME.csv`) | 259 |
 
-`docs/STUDIO-RENAME.csv` is a reference list of rows where the YouTube title still differs from the display title. It is not applied on YouTube. On 2026-09-22 the constipation and sunflower syndrome NGR row left this list because the library title now matches the YouTube title (`dzRQOja73wo`). Herbalism for PCOS and Nutrigenomics were re-keyed to `39pQ1xBoJy8` and `S_DNS7Sqy3E`. The file is 259 rows.
+`docs/STUDIO-RENAME.csv` is a reference list of rows where the YouTube title still differs from the display title. It is not applied on YouTube. On 2026-09-22 the constipation and sunflower syndrome NGR row left this list because the library title now matches the YouTube title (`dzRQOja73wo`). Herbalism for PCOS stays on `7D2ddTLxZlk` (production reverted `39pQ1xBoJy8` because that upload was cancelled) and Nutrigenomics was re-keyed to `S_DNS7Sqy3E`. The file is 259 rows.
 
 ## Files
 

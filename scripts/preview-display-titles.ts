@@ -82,7 +82,7 @@ async function main() {
   }
 
   const rosterSamples = rows.filter((row) =>
-    ["1fvdwb-H3oc", "3tNlPl4x7VY", "KDQ9goYpzc0", "Nqjsrukws2g", "YtzYbcU0IRA", "cj3TRKZaplY"].includes(
+    ["1fvdwb-H3oc", "3tNlPl4x7VY", "KDQ9goYpzc0", "Nqjsrukws2g", "maGyvt-nzHI", "cj3TRKZaplY"].includes(
       row.youtubeId,
     ),
   );
