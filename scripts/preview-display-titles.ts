@@ -1,12 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { BROWSE_SHELVES, videoMatchesBrowse } from "../src/lib/browse";
-import { metadataForBrainVideo, type BrainVideo } from "../src/lib/brain-catalog";
-import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
+import { brainVideoRecord, type BrainVideo } from "../src/lib/brain-catalog";
 import {
   listDisplayTitleBatchFiles,
   loadDisplayTitleOverrides,
   loadSpeakerOverrides,
-  resolveDisplayTitle,
 } from "../src/lib/display-title";
 
 const videosPath = new URL("../data/brain/videos.json", import.meta.url);
@@ -18,19 +16,7 @@ async function main() {
   const speakerOverrides = loadSpeakerOverrides();
   const batches = listDisplayTitleBatchFiles();
   const rows = videos.filter((video) => video?.video_id).map((video) => {
-    const meta = metadataForBrainVideo(video);
-    const displayTitle = resolveDisplayTitle(
-      meta.youtubeId,
-      meta.title,
-      meta.publishedAt,
-      overrides,
-    );
-    const speakers = mergeSpeakers(
-      meta.speakers,
-      displayTitle ? extractSpeakers(displayTitle) : [],
-      speakerOverrides[meta.youtubeId],
-    );
-    return { ...meta, displayTitle, speakers };
+    return brainVideoRecord(video, overrides, speakerOverrides);
   });
 
   const batchIds = new Set(
