@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RelatedContent } from "@/components/RelatedContent";
 import { WatchWorkspace } from "@/components/WatchWorkspace";
 import { prisma } from "@/lib/db";
 import { formatDuration, formatPublishedDate, publicTitle, youtubeWatchUrl } from "@/lib/format";
 import { parseJsonArray } from "@/lib/json";
+import { relatedRecordingsForVideo } from "@/lib/related";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +30,16 @@ export default async function LibraryVideoPage({
   const programs = parseJsonArray(video.programs);
   const topics = parseJsonArray(video.topics);
   const title = publicTitle(video);
+  const related = await relatedRecordingsForVideo({
+    id: video.id,
+    youtubeId: video.youtubeId,
+    title: video.title,
+    displayTitle: video.displayTitle,
+    description: video.description,
+    programs,
+    topics,
+    segments: video.segments,
+  });
   const rawTitle = video.title.trim();
   const startSec = Number(t);
   const initialTime = Number.isFinite(startSec) && startSec > 0 ? startSec : 0;
@@ -99,6 +111,8 @@ export default async function LibraryVideoPage({
           />
         </div>
       </section>
+
+      <RelatedContent recordings={related} />
     </>
   );
 }
