@@ -3,13 +3,12 @@ import path from "node:path";
 import { gunzipSync } from "node:zlib";
 import { PrismaClient } from "@prisma/client";
 import {
+  brainVideoRecord,
   chunkToSegment,
-  metadataForBrainVideo,
   type BrainChunk,
   type BrainVideo,
 } from "../src/lib/brain-catalog";
-import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
-import { loadDisplayTitleOverrides, loadSpeakerOverrides, resolveDisplayTitle } from "../src/lib/display-title";
+import { loadDisplayTitleOverrides, loadSpeakerOverrides } from "../src/lib/display-title";
 import { youtubeThumbnail } from "../src/lib/format";
 import { toJsonArray } from "../src/lib/json";
 import { readVectorIndexFile } from "../src/lib/vector-index";
@@ -88,18 +87,8 @@ export async function importBrainCatalog(
     const batch = videos.slice(index, index + VIDEO_BATCH);
     await Promise.all(
       batch.map(async (video) => {
-        const meta = metadataForBrainVideo(video);
-        const displayTitle = resolveDisplayTitle(
-          meta.youtubeId,
-          meta.title,
-          meta.publishedAt,
-          displayTitles,
-        );
-        const speakers = mergeSpeakers(
-          meta.speakers,
-          displayTitle ? extractSpeakers(displayTitle) : [],
-          speakerOverrides[meta.youtubeId],
-        );
+        const meta = brainVideoRecord(video, displayTitles, speakerOverrides);
+        const { displayTitle, speakers } = meta;
         const record = await prisma.video.upsert({
           where: { youtubeId: meta.youtubeId },
           create: {

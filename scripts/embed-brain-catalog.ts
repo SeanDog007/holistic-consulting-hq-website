@@ -2,12 +2,12 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { gunzipSync } from "node:zlib";
 import {
+  brainVideoRecord,
   chunkToSegment,
-  metadataForBrainVideo,
   type BrainChunk,
   type BrainVideo,
 } from "../src/lib/brain-catalog";
-import { loadDisplayTitleOverrides, loadSpeakerOverrides, resolveDisplayTitle } from "../src/lib/display-title";
+import { loadDisplayTitleOverrides, loadSpeakerOverrides } from "../src/lib/display-title";
 import {
   computeIdf,
   embedTokens,
@@ -28,7 +28,6 @@ import {
   type EmbedProviderId,
 } from "../src/lib/embed";
 import { DEFAULT_EMBEDDINGS_PATH, writeVectorIndexFile, type VectorIndex } from "../src/lib/vector-index";
-import { extractSpeakers, mergeSpeakers } from "../src/lib/classify";
 import { publicTitle } from "../src/lib/format";
 
 const DEFAULT_VIDEOS_PATH = path.join(process.cwd(), "data/brain/videos.json");
@@ -98,21 +97,10 @@ export async function loadPreparedWindows(options: {
   const metaByYoutubeId = new Map<string, { title: string; speakers: string[] }>();
   for (const video of videosJson) {
     if (!video?.video_id) continue;
-    const meta = metadataForBrainVideo(video);
-    const displayTitle = resolveDisplayTitle(
-      meta.youtubeId,
-      meta.title,
-      meta.publishedAt,
-      displayTitles,
-    );
-    const speakers = mergeSpeakers(
-      meta.speakers,
-      displayTitle ? extractSpeakers(displayTitle) : [],
-      speakerOverrides[meta.youtubeId],
-    );
+    const meta = brainVideoRecord(video, displayTitles, speakerOverrides);
     metaByYoutubeId.set(meta.youtubeId, {
-      title: publicTitle({ title: meta.title, displayTitle }),
-      speakers,
+      title: publicTitle({ title: meta.title, displayTitle: meta.displayTitle }),
+      speakers: meta.speakers,
     });
   }
 
