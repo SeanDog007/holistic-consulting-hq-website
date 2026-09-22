@@ -51,6 +51,7 @@ async function main() {
         displayTitle: row.displayTitle,
         programs: row.programs,
         topics: row.topics,
+        recordingType: row.recordingType,
       }),
     ).length;
     console.log(`  ${shelf.label}: ${count}`);

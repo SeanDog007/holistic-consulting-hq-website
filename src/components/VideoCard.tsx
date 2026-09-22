@@ -32,6 +32,11 @@ export function VideoCard({ video, query }: { video: LibraryResult; query?: stri
               {program}
             </span>
           ))}
+          {video.recordingType ? (
+            <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-emerald uppercase">
+              {video.recordingType}
+            </span>
+          ) : null}
         </div>
         <h3 className="font-display text-[1.7rem] leading-snug text-charcoal">
           <Link href={`/library/${video.id}`} className="hover:text-emerald">

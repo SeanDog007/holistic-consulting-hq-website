@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { publicTitle } from "@/lib/format";
 import { parseJsonArray } from "@/lib/json";
 import { isProgram } from "@/lib/programs";
+import { isRecordingType } from "@/lib/recording-types";
+import { normalizeLibraryFilters } from "@/lib/taxonomy";
 import { expandForEmbed } from "@/lib/embed";
 import { lastVectorSearchError, searchVectorIndex, type SemanticHit } from "@/lib/vector-index";
 
@@ -14,6 +16,7 @@ export type LibraryFilters = {
   q?: string;
   browse?: string;
   program?: string;
+  recordingType?: string;
   speaker?: string;
   year?: string;
   topic?: string;
@@ -39,6 +42,7 @@ export type LibraryResult = {
   speakers: string[];
   programs: string[];
   topics: string[];
+  recordingType: string;
   hits: TranscriptHit[];
   score?: number;
 };
@@ -66,7 +70,7 @@ export function parseLibraryPage(value?: string): number {
 async function browseWhere(browse?: string): Promise<Prisma.VideoWhereInput | null> {
   if (!browse || !isBrowseId(browse)) return null;
   const videos = await prisma.video.findMany({
-    select: { id: true, title: true, displayTitle: true, programs: true, topics: true },
+    select: { id: true, title: true, displayTitle: true, programs: true, topics: true, recordingType: true },
   });
   const ids = videos
     .filter((video) =>
@@ -75,6 +79,7 @@ async function browseWhere(browse?: string): Promise<Prisma.VideoWhereInput | nu
         displayTitle: video.displayTitle,
         programs: parseJsonArray(video.programs),
         topics: parseJsonArray(video.topics),
+        recordingType: video.recordingType,
       }),
     )
     .map((video) => video.id);
@@ -90,6 +95,9 @@ async function videoWhere(filters: LibraryFilters): Promise<Prisma.VideoWhereInp
 
   if (filters.program && isProgram(filters.program)) {
     and.push({ programs: containsFilter(filters.program) });
+  }
+  if (filters.recordingType && isRecordingType(filters.recordingType)) {
+    and.push({ recordingType: filters.recordingType });
   }
   if (filters.speaker) {
     and.push({ speakers: containsFilter(filters.speaker) });
@@ -146,6 +154,7 @@ function mapVideoBase(video: {
   speakers: string;
   programs: string;
   topics: string;
+  recordingType?: string | null;
 }): Omit<LibraryResult, "hits" | "score"> {
   return {
     id: video.id,
@@ -159,6 +168,7 @@ function mapVideoBase(video: {
     speakers: parseJsonArray(video.speakers),
     programs: parseJsonArray(video.programs),
     topics: parseJsonArray(video.topics),
+    recordingType: video.recordingType?.trim() ?? "",
   };
 }
 
@@ -251,7 +261,8 @@ function scoreVideo(
   return score;
 }
 
-export async function searchLibrary(filters: LibraryFilters): Promise<LibrarySearchPage> {
+export async function searchLibrary(input: LibraryFilters): Promise<LibrarySearchPage> {
+  const filters = normalizeLibraryFilters(input);
   const query = filters.q?.trim() ?? "";
   const requestedPage = parseLibraryPage(filters.page);
 

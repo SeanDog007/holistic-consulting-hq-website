@@ -1,8 +1,11 @@
+import { canonicalProgramFilter } from "./taxonomy";
+
 /** Slim filter shape so this file does not import `@/lib/search`. */
 export type BrowseQuery = {
   q?: string;
   browse?: string;
   program?: string;
+  recordingType?: string;
   speaker?: string;
   year?: string;
   topic?: string;
@@ -12,20 +15,22 @@ export type BrowseQuery = {
 /**
  * Browse-the-Library shelves.
  *
- * Brain `program` is usually `mentorship` / `other` / `herbal` / `BCHN` / null.
- * Classified Program values are Title Case (Mentorship, Community, …).
- * Clinical Practice is not a catalog program — it is a curated topic/title shelf.
- * Office Hours is empty in the export; we map New Graduate Roundtable (NGR)
- * and titled Live Call sessions onto that chip so the shelf is not vacant.
+ * Programs are curriculum (Functional Nutrition Mentorship, Herbalism,
+ * BCHN Exam Prep, Business Mentorship). Recording Type is the session
+ * format and has its own dropdown. Clinical Practice stays a topic/title
+ * shelf. Community is a curated shelf of community session types
+ * (Community Live, Orientation, Member Story) — not a program.
+ * Office Hours is a Recording Type (New Graduate Roundtable, Live Call,
+ * Nutritional Grand Rounds).
  *
  * Chip → filter mapping (also listed in README):
- * - Clinical Practice     → `browse=clinical`
- * - Business & Career     → `program=Business` (reuses the existing dropdown)
- * - Herbalism             → `program=Herbalism`
- * - BCHN                  → `program=BCHN`
- * - Mentorship / Community → `browse=community` (not program=Mentorship:
- *     that field is over-applied to Business Mastermind dumps)
- * - Office Hours          → `program=Office Hours` (NGR + Live Call, via classify)
+ * - Clinical Practice                  → `browse=clinical`
+ * - Functional Nutrition Mentorship    → `program=Functional Nutrition Mentorship`
+ * - Business Mentorship                → `program=Business Mentorship`
+ * - Herbalism                          → `program=Herbalism`
+ * - BCHN Exam Prep                     → `program=BCHN Exam Prep`
+ * - Community                          → `browse=community`
+ * - Office Hours                       → `recordingType=Office Hours`
  */
 export const BROWSE_SHELVES = [
   {
@@ -35,11 +40,18 @@ export const BROWSE_SHELVES = [
     kind: "browse" as const,
   },
   {
-    id: "business",
-    label: "Business & Career",
-    href: "/library?program=Business",
+    id: "fn-mentorship",
+    label: "Functional Nutrition Mentorship",
+    href: "/library?program=Functional%20Nutrition%20Mentorship",
     kind: "program" as const,
-    program: "Business",
+    program: "Functional Nutrition Mentorship",
+  },
+  {
+    id: "business",
+    label: "Business Mentorship",
+    href: "/library?program=Business%20Mentorship",
+    kind: "program" as const,
+    program: "Business Mentorship",
   },
   {
     id: "herbalism",
@@ -50,23 +62,23 @@ export const BROWSE_SHELVES = [
   },
   {
     id: "bchn",
-    label: "BCHN",
-    href: "/library?program=BCHN",
+    label: "BCHN Exam Prep",
+    href: "/library?program=BCHN%20Exam%20Prep",
     kind: "program" as const,
-    program: "BCHN",
+    program: "BCHN Exam Prep",
   },
   {
     id: "community",
-    label: "Mentorship / Community",
+    label: "Community",
     href: "/library?browse=community",
     kind: "browse" as const,
   },
   {
     id: "office-hours",
     label: "Office Hours",
-    href: "/library?program=Office%20Hours",
-    kind: "program" as const,
-    program: "Office Hours",
+    href: "/library?recordingType=Office%20Hours",
+    kind: "recordingType" as const,
+    recordingType: "Office Hours",
   },
 ] as const;
 
@@ -168,11 +180,15 @@ const COMMUNITY_TITLE_PATTERNS = [
   /sean\s*&\s*david program/i,
 ];
 
+/** Community chip: session types, not a curriculum program. */
+const COMMUNITY_SHELF_TYPES = new Set(["Community Live", "Orientation", "Member Story"]);
+
 export type BrowseVideoFields = {
   title: string;
   displayTitle?: string | null;
   programs: string[];
   topics: string[];
+  recordingType?: string | null;
 };
 
 function haystackFor(video: BrowseVideoFields): string {
@@ -190,13 +206,14 @@ function matchesClinical(video: BrowseVideoFields): boolean {
 
 function matchesCommunity(video: BrowseVideoFields): boolean {
   const haystack = haystackFor(video);
-  if (/mastermind/i.test(haystack)) return false;
-  if (video.programs.includes("Community")) return true;
+  if (/mastermind/i.test(haystack) || video.recordingType === "Mastermind") return false;
+  if (video.recordingType && COMMUNITY_SHELF_TYPES.has(video.recordingType)) return true;
+  if (video.recordingType) return false;
   return COMMUNITY_TITLE_PATTERNS.some((pattern) => pattern.test(haystack));
 }
 
 function matchesOfficeHours(video: BrowseVideoFields): boolean {
-  if (video.programs.includes("Office Hours")) return true;
+  if (video.recordingType) return video.recordingType === "Office Hours";
   const haystack = haystackFor(video);
   return /\boffice hours\b|\bngr(?:\b|_)|nutritional grand rounds|\blive call\b/.test(haystack);
 }
@@ -210,11 +227,13 @@ export function videoMatchesBrowse(browse: string, video: BrowseVideoFields): bo
     case "office-hours":
       return matchesOfficeHours(video);
     case "business":
-      return video.programs.includes("Business");
+      return video.programs.includes("Business Mentorship");
     case "herbalism":
       return video.programs.includes("Herbalism");
     case "bchn":
-      return video.programs.includes("BCHN");
+      return video.programs.includes("BCHN Exam Prep");
+    case "fn-mentorship":
+      return video.programs.includes("Functional Nutrition Mentorship");
     default:
       return false;
   }
@@ -222,9 +241,16 @@ export function videoMatchesBrowse(browse: string, video: BrowseVideoFields): bo
 
 export function activeBrowseId(filters: BrowseQuery): BrowseId | null {
   if (filters.browse && isBrowseId(filters.browse)) return filters.browse;
-  if (filters.program) {
+  if (filters.recordingType && !filters.program) {
     const match = BROWSE_SHELVES.find(
-      (shelf) => shelf.kind === "program" && shelf.program === filters.program,
+      (shelf) => shelf.kind === "recordingType" && shelf.recordingType === filters.recordingType,
+    );
+    if (match) return match.id;
+  }
+  if (filters.program) {
+    const program = canonicalProgramFilter(filters.program) ?? filters.program;
+    const match = BROWSE_SHELVES.find(
+      (shelf) => shelf.kind === "program" && shelf.program === program,
     );
     if (match) return match.id;
     if (filters.program === "Community") return "community";
@@ -237,6 +263,7 @@ export function librarySearchHref(filters: BrowseQuery, page = 1): string {
   if (filters.q?.trim()) params.set("q", filters.q.trim());
   if (filters.browse && isBrowseId(filters.browse)) params.set("browse", filters.browse);
   if (filters.program) params.set("program", filters.program);
+  if (filters.recordingType) params.set("recordingType", filters.recordingType);
   if (filters.speaker) params.set("speaker", filters.speaker);
   if (filters.year) params.set("year", filters.year);
   if (filters.topic) params.set("topic", filters.topic);

@@ -3,9 +3,11 @@
  *
  * Deterministic cascade (not a blended score). Take at most `limit` rows:
  *
- * 1. Same program. Intersection of `Video.programs` labels, ignoring the
- *    classifier fallback `"Other"` (it means unclassified, not a shared
- *    curriculum). More shared programs rank above fewer.
+ * 1. Same program. Intersection of `Video.programs` labels, ignoring
+ *    non-curriculum labels: `"Other"` (unclassified), `"Community"`, and
+ *    `"Office Hours"` (those are recording types, not shared curriculum).
+ *    More shared programs rank above fewer. Recording Type is not a rank
+ *    signal.
  * 2. Overlapping topics, only after program matches are exhausted. More
  *    shared topics rank above fewer. Topic overlap also orders rows inside
  *    the program band.
@@ -24,8 +26,14 @@
 
 export const RELATED_LIMIT = 3;
 
-/** Unclassified bucket written by `programsForBrainVideo` / `classifyPrograms`. */
+/**
+ * Labels that must not count as shared curriculum.
+ * `Other` was the old unclassified bucket. Community and Office Hours are
+ * session formats; stale rows may still carry them in `programs`.
+ */
 export const GENERIC_PROGRAM = "Other";
+
+const NON_CURRICULUM_PROGRAMS = new Set(["other", "community", "office hours"]);
 
 const SEMANTIC_TIE_EPSILON = 0.001;
 
@@ -53,7 +61,7 @@ function labelSet(values: readonly string[], dropGenericProgram: boolean): Set<s
   for (const value of values) {
     const label = value.trim().toLowerCase();
     if (!label) continue;
-    if (dropGenericProgram && label === GENERIC_PROGRAM.toLowerCase()) continue;
+    if (dropGenericProgram && NON_CURRICULUM_PROGRAMS.has(label)) continue;
     set.add(label);
   }
   return set;

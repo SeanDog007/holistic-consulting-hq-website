@@ -49,12 +49,13 @@ Official CoS batches live in `data/brain/display-titles.batch-N.json` (batch 1 =
 Chips above search (not a replacement for search):
 | Chip | Intent |
 |------|--------|
-| Clinical Practice | Clinical nutrition / testing / conditions / practice skills |
-| Business & Career | Business, career, NANP, practice building |
+| Clinical Practice | Clinical nutrition / testing / conditions / practice skills (topic shelf, not a program) |
+| Functional Nutrition Mentorship | Clinical curriculum |
+| Business Mentorship | Business, career, practice building |
 | Herbalism | Herbal safety & materia |
-| BCHN | Board / exam pathway |
-| Mentorship / Community | Cohort lives, community lives, mentorship |
-| Office Hours | OH / office hours |
+| BCHN Exam Prep | Board / exam pathway |
+| Community | Community Live, orientation, member stories (recording types, not a program) |
+| Office Hours | New Graduate Roundtable / live call (recording type) |
 
 Exact filter mapping lives in the website PR.
 

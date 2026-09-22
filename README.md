@@ -10,7 +10,7 @@ The **live marketing site** is on **Netlify** (`bespoke-elf-113889`) at [holisti
 
 Unlisted: open to anyone with the URL, but not linked from marketing pages. All `/library*` routes send `noindex, nofollow`. The password gate is off.
 
-- `/library` — searchable, paginated catalog with **Browse the Library** chips plus filters (program, speaker, year, topic)
+- `/library` — searchable, paginated catalog with **Browse the Library** chips plus filters (program, recording type, speaker, year, topic)
 - `/library/[videoId]` — YouTube player + transcript sidebar
 - `/library/ask` — unlisted noindex CoS Q&A (cited clips + short synthesis)
 - `/library/login` — redirects to the catalog (no password gate)
@@ -78,13 +78,13 @@ npm run ingest -- --handle HolisticConsulting --skip-captions
 
 Ingest uses the YouTube Data API for video metadata, then pulls public caption / timed-text tracks into `TranscriptSegment` rows `{ startMs, endMs?, text }`. Official caption *download* requires OAuth; public timed text is used instead. Videos without captions are stored without segments.
 
-Program, speaker, and topic fields are classified from titles (and the Brain `program` field when present). Edit them in the database after import if a talk needs a different shelf.
+Program, recording type, speaker, and topic are classified from titles, Brain `series`, and the Brain `program` field when that field names a real curriculum (`herbal`, `BCHN`). Brain `program: mentorship` is not copied onto Functional Nutrition Mentorship — that export value is mostly Business Mastermind. Edit them in the database after import if a talk needs a different shelf.
 
 ## Data model
 
 Prisma models (SQLite locally, Postgres on Netlify):
 
-- `Video` — `youtubeId`, `title`, optional `displayTitle`, `description`, `publishedAt`, `durationSec`, `thumbnailUrl`, `speakers`, `programs`, `topics`, `source`
+- `Video` — `youtubeId`, `title`, optional `displayTitle`, `description`, `publishedAt`, `durationSec`, `thumbnailUrl`, `speakers`, `programs`, `recordingType`, `topics`, `source`
 
 Public cards and the watch page prefer `displayTitle` when set; the raw YouTube `title` stays as fallback and is shown in small type on the detail page for debugging.
 
@@ -95,12 +95,15 @@ The chips sit above the search form. They are exploration shortcuts; the full se
 | Chip | Query | What it matches |
 | --- | --- | --- |
 | All | `/library` | Clears browse and filters |
-| Clinical Practice | `browse=clinical` | Clinical teaching talks via topics (`digestive health`, `microbiome`, `functional testing`, `supplements`) and catalog title keywords (GI, SIBO, labs, thyroid, etc.). Excludes Mastermind dumps and testimonials. Not a Brain `program` value. |
-| Business & Career | `program=Business` | Existing Program filter (Mastermind + practice-building talks) |
-| Herbalism | `program=Herbalism` | Existing Program filter (`herbal` in the export + title classify) |
-| BCHN | `program=BCHN` | Existing Program filter (BCHN / NANP) |
-| Mentorship / Community | `browse=community` | Community Live, roundtables, welcomes, mentorship overview. **Not** `program=Mentorship` — that catalog field is over-applied to Business Mastermind recordings. |
-| Office Hours | `program=Office Hours` | New Graduate Roundtable (`NGR`) and titled Live Call sessions. The Brain export has no `office hours` program; classify infers it from titles. |
+| Clinical Practice | `browse=clinical` | Clinical teaching talks via topics (`digestive health`, `microbiome`, `functional testing`, `supplements`) and catalog title keywords (GI, SIBO, labs, thyroid, etc.). Excludes Mastermind dumps and testimonials. Not a Program. |
+| Functional Nutrition Mentorship | `program=Functional Nutrition Mentorship` | Clinical curriculum (clinical education, GI, testing, genomics, grand rounds, new-graduate office hours, and clinical titles). |
+| Business Mentorship | `program=Business Mentorship` | Business Mastermind, career roundtables, first-client series, practice-building titles. Not the old over-broad Mentorship tag. |
+| Herbalism | `program=Herbalism` | Herbalism and HRB 637 series, plus herbal titles. |
+| BCHN Exam Prep | `program=BCHN Exam Prep` | BCHN and NANP series, plus board-exam titles. |
+| Community | `browse=community` | Recording types Community Live, Orientation, and Member Story. Not a Program, and not Mastermind. |
+| Office Hours | `recordingType=Office Hours` | New Graduate Roundtable, titled Live Call sessions, and Nutritional Grand Rounds. |
+
+The filter row under the chips also has **Recording type** (Community Live, Office Hours, Mastermind, Roundtable, Grand Rounds, Guest Lecture, Orientation, Member Story). Topics stay a separate free-form dropdown. Old links `program=Business`, `program=BCHN`, `program=Mentorship`, `program=Office Hours`, and `program=Community` still resolve.
 
 ## Display titles
 
@@ -137,9 +140,9 @@ Then re-import so SQLite/Postgres picks up the new titles: `npm run db:seed`.
 - Most catalog rows have **no speaker field**. Names are inferred from titles when obvious (Betsy Miller, Dr. Kim Ross, …). Many guest talks are first-name only (Danielle, Val, Jade, Julie T, Cara) with **no credential** — those titles use the name as-is.
 - `Liz Lipski` still has no topic in the YouTube title, so the display title stays `Liz Lipski` rather than inventing one. Batch 2 lightly inferred `Performance & Physiology` for Dr. Mike T. Nelson.
 - Zoom filenames (`GMT…`) display as `Recording — Mon D, YYYY`. The raw YouTube title stays on `Video.title`. One-word roadmap titles (`Fears`, `Vehicle`, and similar) stay short when the session topic is not confirmed.
-- Brain `program` is often `mentorship` or `null`, so shelves are title/classify-based, not a clean Studio taxonomy.
+- Brain `program` is often `mentorship` or `null`. Curriculum shelves use series plus title rules. `mentorship` in the export is not treated as Functional Nutrition Mentorship.
 
-`speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres.
+`speakers`, `programs`, and `topics` are JSON arrays stored as strings so the same fields work on SQLite and Postgres. `recordingType` is a single string (empty when the video has no session format).
 
 `TranscriptSegment` — `videoId`, `startMs`, `endMs?`, `text` (Brain chunks are stored here; `start_sec` / `end_sec` from the export are converted to milliseconds).
 

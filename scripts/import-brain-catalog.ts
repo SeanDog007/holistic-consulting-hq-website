@@ -102,6 +102,7 @@ export async function importBrainCatalog(
             speakers: toJsonArray(speakers),
             programs: toJsonArray(meta.programs),
             topics: toJsonArray(meta.topics),
+            recordingType: meta.recordingType,
             source: meta.source,
           },
           update: {
@@ -114,6 +115,7 @@ export async function importBrainCatalog(
             speakers: toJsonArray(speakers),
             programs: toJsonArray(meta.programs),
             topics: toJsonArray(meta.topics),
+            recordingType: meta.recordingType,
             source: meta.source,
           },
         });

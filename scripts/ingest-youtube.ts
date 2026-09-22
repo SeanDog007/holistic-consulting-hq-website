@@ -73,6 +73,7 @@ async function main() {
         speakers: toJsonArray(speakers),
         programs: toJsonArray(video.programs),
         topics: toJsonArray(video.topics),
+        recordingType: video.recordingType,
         source: video.source,
       },
       update: {
@@ -85,6 +86,7 @@ async function main() {
         speakers: toJsonArray(speakers),
         programs: toJsonArray(video.programs),
         topics: toJsonArray(video.topics),
+        recordingType: video.recordingType,
         source: video.source,
       },
     });

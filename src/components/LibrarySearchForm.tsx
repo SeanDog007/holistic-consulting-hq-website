@@ -1,4 +1,5 @@
 import { PROGRAMS } from "@/lib/programs";
+import { RECORDING_TYPES } from "@/lib/recording-types";
 import type { LibraryFilters } from "@/lib/search";
 
 export function LibrarySearchForm({
@@ -33,7 +34,7 @@ export function LibrarySearchForm({
           Search recordings
         </button>
       </div>
-      <div className="relative mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="relative mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <label className="block">
           <span className="mb-2 block text-[0.65rem] font-semibold tracking-[0.14em] text-slate uppercase">
             Program
@@ -43,6 +44,19 @@ export function LibrarySearchForm({
             {PROGRAMS.map((program) => (
               <option key={program} value={program}>
                 {program}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          <span className="mb-2 block text-[0.65rem] font-semibold tracking-[0.14em] text-slate uppercase">
+            Recording type
+          </span>
+          <select name="recordingType" defaultValue={filters.recordingType ?? ""} className="field">
+            <option value="">All recording types</option>
+            {RECORDING_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
               </option>
             ))}
           </select>

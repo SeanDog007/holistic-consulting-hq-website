@@ -7,6 +7,7 @@
     "build": "node scripts/prisma-env.mjs generate && node scripts/prisma-env.mjs db push && tsx prisma/seed.ts && tsx scripts/ensure-minilm.ts && next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test src/lib/related-rank.test.ts src/lib/taxonomy.test.ts",
     "db:push": "node scripts/prisma-env.mjs db push",
     "db:seed": "tsx --env-file=.env prisma/seed.ts",
     "db:setup": "node scripts/prisma-env.mjs db push && tsx --env-file=.env prisma/seed.ts",
