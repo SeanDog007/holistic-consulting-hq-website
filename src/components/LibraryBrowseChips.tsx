@@ -10,7 +10,7 @@ function chipClass(active: boolean): string {
 
 export function LibraryBrowseChips({ filters }: { filters: LibraryFilters }) {
   const active = activeBrowseId(filters);
-  const allActive = !active;
+  const allActive = !active && !filters.recordingType && !filters.program && !filters.browse;
 
   return (
     <div className="bg-white px-6 py-8 md:px-10 md:py-9">

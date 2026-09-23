@@ -105,6 +105,24 @@ describe("rankRelatedRecordings", () => {
     );
   });
 
+  it("does not treat Community or Office Hours as shared curriculum", () => {
+    const community = video({
+      id: "community",
+      programs: ["Community"],
+      topics: [],
+    });
+    const officeHours = video({
+      id: "office",
+      programs: ["Office Hours"],
+      topics: ["microbiome"],
+    });
+    const ranked = rankRelatedRecordings(
+      { id: "current", youtubeId: "yt-current", programs: ["Community", "Office Hours"], topics: [] },
+      [community, officeHours],
+    );
+    assert.equal(ranked.length, 0);
+  });
+
   it("does not treat Other as a shared program", () => {
     const other = video({
       id: "other",

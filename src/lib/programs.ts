@@ -1,11 +1,14 @@
+/**
+ * Curriculum programs only. Session formats (Community Live, Office Hours,
+ * Mastermind, …) are Recording Types — see `src/lib/recording-types.ts`.
+ * Unclassified videos store an empty `programs` array. Do not write "Other"
+ * or "Community" here; Related Content ignores those labels on purpose.
+ */
 export const PROGRAMS = [
-  "Mentorship",
-  "Community",
+  "Functional Nutrition Mentorship",
   "Herbalism",
-  "Business",
-  "BCHN",
-  "Office Hours",
-  "Other",
+  "BCHN Exam Prep",
+  "Business Mentorship",
 ] as const;
 
 export type Program = (typeof PROGRAMS)[number];

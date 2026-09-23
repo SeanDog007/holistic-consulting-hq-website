@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     q: firstString(url.searchParams.get("q") ?? undefined),
     browse: firstString(url.searchParams.get("browse") ?? undefined),
     program: firstString(url.searchParams.get("program") ?? undefined),
+    recordingType: firstString(url.searchParams.get("recordingType") ?? undefined),
     speaker: firstString(url.searchParams.get("speaker") ?? undefined),
     year: firstString(url.searchParams.get("year") ?? undefined),
     topic: firstString(url.searchParams.get("topic") ?? undefined),
@@ -57,6 +58,7 @@ export async function GET(request: Request) {
           rawTitle: video.title,
           speakers: video.speakers,
           programs: video.programs,
+          recordingType: video.recordingType,
           libraryPath: `/library/${video.id}`,
           score: video.score,
           hits: video.hits.map((hit) => {

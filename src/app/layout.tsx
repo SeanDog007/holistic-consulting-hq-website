@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-white font-sans text-charcoal">{children}</body>
+      <body className="flex min-h-full flex-col bg-cream font-sans text-charcoal">{children}</body>
     </html>
   );
 }

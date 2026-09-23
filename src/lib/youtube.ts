@@ -1,4 +1,4 @@
-import { classifyPrograms, classifyTopics, extractSpeakers } from "@/lib/classify";
+import { classifyPrograms, classifyRecordingType, classifyTopics, extractSpeakers } from "@/lib/classify";
 import { youtubeThumbnail } from "@/lib/format";
 
 export type TimedCue = {
@@ -17,6 +17,7 @@ export type IngestedVideo = {
   speakers: string[];
   programs: string[];
   topics: string[];
+  recordingType: string;
   source: "youtube";
   cues: TimedCue[];
 };
@@ -179,6 +180,7 @@ export function mapYoutubeVideo(resource: YoutubeVideoResource, cues: TimedCue[]
     speakers: extractSpeakers(title, description),
     programs: classifyPrograms(title, description),
     topics: classifyTopics(title, description),
+    recordingType: classifyRecordingType(title, description),
     source: "youtube",
     cues,
   };

@@ -1,6 +1,7 @@
-import { canonicalSpeaker, classifyPrograms, classifyTopics, extractSpeakers, mergeSpeakers } from "./classify";
+import { canonicalSpeaker, classifyTopics, extractSpeakers, mergeSpeakers } from "./classify";
 import { resolveDisplayTitle } from "./display-title";
 import { PROGRAMS, type Program } from "./programs";
+import { taxonomyForBrainVideo } from "./taxonomy";
 
 export type BrainVideo = {
   video_id: string;
@@ -27,17 +28,18 @@ export type BrainChunk = {
   text: string;
 };
 
+/**
+ * @deprecated Brain `mentorship` is not a curriculum program. Prefer `programsFor`.
+ * Kept so older call sites can still recognize the four curriculum labels and
+ * the herbal / BCHN export values.
+ */
 const PROGRAM_ALIASES: Record<string, Program> = {
-  mentorship: "Mentorship",
   herbal: "Herbalism",
   herbalism: "Herbalism",
-  bchn: "BCHN",
-  other: "Other",
-  community: "Community",
-  business: "Business",
-  "office hours": "Office Hours",
-  office_hours: "Office Hours",
-  officehours: "Office Hours",
+  bchn: "BCHN Exam Prep",
+  "functional nutrition mentorship": "Functional Nutrition Mentorship",
+  "bchn exam prep": "BCHN Exam Prep",
+  "business mentorship": "Business Mentorship",
 };
 
 export function mapBrainProgram(value: string | null | undefined): Program | null {
@@ -49,29 +51,6 @@ export function mapBrainProgram(value: string | null | undefined): Program | nul
   }
   return null;
 }
-
-/**
- * Series labels from the Brain export that already match a library program.
- * Clinical series stay on title/topic matching so Mentorship is not over-applied.
- */
-const SERIES_PROGRAMS: Record<string, readonly Program[]> = {
-  herbalism: ["Herbalism"],
-  bchn: ["BCHN"],
-  nanp: ["BCHN"],
-  "business mastermind": ["Business"],
-  "business & career": ["Business"],
-  "finding your first client": ["Business"],
-  "career roundtable": ["Business"],
-  "new graduate roundtable": ["Office Hours"],
-  "community live": ["Community"],
-  "program orientation": ["Community"],
-  "member roundtable": ["Community"],
-  "member stories": ["Community"],
-  "grand rounds": ["Community"],
-  "clinical roundtable": ["Community"],
-  "case roundtable": ["Community"],
-  "journal roundtable": ["Community"],
-};
 
 const SERIES_TOPICS: Record<string, readonly string[]> = {
   "gi & microbiome": ["digestive health", "microbiome"],
@@ -85,19 +64,14 @@ export function programsForBrainVideo(
   title: string,
   program: string | null | undefined,
   series?: string | null,
+  displayTitle?: string | null,
 ): Program[] {
-  const found = new Set<Program>(classifyPrograms(title));
-  const mapped = mapBrainProgram(program);
-  if (mapped) {
-    found.delete("Other");
-    found.add(mapped);
-  }
-  for (const item of SERIES_PROGRAMS[series?.trim().toLowerCase() ?? ""] ?? []) {
-    found.delete("Other");
-    found.add(item);
-  }
-  if (found.size === 0) found.add("Other");
-  return PROGRAMS.filter((item) => found.has(item));
+  return taxonomyForBrainVideo({
+    title,
+    displayTitle,
+    series,
+    brainProgram: program,
+  }).programs;
 }
 
 export function topicsForBrainVideo(title: string, series?: string | null): string[] {
@@ -199,10 +173,19 @@ export function brainVideoRecord(
 ) {
   const meta = metadataForBrainVideo(video);
   const displayTitle = resolveBrainDisplayTitle(video, meta.publishedAt, displayTitleOverrides);
+  const taxonomy = taxonomyForBrainVideo({
+    title: meta.title,
+    displayTitle,
+    description: meta.description,
+    series: video.series,
+    brainProgram: video.program,
+  });
   return {
     ...meta,
     displayTitle,
     speakers: speakersForBrainVideo(video, meta.title, displayTitle, speakerOverrides),
+    programs: taxonomy.programs,
+    recordingType: taxonomy.recordingType,
   };
 }
 

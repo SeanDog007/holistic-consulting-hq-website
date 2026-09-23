@@ -5,6 +5,7 @@ import { LibraryPagination } from "@/components/LibraryPagination";
 import { LibrarySearchForm } from "@/components/LibrarySearchForm";
 import { VideoCard } from "@/components/VideoCard";
 import { listFilterOptions, searchLibrary, type LibraryFilters } from "@/lib/search";
+import { normalizeLibraryFilters } from "@/lib/taxonomy";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +14,7 @@ export default async function LibraryPage({
 }: {
   searchParams: Promise<LibraryFilters>;
 }) {
-  const filters = await searchParams;
+  const filters = normalizeLibraryFilters(await searchParams);
   const [{ results, total, page, pageCount, semanticUsed }, options] = await Promise.all([
     searchLibrary(filters),
     listFilterOptions(),
@@ -22,7 +23,13 @@ export default async function LibraryPage({
   const query = filters.q?.trim() ?? "";
   const transcriptHits = results.reduce((sum, video) => sum + video.hits.length, 0);
   const hasFilters = Boolean(
-    query || filters.browse || filters.program || filters.speaker || filters.year || filters.topic,
+    query ||
+      filters.browse ||
+      filters.program ||
+      filters.recordingType ||
+      filters.speaker ||
+      filters.year ||
+      filters.topic,
   );
 
   return (
@@ -75,7 +82,7 @@ export default async function LibraryPage({
           <div className="max-w-2xl">
             <span className="section-label">The shelves</span>
             <h2 className="font-display text-4xl text-charcoal md:text-5xl">
-              Browse by program, speaker, or the words that were said.
+              Browse by program, recording type, or the words that were said.
             </h2>
             <p className="mt-3 text-sm text-slate">
               CoS / internal:{" "}
@@ -138,7 +145,7 @@ export default async function LibraryPage({
         </div>
       </section>
 
-      <section className="bg-forest-deep py-24 text-cream">
+      <section className="bg-charcoal py-24 text-cream">
         <div className="container-site grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="mb-6 flex items-center gap-4">

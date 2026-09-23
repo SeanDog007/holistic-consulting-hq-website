@@ -64,6 +64,11 @@ export default async function LibraryVideoPage({
                   {program}
                 </span>
               ))}
+              {video.recordingType ? (
+                <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-emerald uppercase">
+                  {video.recordingType}
+                </span>
+              ) : null}
             </div>
             <h1 className="font-display max-w-4xl text-4xl text-charcoal md:text-5xl">{title}</h1>
             {rawTitle && rawTitle !== title ? (

@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holistic Consulting — Brand Identity Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: { DEFAULT: '#2E7D32', light: '#4CAF50', sage: '#E8F5E9', forest: '#1B5E20' },
+            charcoal: '#2D3436',
+            slate: '#636E72',
+            gold: { DEFAULT: '#C9963B', light: '#D4A84B' },
+            offwhite: '#FAFAFA',
+            warmgray: '#F5F0EB',
+            bordergray: '#DFE6E9',
+            darkfooter: '#363B3E',
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: #2D3436; background: #F5F0EB; }
+
+    /* Noise texture overlay */
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Gold accent underline */
+    .gold-line::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 2px;
+      background: #C9963B;
+      margin-top: 12px;
+    }
+
+    /* Sidebar nav link */
+    .sidebar-link {
+      transition: color 0.2s ease, padding-left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      color: #2E7D32;
+      padding-left: 4px;
+    }
+
+    /* Button spring hover */
+    .btn-spring {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-spring:hover { transform: translateY(-2px); }
+    .btn-spring:active { transform: translateY(0); }
+
+    /* Card hover */
+    .card-lift {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    /* Copy hex button */
+    .copy-btn {
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      opacity: 0;
+    }
+    .swatch-card:hover .copy-btn {
+      opacity: 1;
+    }
+    .copy-btn:active {
+      transform: scale(0.9);
+    }
+
+    /* Focus visible */
+    *:focus-visible {
+      outline: 2px solid #2E7D32;
+      outline-offset: 2px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F5F0EB; }
+    ::-webkit-scrollbar-thumb { background: #DFE6E9; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C9963B; }
+
+    /* Animation specimens */
+    .anim-demo {
+      animation: fadeUpDemo 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    @keyframes fadeUpDemo {
+      0% { opacity: 0; transform: translateY(24px); }
+      40% { opacity: 1; transform: translateY(0); }
+      70% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-8px); }
+    }
+    .spring-demo {
+      animation: springDemo 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+    }
+    @keyframes springDemo {
+      0% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+      60% { transform: translateY(0); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Print styles */
+    @media print {
+      .sidebar { display: none !important; }
+      main { margin-left: 0 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar fixed left-0 top-0 h-full w-56 bg-white border-r border-bordergray z-50 hidden lg:flex flex-col py-10 px-6 overflow-y-auto">
+    <a href="#cover" class="font-display text-2xl font-semibold text-charcoal leading-tight mb-1">Holistic<br>Consulting</a>
+    <p class="font-body text-[0.6rem] font-semibold tracking-[0.22em] uppercase text-gold mb-8">Brand Guide</p>
+
+    <nav class="flex flex-col gap-1">
+      <a href="#identity" class="sidebar-link font-body text-sm text-slate py-1.5">Brand Identity</a>
+      <a href="#colors" class="sidebar-link font-body text-sm text-slate py-1.5">Color Palette</a>
+      <a href="#typography" class="sidebar-link font-body text-sm text-slate py-1.5">Typography</a>
+      <a href="#buttons" class="sidebar-link font-body text-sm text-slate py-1.5">Buttons</a>
+      <a href="#cards" class="sidebar-link font-body text-sm text-slate py-1.5">Cards & Surfaces</a>
+      <a href="#decorative" class="sidebar-link font-body text-sm text-slate py-1.5">Decorative Elements</a>
+      <a href="#spacing" class="sidebar-link font-body text-sm text-slate py-1.5">Spacing</a>
+      <a href="#motion" class="sidebar-link font-body text-sm text-slate py-1.5">Animation & Motion</a>
+    </nav>
+
+    <div class="mt-auto pt-8 border-t border-bordergray">
+      <p class="font-body text-xs text-slate/60">Extracted Feb 2026</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="lg:ml-56">
+
+    <!-- Cover Section -->
+    <section id="cover" class="relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-12 py-28 lg:py-44">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-8 gold-line">Brand Identity Guide</p>
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-[5.5rem] font-semibold text-charcoal leading-[1.05] tracking-[-0.01em] mb-5">Holistic<br>Consulting</h1>
+        <p class="font-display text-3xl sm:text-4xl lg:text-[3.8rem] font-normal italic text-emerald leading-[1.1] mb-12">Impactful Careers</p>
+        <p class="font-body text-lg text-slate max-w-xl leading-[1.75]">
+          A comprehensive visual identity system defining the colors, typography, interactive elements, and design patterns that form the Holistic Consulting brand.
+        </p>
+        <div class="mt-10 flex items-center gap-4">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald"></span>
+          <span class="font-body text-sm text-slate">Source: Squarespace site &mdash; February 2026</span>
+        </div>
+      </div>
+      <!-- Decorative gradient -->
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 75% 15%, rgba(201,150,59,0.08) 0%, transparent 45%), radial-gradient(ellipse at 15% 75%, rgba(46,125,50,0.08) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(46,125,50,0.03) 0%, transparent 70%);"></div>
+    </section>
+
+
+    <!-- ==================== BRAND IDENTITY ==================== -->
+    <section id="identity" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">01</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-12">Brand Identity</h2>
+
+        <!-- Logo / Wordmark -->
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+          <!-- Light background -->
+          <div class="bg-white rounded-lg border border-bordergray p-10 flex flex-col items-center justify-center min-h-[200px]">
+            <p class="font-body text-[0.6rem] font-semibold tracking-[0.22em] uppercase text-slate/50 mb-6">Light Background</p>
+            <p class="font-display text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-tight text-center">Holistic Consulting</p>
+            <p class="font-body text-[0.55rem] font-semibold tracking-[0.22em] uppercase text-gold mt-2">Impactful Careers</p>
+          </div>
+          <!-- Dark background -->
+          <div class="bg-charcoal rounded-lg p-10 flex flex-col items-center justify-center min-h-[200px]">
+            <p class="font-body text-[0.6rem] font-semibold tracking-[0.22em] uppercase text-white/30 mb-6">Dark Background</p>
+            <p class="font-display text-4xl font-semibold text-white tracking-[-0.01em] leading-tight text-center">Holistic Consulting</p>
+            <p class="font-body text-[0.55rem] font-semibold tracking-[0.22em] uppercase text-gold mt-2">Impactful Careers</p>
+          </div>
+        </div>
+
+        <!-- Brand Voice -->
+        <div class="bg-white rounded-lg border border-bordergray p-8 lg:p-10">
+          <h3 class="font-display text-xl font-semibold text-charcoal mb-6">Brand Voice</h3>
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-emerald mb-2">Tone</p>
+              <p class="font-body text-sm text-slate leading-[1.75]">Professional yet accessible. Authoritative without being academic. Warm and results-focused.</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-emerald mb-2">Messaging Themes</p>
+              <p class="font-body text-sm text-slate leading-[1.75]">Structured clinical training. Bridging knowledge and real-world practice. Practitioner career pathways.</p>
+            </div>
+            <div>
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-emerald mb-2">Key Phrases</p>
+              <p class="font-body text-sm text-slate leading-[1.75]">"Practice, not just certified." "Where Practitioners Become Professionals." "Impactful Careers."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Color Hierarchy -->
+        <div class="mt-12 bg-white rounded-lg border border-bordergray p-8 lg:p-10">
+          <h3 class="font-display text-xl font-semibold text-charcoal mb-6">Color Meaning</h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="flex items-start gap-3">
+              <span class="w-4 h-4 rounded-full bg-emerald flex-shrink-0 mt-0.5"></span>
+              <div>
+                <p class="font-body text-sm font-semibold text-charcoal">Emerald</p>
+                <p class="font-body text-xs text-slate leading-[1.7]">Trust, growth, action</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-4 h-4 rounded-full bg-gold flex-shrink-0 mt-0.5"></span>
+              <div>
+                <p class="font-body text-sm font-semibold text-charcoal">Gold</p>
+                <p class="font-body text-xs text-slate leading-[1.7]">Prestige, CTA accent</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-4 h-4 rounded-full bg-charcoal flex-shrink-0 mt-0.5"></span>
+              <div>
+                <p class="font-body text-sm font-semibold text-charcoal">Charcoal</p>
+                <p class="font-body text-xs text-slate leading-[1.7]">Substance, authority</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-4 h-4 rounded-full bg-warmgray flex-shrink-0 mt-0.5 border border-bordergray"></span>
+              <div>
+                <p class="font-body text-sm font-semibold text-charcoal">Warm Gray</p>
+                <p class="font-body text-xs text-slate leading-[1.7]">Breath, clarity, space</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== COLOR PALETTE ==================== -->
+    <section id="colors" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">02</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Color Palette</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">The palette balances earthy greens with warm golds on a neutral warm-gray foundation. Never use default Tailwind blues or indigos.</p>
+
+        <!-- Primary Colors -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Primary</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+          <!-- Emerald -->
+          <div class="swatch-card group relative">
+            <div class="h-28 rounded-t-lg flex items-end p-3" style="background: #2E7D32;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#2E7D32')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-4">
+              <p class="font-body text-sm font-semibold text-charcoal">Emerald</p>
+              <p class="font-body text-xs text-slate mt-0.5">#2E7D32</p>
+              <p class="font-body text-[0.65rem] text-slate/60 mt-1">rgb(46, 125, 50)</p>
+              <p class="font-body text-[0.65rem] text-emerald mt-2">Primary action, trust</p>
+            </div>
+          </div>
+          <!-- Gold -->
+          <div class="swatch-card group relative">
+            <div class="h-28 rounded-t-lg flex items-end p-3" style="background: #C9963B;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#C9963B')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-4">
+              <p class="font-body text-sm font-semibold text-charcoal">Gold</p>
+              <p class="font-body text-xs text-slate mt-0.5">#C9963B</p>
+              <p class="font-body text-[0.65rem] text-slate/60 mt-1">rgb(201, 150, 59)</p>
+              <p class="font-body text-[0.65rem] text-gold mt-2">CTA, prestige accent</p>
+            </div>
+          </div>
+          <!-- Charcoal -->
+          <div class="swatch-card group relative">
+            <div class="h-28 rounded-t-lg flex items-end p-3" style="background: #2D3436;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#2D3436')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-4">
+              <p class="font-body text-sm font-semibold text-charcoal">Charcoal</p>
+              <p class="font-body text-xs text-slate mt-0.5">#2D3436</p>
+              <p class="font-body text-[0.65rem] text-slate/60 mt-1">rgb(45, 52, 54)</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-2">Primary text, dark bg</p>
+            </div>
+          </div>
+          <!-- Warm Gray -->
+          <div class="swatch-card group relative">
+            <div class="h-28 rounded-t-lg border border-bordergray flex items-end p-3" style="background: #F5F0EB;">
+              <button class="copy-btn absolute top-3 right-3 bg-charcoal/10 backdrop-blur-sm text-charcoal text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#F5F0EB')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-4">
+              <p class="font-body text-sm font-semibold text-charcoal">Warm Gray</p>
+              <p class="font-body text-xs text-slate mt-0.5">#F5F0EB</p>
+              <p class="font-body text-[0.65rem] text-slate/60 mt-1">rgb(245, 240, 235)</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-2">Page background</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Colors -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Secondary & Extended</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+          <!-- Emerald Light -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg" style="background: #4CAF50;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#4CAF50')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Emerald Light</p>
+              <p class="font-body text-xs text-slate">#4CAF50</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Hover states</p>
+            </div>
+          </div>
+          <!-- Emerald Sage -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg border border-bordergray" style="background: #E8F5E9;">
+              <button class="copy-btn absolute top-3 right-3 bg-charcoal/10 backdrop-blur-sm text-charcoal text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#E8F5E9')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Emerald Sage</p>
+              <p class="font-body text-xs text-slate">#E8F5E9</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Tags, soft fills</p>
+            </div>
+          </div>
+          <!-- Emerald Forest -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg" style="background: #1B5E20;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#1B5E20')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Emerald Forest</p>
+              <p class="font-body text-xs text-slate">#1B5E20</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Dark accent</p>
+            </div>
+          </div>
+          <!-- Gold Light -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg" style="background: #D4A84B;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#D4A84B')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Gold Light</p>
+              <p class="font-body text-xs text-slate">#D4A84B</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Gold hover state</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Neutral Colors -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Neutrals</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
+          <!-- Slate -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg" style="background: #636E72;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#636E72')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Slate</p>
+              <p class="font-body text-xs text-slate">#636E72</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Secondary text</p>
+            </div>
+          </div>
+          <!-- Off-white -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg border border-bordergray" style="background: #FAFAFA;">
+              <button class="copy-btn absolute top-3 right-3 bg-charcoal/10 backdrop-blur-sm text-charcoal text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#FAFAFA')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Off-white</p>
+              <p class="font-body text-xs text-slate">#FAFAFA</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Alternate backgrounds</p>
+            </div>
+          </div>
+          <!-- Border Gray -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg border border-bordergray" style="background: #DFE6E9;">
+              <button class="copy-btn absolute top-3 right-3 bg-charcoal/10 backdrop-blur-sm text-charcoal text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#DFE6E9')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Border Gray</p>
+              <p class="font-body text-xs text-slate">#DFE6E9</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Borders, dividers</p>
+            </div>
+          </div>
+          <!-- Dark Footer -->
+          <div class="swatch-card group relative">
+            <div class="h-24 rounded-t-lg" style="background: #363B3E;">
+              <button class="copy-btn absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-[0.6rem] font-semibold px-2 py-1 rounded" onclick="copyHex('#363B3E')">Copy</button>
+            </div>
+            <div class="bg-offwhite rounded-b-lg border border-t-0 border-bordergray p-3">
+              <p class="font-body text-sm font-semibold text-charcoal">Dark Footer</p>
+              <p class="font-body text-xs text-slate">#363B3E</p>
+              <p class="font-body text-[0.65rem] text-charcoal mt-1">Footer background</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gradient Recipes -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Gradient Recipes</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Hero Gradient -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="h-40 relative" style="background: #F5F0EB;">
+              <div class="absolute inset-0" style="background: radial-gradient(ellipse at 20% 50%, rgba(46,125,50,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(201,150,59,0.06) 0%, transparent 40%), radial-gradient(ellipse at 50% 100%, rgba(46,125,50,0.04) 0%, transparent 50%);"></div>
+            </div>
+            <div class="bg-offwhite p-5 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal mb-2">Hero Gradient</p>
+              <p class="font-body text-xs text-slate leading-[1.7]">Three layered radial gradients: emerald at 20% 50% (0.08 opacity), gold at 80% 20% (0.06), emerald at 50% 100% (0.04). Applied over warm gray base.</p>
+            </div>
+          </div>
+          <!-- CTA Gradient -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="h-40 relative" style="background: #2D3436;">
+              <div class="absolute inset-0" style="background: radial-gradient(ellipse at 20% 80%, rgba(201,150,59,0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(46,125,50,0.15) 0%, transparent 50%);"></div>
+            </div>
+            <div class="bg-offwhite p-5 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal mb-2">CTA Dark Gradient</p>
+              <p class="font-body text-xs text-slate leading-[1.7]">Gold glow at 20% 80% (0.12 opacity) and emerald glow at 80% 20% (0.15 opacity) over charcoal base. Creates depth on dark sections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== TYPOGRAPHY ==================== -->
+    <section id="typography" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">03</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Typography</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Elegant serif display paired with a clean, modern sans-serif body. Never use the same font for headings and body text.</p>
+
+        <!-- Font Families -->
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+          <!-- Display Font -->
+          <div class="bg-white rounded-lg border border-bordergray p-8">
+            <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-emerald mb-4">Display Font</p>
+            <p class="font-display text-5xl font-semibold text-charcoal leading-[1.08] tracking-[-0.01em] mb-4">Cormorant Garamond</p>
+            <p class="font-display text-2xl font-normal text-slate leading-[1.3] mb-6">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p>
+            <div class="border-t border-bordergray pt-4 flex flex-col gap-1.5">
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Family:</span> 'Cormorant Garamond', Georgia, serif</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Weights:</span> 400 (italic), 500, 600, 700</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Tracking:</span> -0.01em on headings</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Usage:</span> Headlines, hero text, section titles</p>
+            </div>
+          </div>
+          <!-- Body Font -->
+          <div class="bg-white rounded-lg border border-bordergray p-8">
+            <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-emerald mb-4">Body Font</p>
+            <p class="font-body text-4xl font-light text-charcoal leading-[1.2] mb-4">DM Sans</p>
+            <p class="font-body text-lg font-light text-slate leading-[1.5] mb-6">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p>
+            <div class="border-t border-bordergray pt-4 flex flex-col gap-1.5">
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Family:</span> 'DM Sans', sans-serif</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Weights:</span> 300 (body), 500, 600 (labels/buttons), 700</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Line-height:</span> 1.75–1.8 on body text</p>
+              <p class="font-body text-xs text-slate"><span class="text-charcoal font-semibold">Usage:</span> Body copy, labels, navigation, buttons</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Type Scale -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-8">Type Scale</h3>
+        <div class="bg-white rounded-lg border border-bordergray divide-y divide-bordergray overflow-hidden">
+          <!-- Hero -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-display font-semibold text-charcoal leading-[1.08] tracking-[-0.01em]" style="font-size: clamp(2.8rem, 5vw, 4rem);">Hero Headline</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> clamp(3.6rem, 7vw, 5.2rem)<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 600<br>
+                <span class="text-charcoal font-semibold">Leading:</span> 1.08<br>
+                <span class="text-charcoal font-semibold">Tracking:</span> -0.01em
+              </p>
+            </div>
+          </div>
+          <!-- Hero Italic -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-display font-normal italic text-emerald leading-[1.1]" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">Italic Accent Line</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> clamp(3.8rem, 7.5vw, 5.5rem)<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 400 italic<br>
+                <span class="text-charcoal font-semibold">Leading:</span> 1.1<br>
+                <span class="text-charcoal font-semibold">Color:</span> Emerald #2E7D32
+              </p>
+            </div>
+          </div>
+          <!-- Section Heading -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-display text-3xl lg:text-4xl font-semibold text-charcoal leading-[1.15] tracking-[-0.01em]">Section Heading</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> clamp(2.2rem, 3.5vw, 3.2rem)<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 600<br>
+                <span class="text-charcoal font-semibold">Leading:</span> 1.15<br>
+                <span class="text-charcoal font-semibold">Tracking:</span> -0.01em
+              </p>
+            </div>
+          </div>
+          <!-- CTA Heading -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-display text-2xl lg:text-3xl font-semibold text-charcoal leading-[1.15]">CTA Heading</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> clamp(2.5rem, 4vw, 4rem)<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 600<br>
+                <span class="text-charcoal font-semibold">Leading:</span> 1.15
+              </p>
+            </div>
+          </div>
+          <!-- Body Text -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-body text-base font-light text-slate leading-[1.75]">Body text is set in DM Sans at a light weight with generous line-height for readability. It pairs with the elegant serif display font to create a professional yet approachable feel.</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> 0.95–1.05rem<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 300<br>
+                <span class="text-charcoal font-semibold">Leading:</span> 1.75–1.8<br>
+                <span class="text-charcoal font-semibold">Color:</span> Slate #636E72
+              </p>
+            </div>
+          </div>
+          <!-- Label -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-gold">Section Label / Tag</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> 0.65–0.7rem<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 600<br>
+                <span class="text-charcoal font-semibold">Tracking:</span> 0.15–0.22em<br>
+                <span class="text-charcoal font-semibold">Transform:</span> uppercase
+              </p>
+            </div>
+          </div>
+          <!-- Button Text -->
+          <div class="p-6 lg:p-8 flex flex-col lg:flex-row lg:items-end gap-4">
+            <div class="lg:w-2/3">
+              <p class="font-body text-[0.85rem] font-semibold tracking-[0.04em] text-charcoal">Button Text Style</p>
+            </div>
+            <div class="lg:w-1/3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Size:</span> 0.85rem<br>
+                <span class="text-charcoal font-semibold">Weight:</span> 600–700<br>
+                <span class="text-charcoal font-semibold">Tracking:</span> 0.04–0.05em
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== BUTTONS ==================== -->
+    <section id="buttons" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">04</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Buttons & Interactive Elements</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Every clickable element requires hover, focus-visible, and active states. Use spring easing for interactions. Never use <code class="font-body text-xs bg-warmgray px-1.5 py-0.5 rounded">transition-all</code>.</p>
+
+        <!-- Button Specimens - Light BG -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">On Light Backgrounds</h3>
+        <div class="grid sm:grid-cols-2 gap-6 mb-12">
+          <!-- Gold Primary -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8 flex flex-col items-start gap-6">
+            <div>
+              <p class="font-body text-sm font-semibold text-charcoal mb-1">Gold Primary</p>
+              <p class="font-body text-xs text-slate">Main call-to-action</p>
+            </div>
+            <button class="btn-spring bg-gold text-white font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md hover:bg-gold-light focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2" style="padding: 1rem 2.2rem;">
+              Book a Discovery Call
+            </button>
+            <div class="w-full border-t border-bordergray pt-4">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.8]">
+                <span class="text-charcoal font-semibold">Background:</span> #C9963B<br>
+                <span class="text-charcoal font-semibold">Hover:</span> #D4A84B + translateY(-2px)<br>
+                <span class="text-charcoal font-semibold">Shadow (hover):</span> 0 8px 24px rgba(201,150,59,0.3)<br>
+                <span class="text-charcoal font-semibold">Padding:</span> 1rem 2.2rem<br>
+                <span class="text-charcoal font-semibold">Radius:</span> 0.375rem (rounded-md)<br>
+                <span class="text-charcoal font-semibold">Easing:</span> cubic-bezier(0.34, 1.56, 0.64, 1)
+              </p>
+            </div>
+          </div>
+          <!-- Emerald Outline -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8 flex flex-col items-start gap-6">
+            <div>
+              <p class="font-body text-sm font-semibold text-charcoal mb-1">Emerald Outline</p>
+              <p class="font-body text-xs text-slate">Secondary action</p>
+            </div>
+            <button class="btn-spring bg-transparent text-emerald font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md border-[1.5px] border-emerald hover:bg-emerald hover:text-white focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2" style="padding: 0.95rem 2.2rem;">
+              Explore Programs
+            </button>
+            <div class="w-full border-t border-bordergray pt-4">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.8]">
+                <span class="text-charcoal font-semibold">Border:</span> 1.5px solid #2E7D32<br>
+                <span class="text-charcoal font-semibold">Hover:</span> bg #2E7D32, text white<br>
+                <span class="text-charcoal font-semibold">Padding:</span> 0.95rem 2.2rem<br>
+                <span class="text-charcoal font-semibold">Radius:</span> 0.375rem (rounded-md)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button Specimens - Dark BG -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">On Dark Backgrounds</h3>
+        <div class="grid sm:grid-cols-2 gap-6 mb-12">
+          <!-- White CTA -->
+          <div class="bg-charcoal rounded-lg p-8 flex flex-col items-start gap-6">
+            <div>
+              <p class="font-body text-sm font-semibold text-white mb-1">White CTA</p>
+              <p class="font-body text-xs text-white/50">Primary on dark</p>
+            </div>
+            <button class="btn-spring bg-white text-emerald font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md hover:bg-warmgray focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal" style="padding: 1rem 2.25rem;">
+              Book a Discovery Call
+            </button>
+            <div class="w-full border-t border-white/10 pt-4">
+              <p class="font-body text-[0.65rem] text-white/50 leading-[1.8]">
+                <span class="text-white/80 font-semibold">Background:</span> #FFFFFF<br>
+                <span class="text-white/80 font-semibold">Text:</span> #2E7D32<br>
+                <span class="text-white/80 font-semibold">Hover:</span> bg #F5F0EB + slight lift<br>
+                <span class="text-white/80 font-semibold">Padding:</span> 1rem 2.25rem
+              </p>
+            </div>
+          </div>
+          <!-- Gold Outline -->
+          <div class="bg-charcoal rounded-lg p-8 flex flex-col items-start gap-6">
+            <div>
+              <p class="font-body text-sm font-semibold text-white mb-1">Gold Outline</p>
+              <p class="font-body text-xs text-white/50">Secondary on dark</p>
+            </div>
+            <button class="btn-spring bg-transparent text-gold font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md border-[1.5px] border-gold hover:bg-gold hover:text-white focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal" style="padding: 0.95rem 2.2rem;">
+              Explore Programs
+            </button>
+            <div class="w-full border-t border-white/10 pt-4">
+              <p class="font-body text-[0.65rem] text-white/50 leading-[1.8]">
+                <span class="text-white/80 font-semibold">Border:</span> 1.5px solid #C9963B<br>
+                <span class="text-white/80 font-semibold">Hover:</span> bg #C9963B, text white<br>
+                <span class="text-white/80 font-semibold">Padding:</span> 0.95rem 2.2rem
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interaction States -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Interaction States</h3>
+        <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+          <div class="grid sm:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="bg-gold text-white font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md inline-block" style="padding: 0.8rem 1.6rem;">Default</div>
+              <p class="font-body text-xs text-slate mt-3">Resting state</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-gold-light text-white font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md inline-block" style="padding: 0.8rem 1.6rem; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,150,59,0.3);">Hover</div>
+              <p class="font-body text-xs text-slate mt-3">translateY(-2px) + shadow</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-gold text-white font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md inline-block" style="padding: 0.8rem 1.6rem; transform: translateY(0); filter: brightness(0.95);">Active</div>
+              <p class="font-body text-xs text-slate mt-3">translateY(0) spring-back</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-gold text-white font-body text-[0.85rem] font-semibold tracking-[0.04em] rounded-md inline-block ring-2 ring-emerald ring-offset-2" style="padding: 0.8rem 1.6rem;">Focus</div>
+              <p class="font-body text-xs text-slate mt-3">2px emerald ring, 2px offset</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== CARDS & SURFACES ==================== -->
+    <section id="cards" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">05</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Cards & Surfaces</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Surfaces use a three-tier depth system. Each level has distinct shadow treatment and border conventions.</p>
+
+        <!-- Depth Levels -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Depth Levels</h3>
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <!-- Base -->
+          <div>
+            <div class="bg-offwhite rounded-lg border border-bordergray p-8 mb-4" style="box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-emerald mb-3">Base</p>
+              <p class="font-display text-xl font-semibold text-charcoal mb-2">Level 1</p>
+              <p class="font-body text-sm font-light text-slate leading-[1.75]">Flat surface with subtle border and minimal shadow. For stat cards and info blocks.</p>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Shadow:</span> 0 2px 8px rgba(0,0,0,0.04)<br>
+              <span class="text-charcoal font-semibold">Border:</span> 1px solid #DFE6E9<br>
+              <span class="text-charcoal font-semibold">Radius:</span> 0.5rem (rounded-lg)
+            </p>
+          </div>
+          <!-- Elevated -->
+          <div>
+            <div class="card-lift bg-white rounded-lg border border-bordergray border-t-[3px] border-t-gold p-8 mb-4 cursor-pointer" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-emerald mb-3">Elevated</p>
+              <p class="font-display text-xl font-semibold text-charcoal mb-2">Level 2</p>
+              <p class="font-body text-sm font-light text-slate leading-[1.75]">Color-accented top border with hover lift. For program cards and featured content.</p>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Shadow:</span> 0 2px 8px rgba(0,0,0,0.08)<br>
+              <span class="text-charcoal font-semibold">Border-top:</span> 3px solid accent color<br>
+              <span class="text-charcoal font-semibold">Hover:</span> translateY(-4px) + deeper shadow
+            </p>
+          </div>
+          <!-- Floating -->
+          <div>
+            <div class="bg-white rounded-lg border border-bordergray p-8 mb-4" style="box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-emerald mb-3">Floating</p>
+              <p class="font-display text-xl font-semibold text-charcoal mb-2">Level 3</p>
+              <p class="font-body text-sm font-light text-slate leading-[1.75]">Prominent shadow for overlaid content. For floating badges, tooltips, and modals.</p>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Shadow:</span> 0 4px 16px rgba(0,0,0,0.08)<br>
+              <span class="text-charcoal font-semibold">Border:</span> 1px solid #DFE6E9<br>
+              <span class="text-charcoal font-semibold">Usage:</span> Floating elements, popups
+            </p>
+          </div>
+        </div>
+
+        <!-- Special Card Types -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Special Card Types</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Testimonial Card -->
+          <div>
+            <div class="bg-warmgray rounded-lg p-8 border-l-[3px] border-l-gold mb-4">
+              <div class="relative">
+                <svg class="absolute -top-2 -left-1 w-8 h-8 text-gold/20" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z"/></svg>
+                <p class="font-body text-sm font-light text-charcoal leading-[1.8] italic pl-2">"This program transformed my understanding of clinical practice. The structured mentorship was exactly what I needed to bridge the gap between my education and real-world application."</p>
+              </div>
+              <p class="font-body text-xs font-semibold text-charcoal mt-4 pl-2">— Jane Doe, BCHN®</p>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Border-left:</span> 3px solid #C9963B<br>
+              <span class="text-charcoal font-semibold">Background:</span> #F5F0EB (warm gray)<br>
+              <span class="text-charcoal font-semibold">Quote mark:</span> Gold SVG at 20% opacity
+            </p>
+          </div>
+          <!-- Tag/Badge -->
+          <div>
+            <div class="bg-white rounded-lg border border-bordergray p-8 mb-4">
+              <p class="font-body text-sm font-semibold text-charcoal mb-6">Tags & Badges</p>
+              <div class="flex flex-wrap gap-3">
+                <span class="inline-block bg-emerald-sage text-emerald font-body text-[0.7rem] font-semibold rounded-full px-4 py-1.5">Clinical Residency</span>
+                <span class="inline-block bg-warmgray text-charcoal font-body text-[0.7rem] font-semibold rounded-full px-4 py-1.5">Practice Accelerator</span>
+                <span class="inline-block bg-gold/10 text-gold font-body text-[0.7rem] font-semibold rounded-full px-4 py-1.5">Featured</span>
+              </div>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Green tag:</span> bg #E8F5E9, text #2E7D32<br>
+              <span class="text-charcoal font-semibold">Neutral tag:</span> bg #F5F0EB, text #2D3436<br>
+              <span class="text-charcoal font-semibold">Gold tag:</span> bg gold/10, text #C9963B<br>
+              <span class="text-charcoal font-semibold">Radius:</span> rounded-full
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== DECORATIVE ELEMENTS ==================== -->
+    <section id="decorative" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">06</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Decorative Elements</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Subtle treatments that add texture and depth without overwhelming the content.</p>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Gold Accent Line -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Gold Accent Line</p>
+            <div class="mb-6">
+              <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold">Section Label</p>
+              <div class="w-12 h-[2px] bg-gold mt-3"></div>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Width:</span> 48px<br>
+              <span class="text-charcoal font-semibold">Height:</span> 2px<br>
+              <span class="text-charcoal font-semibold">Color:</span> #C9963B<br>
+              <span class="text-charcoal font-semibold">Margin-top:</span> 12px below label
+            </p>
+          </div>
+
+          <!-- Noise Texture -->
+          <div class="rounded-lg border border-bordergray overflow-hidden">
+            <div class="h-32 relative bg-warmgray noise"></div>
+            <div class="bg-warmgray p-8 border-t border-bordergray">
+              <p class="font-body text-sm font-semibold text-charcoal mb-3">SVG Noise Texture</p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Filter:</span> feTurbulence fractalNoise<br>
+                <span class="text-charcoal font-semibold">Frequency:</span> 0.9<br>
+                <span class="text-charcoal font-semibold">Octaves:</span> 4<br>
+                <span class="text-charcoal font-semibold">Opacity:</span> 0.03<br>
+                <span class="text-charcoal font-semibold">Position:</span> Absolute, inset 0, pointer-events none
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Image Treatment -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Image Overlay Treatment</p>
+            <div class="rounded-lg overflow-hidden mb-4 relative h-40">
+              <div class="absolute inset-0 bg-warmgray"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal/30 to-transparent"></div>
+              <div class="absolute inset-0 bg-emerald/10 mix-blend-multiply"></div>
+              <p class="absolute bottom-3 left-3 font-body text-xs text-white/80">Image with overlay</p>
+            </div>
+            <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+              <span class="text-charcoal font-semibold">Layer 1:</span> gradient-to-t from-charcoal/30 to-transparent<br>
+              <span class="text-charcoal font-semibold">Layer 2:</span> bg-emerald/10 mix-blend-multiply<br>
+              <span class="text-charcoal font-semibold">Purpose:</span> Unifies images with brand palette
+            </p>
+          </div>
+
+          <!-- Border Treatments -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+            <p class="font-body text-sm font-semibold text-charcoal mb-4">Border Styles</p>
+            <div class="flex flex-col gap-4 mb-4">
+              <div class="flex items-center gap-4">
+                <div class="w-full h-[1px] bg-bordergray"></div>
+              </div>
+              <p class="font-body text-[0.65rem] text-slate">Standard: 1px solid #DFE6E9</p>
+
+              <div class="flex items-center gap-4">
+                <div class="w-full h-[1px]" style="background: rgba(255,255,255,0.1);"></div>
+              </div>
+              <p class="font-body text-[0.65rem] text-slate">On dark: 1px solid rgba(255,255,255,0.08–0.1)</p>
+
+              <div class="flex items-center gap-4">
+                <div class="w-full h-[3px] bg-gold rounded-full"></div>
+              </div>
+              <p class="font-body text-[0.65rem] text-slate">Accent top: 3px solid accent color</p>
+
+              <div class="flex items-center gap-4">
+                <div class="w-full h-[3px] bg-gold/30 rounded-full"></div>
+              </div>
+              <p class="font-body text-[0.65rem] text-slate">Subtle accent: 1px solid rgba(201,150,59,0.3)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== SPACING ==================== -->
+    <section id="spacing" class="py-20 lg:py-28 px-6 lg:px-12">
+      <div class="max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">07</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Spacing System</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Intentional, consistent spacing tokens. Avoid random Tailwind increments.</p>
+
+        <div class="bg-white rounded-lg border border-bordergray overflow-hidden">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-bordergray bg-offwhite">
+                <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-charcoal p-4 lg:p-5">Token</th>
+                <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-charcoal p-4 lg:p-5">Value</th>
+                <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-charcoal p-4 lg:p-5">Usage</th>
+                <th class="text-left font-body text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-charcoal p-4 lg:p-5 hidden sm:table-cell">Visual</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-bordergray">
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Max Width</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">1500–2000px</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Content container</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-emerald/10 rounded" style="width: 100%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Section Vertical</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">5rem–8rem</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Top/bottom section padding</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-emerald/10 rounded" style="width: 70%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Horizontal Pad</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">2rem (4vw site)</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Left/right page margin</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-emerald/10 rounded" style="width: 30%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Card Padding</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">2rem–2.5rem</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Internal card spacing</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-gold/10 rounded" style="width: 35%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Component Gap</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">0.5–1rem</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Between inline elements</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-gold/10 rounded" style="width: 15%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Grid Gap</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">2rem–4rem</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Between cards in a grid</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-gold/10 rounded" style="width: 45%;"></div></td>
+              </tr>
+              <tr>
+                <td class="p-4 lg:p-5 font-body text-sm text-charcoal font-semibold">Footer Padding</td>
+                <td class="p-4 lg:p-5 font-body text-sm text-slate">60px 80px</td>
+                <td class="p-4 lg:p-5 font-body text-xs text-slate">Desktop footer internal</td>
+                <td class="p-4 lg:p-5 hidden sm:table-cell"><div class="h-3 bg-emerald/10 rounded" style="width: 55%;"></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== ANIMATION & MOTION ==================== -->
+    <section id="motion" class="py-20 lg:py-28 px-6 lg:px-12 bg-white relative noise overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="font-body text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6 gold-line">08</p>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-[-0.01em] leading-[1.15] mb-4">Animation & Motion</h2>
+        <p class="font-body text-base text-slate max-w-2xl leading-[1.75] mb-12">Only animate <code class="font-body text-xs bg-warmgray px-1.5 py-0.5 rounded">transform</code> and <code class="font-body text-xs bg-warmgray px-1.5 py-0.5 rounded">opacity</code>. Never use <code class="font-body text-xs bg-warmgray px-1.5 py-0.5 rounded">transition-all</code>.</p>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <!-- Fade Up Reveal -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+            <div class="flex items-center justify-between mb-6">
+              <p class="font-body text-sm font-semibold text-charcoal">Scroll Reveal (Fade Up)</p>
+              <div class="anim-demo w-10 h-10 rounded-lg bg-emerald/20 border border-emerald/30"></div>
+            </div>
+            <div class="space-y-3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Animation:</span> opacity 0→1, translateY(24px)→0
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Duration:</span> 0.7–0.8s
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Easing:</span> cubic-bezier(0.16, 1, 0.3, 1)
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Stagger:</span> 0.1s increments per child
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Trigger:</span> IntersectionObserver at threshold 0.15
+              </p>
+            </div>
+          </div>
+
+          <!-- Spring Interaction -->
+          <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+            <div class="flex items-center justify-between mb-6">
+              <p class="font-body text-sm font-semibold text-charcoal">Spring Interaction</p>
+              <div class="spring-demo w-10 h-10 rounded-lg bg-gold/20 border border-gold/30"></div>
+            </div>
+            <div class="space-y-3">
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Hover lift:</span> translateY(-2px) buttons, translateY(-4px) cards
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Duration:</span> 0.3s
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Easing:</span> cubic-bezier(0.34, 1.56, 0.64, 1)
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Active:</span> translateY(0) spring-back
+              </p>
+              <p class="font-body text-[0.65rem] text-slate leading-[1.7]">
+                <span class="text-charcoal font-semibold">Applies to:</span> Buttons, cards, nav links
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Easing Curves Visual -->
+        <h3 class="font-body text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-charcoal mb-6">Easing Curves</h3>
+        <div class="bg-warmgray rounded-lg border border-bordergray p-8">
+          <div class="grid sm:grid-cols-3 gap-8">
+            <div>
+              <div class="h-28 relative mb-4 bg-offwhite rounded-lg border border-bordergray p-3">
+                <svg viewBox="-5 -10 110 120" class="w-full h-full" fill="none">
+                  <rect x="0" y="0" width="100" height="100" fill="none" stroke="#DFE6E9" stroke-width="0.5"/>
+                  <line x1="0" y1="100" x2="100" y2="0" stroke="#DFE6E9" stroke-width="0.5" stroke-dasharray="3"/>
+                  <path d="M 0 100 C 16 0, 30 0, 100 0" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="0" cy="100" r="3" fill="#2E7D32"/>
+                  <circle cx="100" cy="0" r="3" fill="#2E7D32"/>
+                </svg>
+              </div>
+              <p class="font-body text-sm font-semibold text-charcoal">Reveal Decelerate</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">cubic-bezier(0.16, 1, 0.3, 1)</p>
+              <p class="font-body text-[0.65rem] text-emerald mt-1.5">Scroll-in animations</p>
+            </div>
+            <div>
+              <div class="h-28 relative mb-4 bg-offwhite rounded-lg border border-bordergray p-3">
+                <svg viewBox="-5 -60 110 170" class="w-full h-full" fill="none">
+                  <rect x="0" y="0" width="100" height="100" fill="none" stroke="#DFE6E9" stroke-width="0.5"/>
+                  <line x1="0" y1="100" x2="100" y2="0" stroke="#DFE6E9" stroke-width="0.5" stroke-dasharray="3"/>
+                  <line x1="0" y1="0" x2="100" y2="0" stroke="#C9963B" stroke-width="0.3" stroke-dasharray="2" opacity="0.4"/>
+                  <path d="M 0 100 C 34 -56, 64 0, 100 0" stroke="#C9963B" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="0" cy="100" r="3" fill="#C9963B"/>
+                  <circle cx="100" cy="0" r="3" fill="#C9963B"/>
+                </svg>
+              </div>
+              <p class="font-body text-sm font-semibold text-charcoal">Spring Overshoot</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">cubic-bezier(0.34, 1.56, 0.64, 1)</p>
+              <p class="font-body text-[0.65rem] text-gold mt-1.5">Hover / active interactions</p>
+            </div>
+            <div>
+              <div class="h-28 relative mb-4 bg-offwhite rounded-lg border border-bordergray p-3">
+                <svg viewBox="-5 -10 110 120" class="w-full h-full" fill="none">
+                  <rect x="0" y="0" width="100" height="100" fill="none" stroke="#DFE6E9" stroke-width="0.5"/>
+                  <line x1="0" y1="100" x2="100" y2="0" stroke="#DFE6E9" stroke-width="0.5" stroke-dasharray="3"/>
+                  <path d="M 0 100 C 25 75, 75 25, 100 0" stroke="#636E72" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="0" cy="100" r="3" fill="#636E72"/>
+                  <circle cx="100" cy="0" r="3" fill="#636E72"/>
+                </svg>
+              </div>
+              <p class="font-body text-sm font-semibold text-charcoal">Ease (Standard)</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1">ease</p>
+              <p class="font-body text-[0.65rem] text-slate mt-1.5">Color transitions only</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Properties Rules -->
+        <div class="mt-8 bg-emerald-sage/50 rounded-lg border border-emerald/20 p-6">
+          <p class="font-body text-sm font-semibold text-emerald-forest mb-2">Animation Rules</p>
+          <ul class="font-body text-sm text-charcoal leading-[1.8] space-y-1">
+            <li>Only animate <strong>transform</strong> and <strong>opacity</strong> for performance</li>
+            <li>Never use <strong>transition-all</strong> — always specify individual properties</li>
+            <li>Use <strong>will-change: transform</strong> sparingly and only on elements that animate</li>
+            <li>Stagger child elements by <strong>0.1s</strong> increments (delay-100, delay-200, etc.)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== FOOTER / CREDITS ==================== -->
+    <section class="py-16 px-6 lg:px-12 bg-charcoal">
+      <div class="max-w-5xl mx-auto text-center">
+        <p class="font-display text-2xl font-semibold text-white mb-2">Holistic Consulting</p>
+        <p class="font-body text-[0.55rem] font-semibold tracking-[0.22em] uppercase text-gold mb-6">Brand Identity Guide</p>
+        <div class="w-12 h-[1px] bg-white/10 mx-auto mb-6"></div>
+        <p class="font-body text-xs text-white/40">Extracted from Squarespace site &mdash; February 2026</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Copy hex value to clipboard
+    function copyHex(hex) {
+      navigator.clipboard.writeText(hex).then(() => {
+        const btn = event.target;
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1200);
+      });
+    }
+
+    // Sidebar active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>

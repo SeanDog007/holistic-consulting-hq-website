@@ -5,7 +5,8 @@ generator client {
 
 // Local default is SQLite. For Vercel, change provider to "postgresql"
 // and point DATABASE_URL at Postgres. Speakers/programs/topics are JSON
-// strings so the same schema works on both engines.
+// strings so the same schema works on both engines. recordingType is a
+// single session-format label (empty when the video has none).
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -23,6 +24,7 @@ model Video {
   speakers      String   @default("[]")
   programs      String   @default("[]")
   topics        String   @default("[]")
+  recordingType String   @default("")
   source        String   @default("youtube")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

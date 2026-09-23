@@ -22,6 +22,7 @@ function video(partial: {
     speakers: partial.speakers ?? [],
     programs: [],
     topics: [],
+    recordingType: "",
     hits: partial.hits,
     score: partial.score,
   };

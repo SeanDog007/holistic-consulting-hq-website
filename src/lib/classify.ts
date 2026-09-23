@@ -1,4 +1,5 @@
-import { PROGRAMS, type Program } from "@/lib/programs";
+import type { Program } from "./programs";
+import { programsFor, recordingTypeFor } from "./taxonomy";
 
 const KNOWN_SPEAKERS = [
   "Sean Emery",
@@ -41,37 +42,12 @@ const SPEAKER_ALIASES: Record<string, string> = {
 };
 
 export function classifyPrograms(title: string, description = ""): Program[] {
-  const haystack = `${title} ${description}`.toLowerCase();
-  const found = new Set<Program>();
+  return programsFor({ title, description });
+}
 
-  if (/(herbal|botanic|materia medica|tincture|rh\(ahg\))/.test(haystack)) {
-    found.add("Herbalism");
-  }
-  if (/\bbchn\b|board exam|board certif|nanp/.test(haystack)) {
-    found.add("BCHN");
-  }
-  // Brain program is often mentorship/other/null — Office Hours is inferred from titles.
-  // NGR = New Graduate Roundtable (display title); titles still say NGR / grand rounds.
-  if (/\boffice hours\b|\bngr(?:\b|_)|nutritional grand rounds|\blive call\b/.test(haystack)) {
-    found.add("Office Hours");
-  }
-  if (/(community live|community call|roundtable)/.test(haystack)) {
-    found.add("Community");
-  }
-  if (!found.has("Office Hours") && /grand rounds/.test(haystack)) {
-    found.add("Community");
-  }
-  if (/(career|practice|client|business|niche|story|entrepreneur|traction|0 to 1)/.test(haystack)) {
-    found.add("Business");
-  }
-  if (/(scope of practice|functional testing|amino|supplement|microbiome|mentorship|case review)/.test(haystack)) {
-    found.add("Mentorship");
-  }
-  if (found.size === 0) {
-    found.add("Other");
-  }
-
-  return PROGRAMS.filter((program) => found.has(program));
+/** Session format. Empty string when the title is a course module or unclassified. */
+export function classifyRecordingType(title: string, description = ""): string {
+  return recordingTypeFor({ title, description });
 }
 
 export function canonicalSpeaker(name: string): string {

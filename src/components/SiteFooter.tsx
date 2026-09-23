@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-forest-deep pt-16 pb-8 text-cream">
+    <footer className="bg-footer pt-16 pb-8 text-cream">
       <div className="container-site">
         <div className="mb-8 grid grid-cols-1 gap-12 border-b border-white/10 pb-12 md:grid-cols-4">
           <div>
