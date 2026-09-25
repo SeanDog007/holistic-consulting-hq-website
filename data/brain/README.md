@@ -17,7 +17,8 @@ Brand identity documents (February 2026) live in `data/brain/brand/`. They are a
 - `display-titles.batch-8.json` — official CoS batch 8, Zoom `Recording —` dates, roundtables, GI, and the rest of the prior catalog. Later `batch-N` files win.
 - `display-titles.batch-9.json` — official CoS batch 9, Grand Rounds — Sep 17, 2026 (`VXGZZirK56I`). Later `batch-N` files win.
 - `display-titles.batch-10.json` — official CoS batch 10, Cancer, Angiogenesis, and Nutrition — William Li (`OjkzfeJz66o`). Later `batch-N` files win.
-- `display-titles.json` — extra teaching polish not in an official batch. Empty while batches 1–10 cover every video (386). Later `batch-N` files win if both set a title.
+- `display-titles.batch-11.json` — official CoS batch 11, the 2026-09-25 export's 13 new rows (display title = export `title`). Later `batch-N` files win.
+- `display-titles.json` — extra teaching polish not in an official batch. Empty while batches 1–11 cover every video (399). Later `batch-N` files win if both set a title.
 - House style: `docs/TITLE-CONVENTION.md`. Library display only; do not rename YouTube from this repo. Pending Studio renames are listed in `docs/STUDIO-RENAME.csv` and are not applied here.
 
 ### Adding display titles (batch 11+)
@@ -45,11 +46,19 @@ Production Prisma `Video.youtubeId` was updated in place before this catalog cha
 | Program Welcome | `cmu786sct0002ff1u2cmn5g26` | `9q3G6_6kBMs` |
 | The Science of Sporebiotics | `cmu786sft002vff1ukkzmegkr` | `JgOgrLEtnq4` |
 | Nutrigenomics — Val | `cmu786sf5001gff1ui7d11jcw` | `S_DNS7Sqy3E` |
-| Herbalism for PCOS — Betsy Miller, Registered Herbalist | `cmu786sfb001xff1ump0altkk` | `7D2ddTLxZlk` |
+| Herbalism for PCOS — Betsy Miller, Registered Herbalist | `cmu786sfb001xff1ump0altkk` | `n2WJDN4pRhg` |
 | NGR 2 25 2026 Constipation and Sunflower Syndrome | `cmu786sft002wff1uvnyghu59` | `dzRQOja73wo` |
 | Advancing Your Nutrition Career (MS & CNS) — Dr. Kim Ross | `cmu786sdn000dff1ukaggbedk` | `maGyvt-nzHI` |
 
-Previous ids were `oO8GHOvelOM`, `UcjRDYFOZP0`, `ableUZwkl5w`, `T3svpVLeYSg`, `h3FpTLE2oGg`, and `YtzYbcU0IRA`. Herbalism for PCOS was briefly `39pQ1xBoJy8`; production reverted that row to `7D2ddTLxZlk` because the replacement upload was cancelled. The same ids are remapped in `videos.json` (including `youtube_url`), `search_chunks.json.gz`, `embeddings.json.gz`, and the display-title batches that key these talks. Chunk counts are unchanged: 54 for Four Pillars of Restorative Sleep, 23 for Program Welcome, 58 for The Science of Sporebiotics, 98 for Nutrigenomics — Val, 76 for Herbalism for PCOS, 93 for NGR 2 25 2026 Constipation and Sunflower Syndrome, and 75 for Advancing Your Nutrition Career (MS & CNS) — Dr. Kim Ross. That NGR row's catalog `title` and display title are the topic title above; the earlier "New Graduate Roundtable" label described the wrong recording. A later Studio export that still lists the previous ids would insert those rows and delete the live ones.
+Previous ids were `oO8GHOvelOM`, `UcjRDYFOZP0`, `ableUZwkl5w`, `T3svpVLeYSg`, `h3FpTLE2oGg`, `YtzYbcU0IRA`, `IJMwtHCnTxc`, and `7D2ddTLxZlk`. Herbalism for PCOS was briefly `39pQ1xBoJy8`; production reverted that row to `7D2ddTLxZlk` because the replacement upload was cancelled, then moved it to `n2WJDN4pRhg` on 2026-09-25. ATM Framework's live id is `2Iy0Fjo07OQ` (was `IJMwtHCnTxc`). The same ids are remapped in `videos.json` (including `youtube_url`), `search_chunks.json.gz`, `embeddings.json.gz`, and the display-title batches that key these talks. A later Studio export that still lists the previous ids would insert those rows and delete the live ones.
+
+## Refresh 2026-09-25
+
+Website export: **399 videos / 30,851 chunks**. That is every production YouTube id (398) plus `5rY0UI4z6Qc` (Behavior Change Strategies for Nutrition Professionals). `brain:import` upserts on `youtubeId` and deletes videos absent from `videos.json`, so this file keeps every production id.
+
+Overnight production rows now in the catalog (export `title` is the live display title, `rawTitle` is the Studio title): `vRXWVpasSgI`, `A5kMpf3X_Dc`, `4fqgSu9C-Oc`, `zhaXP6G58hI`, `JWXoyRZosX8`, `P7fS78g0Rg0`, `9tZJO0T456s`, `_RL0Za8LV1g`, `CFkIP-JfMCI`, `cvW1ZBCwtGU`, `opUImjBPF6s`, `UBxBsUmy7i8`. Community Live rows stay recording type Community Live with speaker Dr. David Feuz. `4fqgSu9C-Oc` is Community Live — Oct 15, 2025 (Studio title David's Zoom Room — Oct 15, 2025).
+
+Held back from the box export: superseded ids above, plus two Personal Meeting Room — Mar 27, 2026 uploads (`xQKN-h6AgSs`, `frRAmHVfLgY`).
 
 ## Refresh from a future export
 
