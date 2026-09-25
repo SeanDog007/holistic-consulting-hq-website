@@ -1,0 +1,150 @@
+{
+  "convention": "docs/TITLE-CONVENTION.md",
+  "format": "Live display title from the 2026-09-25 Brain export",
+  "count": 13,
+  "items": [
+    {
+      "video_id": "5rY0UI4z6Qc",
+      "youtube_title": "Behavior Change Strategies for Nutrition Professionals",
+      "display_title": "Behavior Change Strategies for Nutrition Professionals",
+      "speaker": null,
+      "credential": null,
+      "program": null,
+      "published_at": "2026-09-25",
+      "batch": 11,
+      "notes": "new ASR 2026-09-25; display title is the export title"
+    },
+    {
+      "video_id": "vRXWVpasSgI",
+      "youtube_title": "Community Live — Sep 23, 2026",
+      "display_title": "Community Live — Sep 23, 2026",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2026-09-23",
+      "batch": 11,
+      "notes": "overnight production row; export title is the live display title"
+    },
+    {
+      "video_id": "A5kMpf3X_Dc",
+      "youtube_title": "Community Live — Sep 24, 2026",
+      "display_title": "Community Live — Sep 24, 2026",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2026-09-25",
+      "batch": 11,
+      "notes": "overnight production row; export title is the live display title"
+    },
+    {
+      "video_id": "4fqgSu9C-Oc",
+      "youtube_title": "David's Zoom Room — Oct 15, 2025",
+      "display_title": "Community Live — Oct 15, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": null,
+      "published_at": "2025-10-15",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "zhaXP6G58hI",
+      "youtube_title": "David's Zoom Room — Sep 24, 2025",
+      "display_title": "Community Live — Sep 24, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": null,
+      "published_at": "2025-09-24",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "JWXoyRZosX8",
+      "youtube_title": "Herbal Q&A — Jul 22, 2026",
+      "display_title": "Herbal Q&A — Jul 22, 2026",
+      "speaker": "Betsy Miller",
+      "credential": null,
+      "program": "herbal",
+      "published_at": "2026-07-22",
+      "batch": 11,
+      "notes": "overnight production row; export title is the live display title"
+    },
+    {
+      "video_id": "P7fS78g0Rg0",
+      "youtube_title": "Business Mastermind — Sep 22, 2026",
+      "display_title": "Business Mastermind — Sep 22, 2026",
+      "speaker": "Sean Emery",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2026-09-22",
+      "batch": 11,
+      "notes": "overnight production row; export title is the live display title"
+    },
+    {
+      "video_id": "9tZJO0T456s",
+      "youtube_title": "David's Zoom Room — Dec 22, 2025",
+      "display_title": "Community Live — Dec 22, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2025-12-22",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "_RL0Za8LV1g",
+      "youtube_title": "David's Zoom Room — Mar 22, 2026",
+      "display_title": "Community Live — Mar 22, 2026",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2026-03-22",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "CFkIP-JfMCI",
+      "youtube_title": "David's Zoom Room — Mar 4, 2026",
+      "display_title": "Community Live — Mar 4, 2026",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2026-03-04",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "cvW1ZBCwtGU",
+      "youtube_title": "David's Zoom Room — Nov 12, 2025",
+      "display_title": "Community Live — Nov 12, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2025-11-12",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "opUImjBPF6s",
+      "youtube_title": "David's Zoom Room — Nov 24, 2025",
+      "display_title": "Community Live — Nov 24, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2025-11-24",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    },
+    {
+      "video_id": "UBxBsUmy7i8",
+      "youtube_title": "David's Zoom Room — Nov 5, 2025",
+      "display_title": "Community Live — Nov 5, 2025",
+      "speaker": "Dr. David Feuz",
+      "credential": null,
+      "program": "mentorship",
+      "published_at": "2025-11-05",
+      "batch": 11,
+      "notes": "overnight production row; Studio title in rawTitle, live display title in title"
+    }
+  ]
+}

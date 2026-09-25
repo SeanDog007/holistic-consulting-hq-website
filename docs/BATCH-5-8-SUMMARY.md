@@ -18,7 +18,7 @@ Library display only. `data/brain/videos.json` still stores the original YouTube
 | Uncovered | 0 |
 | Pending YouTube Studio renames (`docs/STUDIO-RENAME.csv`) | 259 |
 
-`docs/STUDIO-RENAME.csv` is a reference list of rows where the YouTube title still differs from the display title. It is not applied on YouTube. On 2026-09-22 the constipation and sunflower syndrome NGR row left this list because the library title now matches the YouTube title (`dzRQOja73wo`). Herbalism for PCOS stays on `7D2ddTLxZlk` (production reverted `39pQ1xBoJy8` because that upload was cancelled) and Nutrigenomics was re-keyed to `S_DNS7Sqy3E`. The file is 259 rows.
+`docs/STUDIO-RENAME.csv` is a reference list of rows where the YouTube title still differs from the display title. It is not applied on YouTube. On 2026-09-22 the constipation and sunflower syndrome NGR row left this list because the library title now matches the YouTube title (`dzRQOja73wo`). Nutrigenomics was re-keyed to `S_DNS7Sqy3E`. On 2026-09-25 Herbalism for PCOS left this list: production id is `n2WJDN4pRhg` and the Studio title already matches the display title (the row had been `7D2ddTLxZlk` after `39pQ1xBoJy8` was cancelled). The file is 258 rows.
 
 ## Files
 
@@ -29,7 +29,7 @@ Library display only. `data/brain/videos.json` still stores the original YouTube
 
 Later batches win over earlier ones and over `data/brain/display-titles.json` (now empty; batches 1–8 covered the 384-video catalog).
 
-Batch 9 adds `VXGZZirK56I` (YouTube `Grand Rounds 09172026` → library **Grand Rounds — Sep 17, 2026**). Batch 10 adds `OjkzfeJz66o` (YouTube `Can we eat to starve cancer? - William Li` → library **Cancer, Angiogenesis, and Nutrition — William Li**). The catalog is 386 videos, each with a display title. The Studio rename list is 259 pending rows.
+Batch 9 adds `VXGZZirK56I` (YouTube title is now **Grand Rounds — Sep 17, 2026**). Batch 10 adds `OjkzfeJz66o` (YouTube `Can we eat to starve cancer? - William Li` → library **Cancer, Angiogenesis, and Nutrition — William Li**). Batch 11 adds the 13 rows new in the 2026-09-25 export, using each export `title` as the display title (Herbalism for PCOS stays in batch 2, re-keyed to `n2WJDN4pRhg`). The catalog is 399 videos, each with a display title. The Studio rename list is 258 pending rows.
 
 ## Before → after
 
@@ -44,7 +44,7 @@ Batch 9 adds `VXGZZirK56I` (YouTube `Grand Rounds 09172026` → library **Grand 
 | `3xrdFKJve78` | AI in Nutrition NGR 5 13 26 | New Graduate Roundtable: AI in Nutrition — May 13, 2026 |
 | `fwZz9ZHX-Dk` | Journal Roundtable 8 20 2025 | Journal Roundtable — Aug 20, 2025 |
 | `Bzy8G9BAqpg` | GI Digestive Health Pt 1a | GI Digestive Health, Part 1a |
-| `WmxHXioxJsI` | Community Live 09152026 | Community Live — Sep 15, 2026 |
+| `WmxHXioxJsI` | Community Live — Sep 15, 2026 | Community Live — Sep 15, 2026 |
 
 ## Conservative keeps
 

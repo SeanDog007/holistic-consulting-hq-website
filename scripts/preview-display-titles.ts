@@ -109,7 +109,7 @@ async function main() {
   ];
   const expectedFinish: Record<string, { raw: string; ui: string }> = {
     WmxHXioxJsI: {
-      raw: "Community Live 09152026",
+      raw: "Community Live — Sep 15, 2026",
       ui: "Community Live — Sep 15, 2026",
     },
     HkOlHqzTS_4: {
@@ -168,7 +168,7 @@ async function main() {
   console.log(`    ui:  ${grandRounds?.displayTitle ?? "(none)"}`);
   if (
     !grandRounds ||
-    grandRounds.title !== "Grand Rounds 09172026" ||
+    grandRounds.title !== "Grand Rounds — Sep 17, 2026" ||
     grandRounds.displayTitle !== "Grand Rounds — Sep 17, 2026"
   ) {
     throw new Error(
