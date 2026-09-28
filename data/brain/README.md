@@ -50,7 +50,7 @@ Production Prisma `Video.youtubeId` was updated in place before this catalog cha
 | NGR 2 25 2026 Constipation and Sunflower Syndrome | `cmu786sft002wff1uvnyghu59` | `dzRQOja73wo` |
 | Advancing Your Nutrition Career (MS & CNS) — Dr. Kim Ross | `cmu786sdn000dff1ukaggbedk` | `maGyvt-nzHI` |
 
-Previous ids were `oO8GHOvelOM`, `UcjRDYFOZP0`, `ableUZwkl5w`, `T3svpVLeYSg`, `h3FpTLE2oGg`, `YtzYbcU0IRA`, `IJMwtHCnTxc`, and `7D2ddTLxZlk`. Herbalism for PCOS was briefly `39pQ1xBoJy8`; production reverted that row to `7D2ddTLxZlk` because the replacement upload was cancelled, then moved it to `n2WJDN4pRhg` on 2026-09-25. ATM Framework's live id is `2Iy0Fjo07OQ` (was `IJMwtHCnTxc`). The same ids are remapped in `videos.json` (including `youtube_url`), `search_chunks.json.gz`, `embeddings.json.gz`, and the display-title batches that key these talks. A later Studio export that still lists the previous ids would insert those rows and delete the live ones.
+Previous ids were `oO8GHOvelOM`, `UcjRDYFOZP0`, `ableUZwkl5w`, `T3svpVLeYSg`, `h3FpTLE2oGg`, `YtzYbcU0IRA`, `2Iy0Fjo07OQ`, and `7D2ddTLxZlk`. Herbalism for PCOS was briefly `39pQ1xBoJy8`; production reverted that row to `7D2ddTLxZlk` because the replacement upload was cancelled, then moved it to `n2WJDN4pRhg` on 2026-09-25. ATM Framework's live id is `IJMwtHCnTxc` (cuid `cmu786scd0000ff1uivpg7q51`). On 2026-09-28 production swapped that row from `2Iy0Fjo07OQ` to the higher-res Unlisted Zoom master `IJMwtHCnTxc`. The same ids are remapped in `videos.json` (including `youtube_url`), `search_chunks.json.gz`, `embeddings.json.gz`, and the display-title batches that key these talks. A later Studio export that still lists the previous ids would insert those rows and delete the live ones.
 
 ## Refresh 2026-09-25
 
